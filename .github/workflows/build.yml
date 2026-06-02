@@ -1,0 +1,127 @@
+name: build
+permissions:
+  contents: read
+  
+on:
+  push:
+    branches: [main, dev]
+    paths-ignore:
+      - 'Docs/**'       # Docs folder in root of repo
+      - '**/*.md'       # .md files anywhere in the repo
+      - '**/LICENSE'    # LICENSE files anywhere in the repo
+      - '**/.gitignore' # .gitignore files anywhere in the repo
+      
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - 'Docs/**'       # Docs folder in root of repo
+      - '**/*.md'       # .md files anywhere in the repo
+      - '**/LICENSE'    # LICENSE files anywhere in the repo
+      - '**/.gitignore' # .gitignore files anywhere in the repo
+      
+  workflow_dispatch:
+    
+  schedule:
+    - cron: '21 12 * * *' # once a day
+
+env:
+  SCHEME: swift-core-audio
+  WORKSPACEPATH: .swiftpm/xcode/package.xcworkspace
+
+jobs:
+  macOS:
+    name: Tests (macOS 14)
+    runs-on: macos-14
+    timeout-minutes: 20
+    steps:
+    - uses: actions/checkout@main
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+    - name: Build
+      run: xcodebuild build -skipMacroValidation -workspace "$WORKSPACEPATH" -scheme "$SCHEME" -destination "generic/platform=macOS" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    - name: Install BlackHole
+      run: brew install blackhole-2ch && sudo killall -9 coreaudiod
+    - name: Unit Tests
+      run: xcodebuild test -skipMacroValidation -workspace "$WORKSPACEPATH" -scheme "$SCHEME" -destination "platform=macOS" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+
+  macOS:
+    name: Tests (macOS 15)
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+    - uses: actions/checkout@main
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+    - name: Build
+      run: xcodebuild build -skipMacroValidation -workspace "$WORKSPACEPATH" -scheme "$SCHEME" -destination "generic/platform=macOS" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    - name: Install BlackHole
+      run: brew install blackhole-2ch && sudo killall -9 coreaudiod
+    - name: Unit Tests
+      run: xcodebuild test -skipMacroValidation -workspace "$WORKSPACEPATH" -scheme "$SCHEME" -destination "platform=macOS" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+
+  macOS:
+    name: Tests (macOS 26)
+    runs-on: macos-26
+    timeout-minutes: 20
+    steps:
+    - uses: actions/checkout@main
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+    - name: Build
+      run: xcodebuild build -skipMacroValidation -workspace "$WORKSPACEPATH" -scheme "$SCHEME" -destination "generic/platform=macOS" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    - name: Install BlackHole
+      run: brew install blackhole-2ch && sudo killall -9 coreaudiod
+    - name: Unit Tests
+      run: xcodebuild test -skipMacroValidation -workspace "$WORKSPACEPATH" -scheme "$SCHEME" -destination "platform=macOS" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+
+  macCatalyst:
+    name: Tests (macCatalyst)
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+    - uses: actions/checkout@main
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+    - name: Build
+      run: xcodebuild build -skipMacroValidation -workspace "$WORKSPACEPATH" -scheme "$SCHEME" -destination "generic/platform=macOS,variant=Mac Catalyst" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    - name: Install BlackHole
+      run: brew install blackhole-2ch && sudo killall -9 coreaudiod
+    - name: Unit Tests
+      run: xcodebuild test -skipMacroValidation -workspace "$WORKSPACEPATH" -scheme "$SCHEME" -destination "platform=macOS,variant=Mac Catalyst" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+
+  apple-devices:
+    name: Build
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        target: [iOS, tvOS, watchOS, visionOS]
+    continue-on-error: true
+    timeout-minutes: 20
+    steps:
+    - uses: actions/checkout@main
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+    - name: Prepare Device Simulator
+      id: sim-setup
+      uses: orchetect/setup-xcode-simulator@v1
+      with:
+        refresh: false # not needed since we are not running unit tests in a simulator
+        download: false # not needed since we are not running unit tests in a simulator
+        scheme: ${{ env.SCHEME }}
+        target: ${{ matrix.target }}
+    - name: Build
+      run: xcodebuild build -skipMacroValidation -workspace "$WORKSPACEPATH" -scheme "$SCHEME" -destination "generic/platform=$PLATFORMSHORT" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+      env:
+        PLATFORMSHORT: ${{ steps.sim-setup.outputs.platform-short }}
+        WORKSPACEPATH: ${{ steps.sim-setup.outputs.workspace-path }}
+    # - name: Unit Tests
+    #   run: xcodebuild test -skipMacroValidation -workspace "$WORKSPACEPATH" -scheme "$SCHEME" -destination "platform=$PLATFORM,id=$ID" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    #   env:
+    #     ID: ${{ steps.sim-setup.outputs.id }}
+    #     PLATFORM: ${{ steps.sim-setup.outputs.platform }}
+    #     WORKSPACEPATH: ${{ steps.sim-setup.outputs.workspace-path }}
