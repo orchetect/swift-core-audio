@@ -58,4 +58,13 @@ extension AudioUID: CustomDebugStringConvertible {
     }
 }
 
+// MARK: - Type Erasure
+
+extension AudioUID where Object: AudioDeviceProperties {
+    /// Returns the UID type-erased as an ``AnyAudioDevice`` UID.
+    public var asAnyAudioDeviceUID: AnyAudioDevice.UID {
+        AnyAudioDevice.UID(rawValue)
+    }
+}
+
 #endif
