@@ -627,9 +627,11 @@ extension SerializedTests {
             tapDescription.isMixdown = true
             tapDescription.isMono = false
             tapDescription.isExclusive = false
+            tapDescription.deviceUID = nil
+            #if !targetEnvironment(macCatalyst)
             tapDescription.stream = 0
             tapDescription.processes = []
-            tapDescription.deviceUID = nil
+            #endif
             let tap = try AudioSystem.shared.makeTap(using: tapDescription)
             defer { try? AudioSystem.shared.destroyTap(tap) } // cleanup when out of scope
 
@@ -743,9 +745,11 @@ extension SerializedTests {
             tapDescription.isMixdown = true
             tapDescription.isMono = false
             tapDescription.isExclusive = false
+            tapDescription.deviceUID = nil
+            #if !targetEnvironment(macCatalyst)
             tapDescription.stream = 0
             tapDescription.processes = []
-            tapDescription.deviceUID = nil
+            #endif
             let tap = try AudioSystem.shared.makeTap(using: tapDescription)
             defer { try? AudioSystem.shared.destroyTap(tap) } // cleanup when out of scope
 
@@ -861,9 +865,11 @@ extension SerializedTests {
             tapDescription.isMixdown = true
             tapDescription.isMono = false
             tapDescription.isExclusive = false
+            tapDescription.deviceUID = nil
+            #if !targetEnvironment(macCatalyst)
             tapDescription.stream = 0
             tapDescription.processes = []
-            tapDescription.deviceUID = nil
+            #endif
             let tap = try AudioSystem.shared.makeTap(using: tapDescription)
             defer { try? AudioSystem.shared.destroyTap(tap) } // cleanup when out of scope
 
