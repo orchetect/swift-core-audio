@@ -29,6 +29,7 @@ extension SerializedTests {
         func update_valid() async throws {
             // find two devices to use as subdevices and main subdevice alternatively
             let devices = try AudioSystem.shared.devices.audioDevices
+                .lazy
                 .filter({
                     guard let uid = try? $0.uid else { return false }
                     return !uid.rawValue.isEmpty
@@ -38,6 +39,7 @@ extension SerializedTests {
                     try [.builtIn, .displayPort, .hdmi, .pci, .thunderbolt, .usb, .virtual]
                         .contains($0.transportType)
                 })
+                .filter({ try $0.isAlive })
                 .prefix(2)
             guard devices.count == 2 else {
                 withKnownIssue {
