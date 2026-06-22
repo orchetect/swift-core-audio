@@ -75,7 +75,7 @@ extension AudioDeviceProperties {
     nonisolated
     public func channelName(
         forChannelNumber channelNumber: Int, // 1-based
-        of direction: AudioStream.Direction,
+        of direction: AudioStream.Direction
     ) throws(SwiftCoreAudioError) -> String? {
         let property: DeviceProperty = .channelName(forChannelNumber: channelNumber, of: direction)
         let cfString: CFString? = try getPropertyOptionalObject(address: property.address, qualifier: .none)
