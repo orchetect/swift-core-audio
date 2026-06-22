@@ -9,6 +9,7 @@
 - User-friendly, approachable API for both beginners and power-users
 - All objects and types are value types, allowing implicit thread-safety and makes retain cycles virtually impossible
 - Clean, lightweight Swift-native value types
+- Data models to allow capturing Core Audio state for debugging or bug reporting
 - Verbose documentation for objects, methods, types and errors
 
 ## Development Roadmap
