@@ -32,7 +32,8 @@ extension AudioObjectSnapshot {
         case preferredStereoChannelsForInput
         case preferredStereoChannelsForOutput
         case preferredChannelLayout
-        case plugIn
+        case plugInLoadStatus
+        case isDeviceRunningSomewhere
         case hogModePID
         case bufferFrameSize
         case bufferFrameSizeRange
@@ -131,8 +132,10 @@ extension AudioObjectSnapshot.DevicePropertyKey {
             })
         case .preferredChannelLayout:
             withErrorCapture(key: self, try object.preferredChannelLayout, transform: { v -> String in String(describing: v) })
-        case .plugIn: // TODO: not yet implemented
-            nil
+        case .plugInLoadStatus:
+            withErrorCapture(key: self, try object.plugInLoadStatus, transform: \.rawValue.description)
+        case .isDeviceRunningSomewhere:
+            withErrorCapture(key: self, try object.isDeviceRunningSomewhere, transform: \.description)
         case .hogModePID:
             withErrorCapture(key: self, try object.hogModePID, transform: \.description)
         case .bufferFrameSize:
