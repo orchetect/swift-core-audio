@@ -110,8 +110,8 @@ jobs:
       id: sim-setup
       uses: orchetect/setup-xcode-simulator@v1
       with:
-        refresh: false # not needed since we are not running unit tests in a simulator
-        download: false # not needed since we are not running unit tests in a simulator
+        refresh: true
+        download: false # not needed as we are not running unit tests in a simulator
         scheme: ${{ env.SCHEME }}
         target: ${{ matrix.target }}
     - name: Build
