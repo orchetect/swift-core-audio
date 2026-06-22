@@ -250,7 +250,7 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
     nonisolated
     public static func channelName(
         forChannelNumber channelNumber: Int, // 1-based
-        of direction: AudioStream.Direction,
+        of direction: AudioStream.Direction
     ) -> Self {
         AudioProperty(
             selectorConstant: .elementName,

@@ -42,7 +42,7 @@ extension AudioAggregateDeviceProperties {
     /// ```
     nonisolated
     public func listenerSequence(
-        for property: AggregateDeviceProperty<some Any, some Any>,
+        for property: AggregateDeviceProperty<some Any, some Any>
     ) -> AsyncThrowingStream<Void, any Error> {
         _listenerSequence(forProperty: property)
     }

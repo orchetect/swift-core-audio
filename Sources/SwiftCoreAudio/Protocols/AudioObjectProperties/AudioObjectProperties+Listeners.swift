@@ -42,7 +42,7 @@ extension AudioObjectProperties {
     /// ```
     nonisolated
     public func listenerSequence(
-        for property: ObjectProperty<some Any, some Any>,
+        for property: ObjectProperty<some Any, some Any>
     ) -> AsyncThrowingStream<Void, any Error> {
         _listenerSequence(forProperty: property)
     }

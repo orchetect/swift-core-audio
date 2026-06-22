@@ -42,7 +42,7 @@ extension AudioTransportManagerProperties {
     /// ```
     nonisolated
     public func listenerSequence(
-        for property: TransportManagerProperty<some Any, some Any>,
+        for property: TransportManagerProperty<some Any, some Any>
     ) -> AsyncThrowingStream<Void, any Error> {
         _listenerSequence(forProperty: property)
     }

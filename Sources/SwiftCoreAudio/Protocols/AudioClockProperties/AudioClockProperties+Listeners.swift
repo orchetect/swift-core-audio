@@ -42,7 +42,7 @@ extension AudioClockProperties {
     /// ```
     nonisolated
     public func listenerSequence(
-        for property: ClockProperty<some Any, some Any>,
+        for property: ClockProperty<some Any, some Any>
     ) -> AsyncThrowingStream<Void, any Error> {
         _listenerSequence(forProperty: property)
     }

@@ -56,7 +56,7 @@ public enum AudioClockPropertySelectorConstant {
     /// Device Is Alive
     ///
     /// A `UInt32` where a value of `1` means the device is ready and available and `0`
-    ///  means the device is usable and will most likely go away shortly.
+    /// means the device is usable and will most likely go away shortly.
     ///
     /// > File: CoreAudio/AudioHardwareBase.h
     ///
