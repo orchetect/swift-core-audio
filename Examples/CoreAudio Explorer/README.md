@@ -1,4 +1,4 @@
-# Core Audio Explorer
+# CoreAudio Explorer
 
 This example project demonstrates usage of the `AudioObjectSnapshot` data model type.
 

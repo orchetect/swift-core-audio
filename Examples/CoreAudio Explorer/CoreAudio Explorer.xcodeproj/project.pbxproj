@@ -11,26 +11,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E228AB342FDA4D2900361C75 /* Core Audio Explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core Audio Explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E228AB342FDA4D2900361C75 /* CoreAudio Explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CoreAudio Explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		E228AB402FDA4D2A00361C75 /* Exceptions for "Core Audio Explorer" folder in "Core Audio Explorer" target */ = {
+		E228AB402FDA4D2A00361C75 /* Exceptions for "CoreAudio Explorer" folder in "CoreAudio Explorer" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = E228AB332FDA4D2900361C75 /* Core Audio Explorer */;
+			target = E228AB332FDA4D2900361C75 /* CoreAudio Explorer */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E228AB362FDA4D2900361C75 /* Core Audio Explorer */ = {
+		E228AB362FDA4D2900361C75 /* CoreAudio Explorer */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				E228AB402FDA4D2A00361C75 /* Exceptions for "Core Audio Explorer" folder in "Core Audio Explorer" target */,
+				E228AB402FDA4D2A00361C75 /* Exceptions for "CoreAudio Explorer" folder in "CoreAudio Explorer" target */,
 			);
-			path = "Core Audio Explorer";
+			path = "CoreAudio Explorer";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -50,7 +50,7 @@
 		E228AB2B2FDA4D2900361C75 = {
 			isa = PBXGroup;
 			children = (
-				E228AB362FDA4D2900361C75 /* Core Audio Explorer */,
+				E228AB362FDA4D2900361C75 /* CoreAudio Explorer */,
 				E228AB352FDA4D2900361C75 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,7 +58,7 @@
 		E228AB352FDA4D2900361C75 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E228AB342FDA4D2900361C75 /* Core Audio Explorer.app */,
+				E228AB342FDA4D2900361C75 /* CoreAudio Explorer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -66,9 +66,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E228AB332FDA4D2900361C75 /* Core Audio Explorer */ = {
+		E228AB332FDA4D2900361C75 /* CoreAudio Explorer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E228AB412FDA4D2A00361C75 /* Build configuration list for PBXNativeTarget "Core Audio Explorer" */;
+			buildConfigurationList = E228AB412FDA4D2A00361C75 /* Build configuration list for PBXNativeTarget "CoreAudio Explorer" */;
 			buildPhases = (
 				E228AB302FDA4D2900361C75 /* Sources */,
 				E228AB312FDA4D2900361C75 /* Frameworks */,
@@ -79,14 +79,14 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				E228AB362FDA4D2900361C75 /* Core Audio Explorer */,
+				E228AB362FDA4D2900361C75 /* CoreAudio Explorer */,
 			);
-			name = "Core Audio Explorer";
+			name = "CoreAudio Explorer";
 			packageProductDependencies = (
 				E228AB472FDA4DDB00361C75 /* SwiftCoreAudio */,
 			);
 			productName = "Core Audio Explorer";
-			productReference = E228AB342FDA4D2900361C75 /* Core Audio Explorer.app */;
+			productReference = E228AB342FDA4D2900361C75 /* CoreAudio Explorer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -104,7 +104,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E228AB2F2FDA4D2900361C75 /* Build configuration list for PBXProject "Core Audio Explorer" */;
+			buildConfigurationList = E228AB2F2FDA4D2900361C75 /* Build configuration list for PBXProject "CoreAudio Explorer" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -121,7 +121,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E228AB332FDA4D2900361C75 /* Core Audio Explorer */,
+				E228AB332FDA4D2900361C75 /* CoreAudio Explorer */,
 			);
 		};
 /* End PBXProject section */
@@ -168,8 +168,8 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Core Audio Explorer/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Core Audio Explorer";
+				INFOPLIST_FILE = "CoreAudio Explorer/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "CoreAudio Explorer";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -221,8 +221,8 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Core Audio Explorer/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Core Audio Explorer";
+				INFOPLIST_FILE = "CoreAudio Explorer/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "CoreAudio Explorer";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -374,7 +374,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E228AB2F2FDA4D2900361C75 /* Build configuration list for PBXProject "Core Audio Explorer" */ = {
+		E228AB2F2FDA4D2900361C75 /* Build configuration list for PBXProject "CoreAudio Explorer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E228AB442FDA4D2A00361C75 /* Debug */,
@@ -383,7 +383,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E228AB412FDA4D2A00361C75 /* Build configuration list for PBXNativeTarget "Core Audio Explorer" */ = {
+		E228AB412FDA4D2A00361C75 /* Build configuration list for PBXNativeTarget "CoreAudio Explorer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E228AB422FDA4D2A00361C75 /* Debug */,
