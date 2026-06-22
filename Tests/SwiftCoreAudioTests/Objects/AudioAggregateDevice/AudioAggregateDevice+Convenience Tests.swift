@@ -28,6 +28,7 @@ extension SerializedTests {
         @Test
         func update_valid() async throws {
             // find two devices to use as subdevices and main subdevice alternatively
+            // the restrictive device filtering is needed to de-flake CI runners with unpredictable environments
             let devices = try AudioSystem.shared.devices.audioDevices
                 .lazy
                 .filter({
@@ -40,6 +41,8 @@ extension SerializedTests {
                         .contains($0.transportType)
                 })
                 .filter({ try $0.isAlive })
+                .filter({ try $0.hasStreams(for: .output) }) // devices with at least one output
+                .sorted(by: { lhs, rhs in try rhs.transportType == .virtual }) // sort virtuals last
                 .prefix(2)
             guard devices.count == 2 else {
                 withKnownIssue {
