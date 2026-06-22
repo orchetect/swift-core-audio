@@ -15,7 +15,6 @@ extension AudioDevice {
     /// CoreAudio `kAudioDeviceTransportType*` constants.
     ///
     /// Transport type is available for ``AudioBox``, ``AudioClock``, and ``AudioDevice``.
-    nonisolated
     public enum TransportType {
         // MARK: CoreAudio/AudioHardwareBase.h
         

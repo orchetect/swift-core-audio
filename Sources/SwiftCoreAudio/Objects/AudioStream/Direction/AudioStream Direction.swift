@@ -11,7 +11,6 @@ import CoreAudio
 extension AudioStream {
     /// Type representing the direction of an audio stream.
     /// An audio stream can have one of two directions: input or output.
-    nonisolated
     public enum Direction {
         // MARK: CoreAudio/AudioHardwareBase.h
         

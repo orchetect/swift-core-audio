@@ -13,7 +13,6 @@ extension AudioStream {
     /// Audio stream terminal types.
     ///
     /// CoreAudio `kAudioStreamTerminalType*` constants.
-    nonisolated
     public enum TerminalType {
         // MARK: CoreAudio/AudioHardwareBase.h
         

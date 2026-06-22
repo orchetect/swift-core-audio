@@ -11,7 +11,6 @@ import Foundation
 
 extension AudioStream {
     /// Sample rate values for ``AvailableBasicDescription``.
-    nonisolated
     public enum AvailableSampleRate {
         /// Sample rate.
         case rate(Double)
