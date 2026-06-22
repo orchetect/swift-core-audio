@@ -10,6 +10,7 @@ import CoreAudio
 import SwiftProcess
 
 extension AudioObject {
+    /// Internal:
     /// Registers for notifications to be received for the given property for this object.
     ///
     /// This method returns a `Cancellable` object that will automatically remove the listener
@@ -53,7 +54,8 @@ extension AudioObject {
         )
         return ref
     }
-    
+
+    /// Internal:
     /// Registers for notifications to be received for the given property for this object and returns
     /// an `AsyncThrowingStream` that may be indefinitely iterated on within a `Task` until cancelled.
     ///
@@ -73,7 +75,7 @@ extension AudioObject {
     /// ```
     nonisolated
     func _listenerSequence(
-        forProperty property: AudioProperty<some Any, some Any, some Any>,
+        forProperty property: AudioProperty<some Any, some Any, some Any>
     ) -> AsyncThrowingStream<Void, any Error> {
         AsyncThrowingStream(bufferingPolicy: .unbounded) { continuation in
             do throws(SwiftCoreAudioError) {
