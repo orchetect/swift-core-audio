@@ -143,6 +143,7 @@ extension SerializedTests {
 
             // change only main subdevice
             try aggregate.update(mainSubdeviceUID: AudioSubDevice.UID(deviceB_UID.rawValue))
+            try await Task.sleep(for: .milliseconds(500)) // allow a little time for the main subdevice to update
             #expect(try aggregate.name == "New Aggregate Name")
             #expect(try aggregate.subdeviceUIDs == [AudioSubDevice.UID(deviceB_UID.rawValue), AudioSubDevice.UID(deviceA_UID.rawValue)])
             #expect(try aggregate.tapUIDs == [AudioTap.UID("Tap2_UID"), AudioTap.UID("Tap1_UID")])
