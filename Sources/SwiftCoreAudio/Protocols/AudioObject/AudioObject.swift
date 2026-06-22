@@ -23,7 +23,6 @@ import CoreAudio
 /// As such, this identifier should not be stored long-term.
 ///
 /// All entities conform to this protocol as all are ephemerally identifiable.
-nonisolated
 public protocol AudioObject: Equatable, Hashable, Sendable {
     /// Strongly-typed audio object identifier.
     typealias ID = AudioID<Self>

@@ -10,7 +10,6 @@ import CoreAudio
 import SwiftProcess
 
 /// Properties offered by the Core Audio `AudioObject` class.
-nonisolated
 public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProperties & UIDIdentifiableAudioObject {
     // MARK: - CoreAudio/AudioHardwareBase.h
 

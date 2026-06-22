@@ -16,7 +16,6 @@ import SwiftProcess
 /// The listener will be automatically removed when this object deinits.
 ///
 /// Alternatively, the listener may be cancelled by calling `cancel()`.
-nonisolated
 public final class AudioObjectPropertyListenerRef: Sendable {
     let id: AudioObjectID
     let address: AudioObjectPropertyAddress
@@ -57,7 +56,6 @@ public final class AudioObjectPropertyListenerRef: Sendable {
 
 import Combine
 
-nonisolated
 extension AudioObjectPropertyListenerRef: Cancellable {
     public func cancel() {
         try? removeListener()

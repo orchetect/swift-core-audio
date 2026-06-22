@@ -11,7 +11,6 @@ import CoreAudio
 /// Audio objects that are constructible from a numeric audio object identifier.
 ///
 /// All constructible object types in Swift Core Audio conform to this type.
-nonisolated
 public protocol IDConstructibleAudioObject: AudioObject {
     /// Construct from a strongly-typed audio object identifier.
     nonisolated

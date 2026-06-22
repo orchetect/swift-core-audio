@@ -11,7 +11,6 @@ import Foundation
 
 extension AudioStream {
     /// Protocol that ``BasicDescription`` sample rate types conform to.
-    nonisolated
     public protocol BasicDescriptionSampleRate: Equatable, Hashable, Sendable, CustomStringConvertible {
         /// Returns the raw Core Audio sample rate value.
         nonisolated

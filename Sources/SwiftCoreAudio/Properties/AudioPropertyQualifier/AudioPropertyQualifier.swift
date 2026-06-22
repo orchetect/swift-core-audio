@@ -11,7 +11,6 @@ import Foundation
 
 /// Qualifier value provided to a Core Audio object property method.
 public struct AudioPropertyQualifier<T> {
-    nonisolated
     let value: T!
 
     nonisolated

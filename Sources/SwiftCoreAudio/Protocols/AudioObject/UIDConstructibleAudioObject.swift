@@ -9,7 +9,6 @@
 import CoreAudio
 
 /// Audio objects that are constructible from a persistent unique string identifier.
-nonisolated
 public protocol UIDConstructibleAudioObject: UIDIdentifiableAudioObject {
     /// Construct from a strongly-typed audio object unique identifier.
     ///

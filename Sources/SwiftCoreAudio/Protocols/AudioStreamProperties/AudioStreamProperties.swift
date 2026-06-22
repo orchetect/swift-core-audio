@@ -10,7 +10,6 @@ import CoreAudio
 import SwiftProcess
 
 /// Properties offered by the Core Audio `AudioStream` class.
-nonisolated
 public protocol AudioStreamProperties where Self: AudioObject {
     // MARK: CoreAudio/AudioHardware.h
 

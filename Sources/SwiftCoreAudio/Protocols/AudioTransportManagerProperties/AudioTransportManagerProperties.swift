@@ -10,7 +10,6 @@ import CoreAudio
 import SwiftProcess
 
 /// Properties offered by the Core Audio `AudioTransportManager` class.
-nonisolated
 public protocol AudioTransportManagerProperties where Self: AudioObject {
     // MARK: CoreAudio/AudioHardwareBase.h
 

@@ -9,7 +9,6 @@
 import CoreAudio
 
 /// Properties offered by the Core Audio `AudioObject` class.
-nonisolated
 public protocol AudioObjectProperties where Self: AudioObject {
     // MARK: - CoreAudio/AudioHardwareBase.h
 

@@ -10,7 +10,6 @@ import CoreAudio
 import SwiftProcess
 
 /// Properties offered by the Core Audio `AudioSubTap` class.
-nonisolated
 public protocol AudioSubTapProperties where Self: AudioObject {
     // MARK: CoreAudio/AudioHardware.h
 

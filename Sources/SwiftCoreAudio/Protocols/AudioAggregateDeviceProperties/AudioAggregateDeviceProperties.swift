@@ -11,7 +11,6 @@ import CoreAudio
 // swiftformat:disable opaqueGenericParameters
 
 /// Properties offered by the Core Audio `AudioAggregateDevice` class.
-nonisolated
 public protocol AudioAggregateDeviceProperties where Self: AudioObject, Self: AudioDeviceProperties {
     // MARK: CoreAudio/AudioHardware.h
 
