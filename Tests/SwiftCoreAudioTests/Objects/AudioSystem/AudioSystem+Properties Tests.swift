@@ -456,6 +456,9 @@ extension SerializedTests {
                     try [.builtIn, .displayPort, .hdmi, .pci, .thunderbolt, .usb, .virtual]
                         .contains($0.transportType)
                 })
+                .filter({ try $0.isAlive })
+                .filter({ try $0.hasStreams(for: .output) }) // devices with at least one output
+                .sorted(by: { lhs, rhs in try rhs.transportType == .virtual }) // sort virtuals last
                 .first
             else {
                 withKnownIssue {
