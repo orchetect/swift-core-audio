@@ -29,7 +29,7 @@ env:
   WORKSPACEPATH: .swiftpm/xcode/package.xcworkspace
 
 jobs:
-  macOS:
+  macOS-14:
     name: Tests (macOS 14)
     runs-on: macos-14
     timeout-minutes: 20
@@ -45,7 +45,7 @@ jobs:
     - name: Unit Tests
       run: xcodebuild test -skipMacroValidation -workspace "$WORKSPACEPATH" -scheme "$SCHEME" -destination "platform=macOS" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
 
-  macOS:
+  macOS-15:
     name: Tests (macOS 15)
     runs-on: macos-15
     timeout-minutes: 20
@@ -61,7 +61,7 @@ jobs:
     - name: Unit Tests
       run: xcodebuild test -skipMacroValidation -workspace "$WORKSPACEPATH" -scheme "$SCHEME" -destination "platform=macOS" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
 
-  macOS:
+  macOS-26:
     name: Tests (macOS 26)
     runs-on: macos-26
     timeout-minutes: 20
