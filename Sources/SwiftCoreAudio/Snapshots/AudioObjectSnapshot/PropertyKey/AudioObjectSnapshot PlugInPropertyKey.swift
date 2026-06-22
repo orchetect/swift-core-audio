@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot PlugInPropertyKey.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -23,9 +23,12 @@ extension AudioObjectSnapshot.PlugInPropertyKey: AudioObjectSnapshot.PropertyKey
 extension AudioObjectSnapshot.PlugInPropertyKey {
     public func getValue(of object: some AudioPlugInProperties) -> String? {
         // TODO: implement after implementing properties on AudioPlugIn
+
+        // swiftformat:disable hoistTry
         switch self {
         case .foo: nil
         }
+        // swiftformat:enable hoistTry
     }
 }
 

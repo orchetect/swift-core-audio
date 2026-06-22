@@ -1,6 +1,6 @@
 //
 //  AudioClockPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioClockDevice` class.
 public enum AudioClockPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Device UID
     ///
     /// A `CFString` that contains a persistent identifier for the `AudioClockDevice`.
@@ -29,7 +29,7 @@ public enum AudioClockPropertySelectorConstant {
     ///
     /// > Constant: `kAudioClockDevicePropertyDeviceUID`
     case deviceUID
-    
+
     /// Transport Type
     ///
     /// A `UInt32` whose value indicates how the `AudioClockDevice` is connected to the CPU.
@@ -38,7 +38,7 @@ public enum AudioClockPropertySelectorConstant {
     ///
     /// > Constant: `kAudioClockDevicePropertyTransportType`
     case transportType
-    
+
     /// Clock Domain
     ///
     /// A `UInt32` whose value indicates the clock domain to which this `AudioClockDevice` belongs.
@@ -52,7 +52,7 @@ public enum AudioClockPropertySelectorConstant {
     ///
     /// > Constant: `kAudioClockDevicePropertyClockDomain`
     case clockDomain
-    
+
     /// Device Is Alive
     ///
     /// A `UInt32` where a value of `1` means the device is ready and available and `0`
@@ -62,7 +62,7 @@ public enum AudioClockPropertySelectorConstant {
     ///
     /// > Constant: `kAudioClockDevicePropertyDeviceIsAlive`
     case deviceIsAlive
-    
+
     /// Device Is Running
     ///
     /// A `UInt32` where a value of `0` means the `AudioClockDevice` is not providing
@@ -75,7 +75,7 @@ public enum AudioClockPropertySelectorConstant {
     ///
     /// > Constant: `kAudioClockDevicePropertyDeviceIsRunning`
     case deviceIsRunning
-    
+
     /// Latency
     ///
     /// A `UInt32` containing the number of frames of latency in the `AudioClockDevice`.
@@ -84,7 +84,7 @@ public enum AudioClockPropertySelectorConstant {
     ///
     /// > Constant: `kAudioClockDevicePropertyLatency`
     case latency
-    
+
     /// Control List
     ///
     /// An array of `AudioObjectID`s that represent the AudioControls of the `AudioClockDevice`.
@@ -96,7 +96,7 @@ public enum AudioClockPropertySelectorConstant {
     ///
     /// > Constant: `kAudioClockDevicePropertyControlList`
     case controlList
-    
+
     /// Nominal Sample Rate
     ///
     /// A `Float64` that indicates the current nominal sample rate of the `AudioClockDevice`.
@@ -105,7 +105,7 @@ public enum AudioClockPropertySelectorConstant {
     ///
     /// > Constant: `kAudioClockDevicePropertyNominalSampleRate`
     case nominalSampleRate
-    
+
     /// Available Nominal Sample Rates
     ///
     /// An array of `AudioValueRange` structs that indicates the valid ranges for the nominal
@@ -154,11 +154,12 @@ extension AudioClockPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .deviceUID: kAudioClockDevicePropertyDeviceUID // "cuid"
         case .transportType: kAudioClockDevicePropertyTransportType // "tran"
         case .clockDomain: kAudioClockDevicePropertyClockDomain // "clkd"
@@ -177,6 +178,7 @@ extension AudioClockPropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .deviceUID: "Device UID"
         case .transportType: "Transport Type"
         case .clockDomain: "Clock Domain"

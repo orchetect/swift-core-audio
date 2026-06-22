@@ -1,6 +1,6 @@
 //
 //  AudioStream Direction.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,10 +13,10 @@ extension AudioStream {
     /// An audio stream can have one of two directions: input or output.
     public enum Direction {
         // MARK: CoreAudio/AudioHardwareBase.h
-        
+
         /// Input stream direction (a.k.a. source) that receives audio.
         case input
-        
+
         /// Output stream direction (a.k.a. destination) where audio is sent to.
         case output
     }
@@ -55,11 +55,12 @@ extension AudioStream.Direction: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: UInt32 {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .input: 1
         case .output: 0
         }
@@ -73,6 +74,7 @@ extension AudioStream.Direction: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .input: "Input"
         case .output: "Output"
         }

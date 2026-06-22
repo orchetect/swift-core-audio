@@ -1,21 +1,21 @@
 //
 //  FilterablePropertiesView.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
-import SwiftUI
 import SwiftCoreAudio
+import SwiftUI
 import UniformTypeIdentifiers
 
 struct FilterablePropertiesView: View {
     let snapshot: AudioObjectSnapshot
     @Binding var searchText: String
-    
+
     @State private var properties: [PropertyItem] = []
     @State private var filteredProperties: [PropertyItem] = []
     @State private var selectedPropertyIDs: Set<PropertyItem.ID> = []
-    
+
     var body: some View {
         VStack {
             if filteredProperties.isEmpty {
@@ -43,7 +43,7 @@ struct FilterablePropertiesView: View {
             updateFilteredProperties()
         }
     }
-    
+
     private func updateProperties() {
         var properties: [PropertyItem] = []
         properties += snapshot.properties.map {
@@ -53,7 +53,7 @@ struct FilterablePropertiesView: View {
             $0.key.localizedCaseInsensitiveCompare($1.key) == .orderedAscending
         })
     }
-    
+
     private func updateFilteredProperties() {
         let newProperties = if searchText.isEmpty {
             properties
@@ -63,24 +63,24 @@ struct FilterablePropertiesView: View {
                     || $0.value.localizedCaseInsensitiveContains(searchText)
             }
         }
-        
+
         filteredProperties = newProperties
     }
-    
+
     private func itemProviders() -> [NSItemProvider] {
         guard !selectedPropertyIDs.isEmpty else { return [] }
-        
+
         func string(for property: PropertyItem) -> String {
             selectedPropertyIDs.count == 1
                 ? property.value
                 : "\(property.id): \(property.value)"
         }
-        
+
         let text = properties
             .filter { selectedPropertyIDs.contains($0.id) } // maintain property order
             .map { string(for: $0) }
             .joined(separator: "\n")
-        
+
         let provider = NSItemProvider(object: text as NSString)
         return [provider]
     }
@@ -91,5 +91,8 @@ struct FilterablePropertiesView: View {
 }
 
 #Preview("BlackHole") {
-    FilterablePropertiesView(snapshot: AudioObjectSnapshot(of: try! AudioDevice(uid: .init("BlackHole2ch_UID"))!), searchText: .constant(""))
+    FilterablePropertiesView(
+        snapshot: AudioObjectSnapshot(of: try! AudioDevice(uid: .init("BlackHole2ch_UID"))!),
+        searchText: .constant("")
+    )
 }

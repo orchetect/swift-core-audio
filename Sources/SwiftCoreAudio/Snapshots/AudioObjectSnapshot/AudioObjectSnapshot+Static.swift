@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot+Static.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -15,7 +15,7 @@ extension AudioObjectSnapshot {
     public static func system() -> AudioObjectSnapshot {
         self.init(of: AudioSystem.shared)
     }
-    
+
     // This method is functionally identical to the one above it, except it uses concurrency for improved performance.
     /// Creates a full Core Audio system snapshot.
     public static func system() async -> AudioObjectSnapshot {

@@ -1,6 +1,6 @@
 //
-//  AudioStream RangedDescription+AudioStreamRangedDescription.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  AudioStream RangedDescription+AudioStreamBasicDescription.swift
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -17,7 +17,7 @@ extension AudioStream.RangedDescription {
         let sampleRateRange = description.mSampleRateRange.mMinimum ... description.mSampleRateRange.mMaximum
         self.init(basicDescription: basicDescription, sampleRateRange: sampleRateRange)
     }
-    
+
     /// Returns a new Core Audio `AudioStreamRangedDescription` instance by converting
     /// from this instance.
     nonisolated

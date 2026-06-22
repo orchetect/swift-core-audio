@@ -1,6 +1,6 @@
 //
 //  AudioID.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -20,7 +20,8 @@ public struct AudioID<Object: AudioObject> {
     @inline(__always) nonisolated
     public let rawValue: UInt32
 
-    @inline(__always) nonisolated
+    @inline(__always)
+    nonisolated
     public init(_ rawValue: UInt32) {
         self.rawValue = rawValue
     }
@@ -37,7 +38,8 @@ extension AudioID: Sendable { }
 extension AudioID: RawRepresentable {
     public typealias RawValue = UInt32
 
-    @inline(__always) nonisolated
+    @inline(__always)
+    nonisolated
     public init(rawValue: UInt32) {
         self.rawValue = rawValue
     }

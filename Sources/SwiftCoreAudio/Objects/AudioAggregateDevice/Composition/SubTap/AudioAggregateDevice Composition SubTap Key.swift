@@ -1,6 +1,6 @@
 //
 //  AudioAggregateDevice Composition SubTap Key.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -15,7 +15,7 @@ extension AudioAggregateDevice.Composition.SubTap {
     /// CoreAudio `kAudioSubTap*Key` constants.
     public enum Key {
         // MARK: CoreAudio/AudioHardware.h
-        
+
         /// A `String` that contains the UID of the subtap.
         ///
         /// The underlying type is `CFString`.
@@ -24,7 +24,7 @@ extension AudioAggregateDevice.Composition.SubTap {
         ///
         /// > Constant: `kAudioSubTapUIDKey`
         case uid
-        
+
         /// Total number of frames of additional latency that will be added to the input side of the
         /// subtap.
         ///
@@ -34,7 +34,7 @@ extension AudioAggregateDevice.Composition.SubTap {
         ///
         /// > Constant: `kAudioSubTapExtraInputLatencyKey`
         case extraInputLatency
-        
+
         /// Total number of frames of additional latency that will be added to the output side of the
         /// subtap.
         ///
@@ -44,14 +44,14 @@ extension AudioAggregateDevice.Composition.SubTap {
         ///
         /// > Constant: `kAudioSubTapExtraOutputLatencyKey`
         case extraOutputLatency
-        
+
         /// A boolean value describing whether drift compensation is enabled for the subtap.
         ///
         /// > File: CoreAudio/AudioHardware.h
         ///
         /// > Constant: `kAudioSubTapDriftCompensationKey`
         case isDriftCompensationEnabled
-        
+
         /// Quality of the drift compensation for the subtap.
         ///
         /// This value controls the trade-off between quality and CPU load in the drift compensation.
@@ -102,11 +102,12 @@ extension AudioAggregateDevice.Composition.SubTap.Key: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: String {
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .uid: kAudioSubTapUIDKey // "uid"
         case .extraInputLatency: kAudioSubTapExtraInputLatencyKey // "latency-in"
         case .extraOutputLatency: kAudioSubTapExtraOutputLatencyKey // "latency-out"
@@ -121,6 +122,7 @@ extension AudioAggregateDevice.Composition.SubTap.Key: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .uid: "UID"
         case .extraInputLatency: "Extra Input Latency"
         case .extraOutputLatency: "Extra Output Latency"

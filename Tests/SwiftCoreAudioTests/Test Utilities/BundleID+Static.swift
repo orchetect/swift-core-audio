@@ -1,6 +1,6 @@
 //
 //  BundleID+Static.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -12,7 +12,7 @@ import SwiftProcess
 
 extension BundleID {
     // MARK: - Random
-    
+
     /// Random bundle ID useful for testing a bundle ID that is guaranteed to not exist.
     static var random: Self {
         let string = "com.random.\(UUID().uuidString)"

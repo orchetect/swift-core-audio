@@ -1,6 +1,6 @@
 //
 //  AudioStream TerminalType.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -15,7 +15,7 @@ extension AudioStream {
     /// CoreAudio `kAudioStreamTerminalType*` constants.
     public enum TerminalType {
         // MARK: CoreAudio/AudioHardwareBase.h
-        
+
         /// Unknown
         ///
         /// The ID used when the terminal type for the `AudioStream` is non known.
@@ -24,7 +24,7 @@ extension AudioStream {
         ///
         /// > Constant: `kAudioStreamTerminalTypeUnknown`
         case unknown
-        
+
         /// Line
         ///
         /// The ID for a terminal type of a line level stream. Note that this applies to
@@ -34,7 +34,7 @@ extension AudioStream {
         ///
         /// > Constant: `kAudioStreamTerminalTypeLine`
         case line
-        
+
         /// Digital Audio Interface
         ///
         /// The ID for a terminal type of stream from/to a digital audio interface as
@@ -45,7 +45,7 @@ extension AudioStream {
         ///
         /// > Constant: `kAudioStreamTerminalTypeDigitalAudioInterface`
         case digitalAudioInterface
-        
+
         /// Speaker
         ///
         /// The ID for a terminal type of a speaker.
@@ -54,7 +54,7 @@ extension AudioStream {
         ///
         /// > Constant: `kAudioStreamTerminalTypeSpeaker`
         case speaker
-        
+
         /// Headphones
         ///
         /// The ID for a terminal type of headphones.
@@ -63,7 +63,7 @@ extension AudioStream {
         ///
         /// > Constant: `kAudioStreamTerminalTypeHeadphones`
         case headphones
-        
+
         /// LFE Speaker
         ///
         /// The ID for a terminal type of a speaker for low frequency effects.
@@ -72,7 +72,7 @@ extension AudioStream {
         ///
         /// > Constant: `kAudioStreamTerminalTypeLFESpeaker`
         case lfeSpeaker
-        
+
         /// Receiver Speaker
         ///
         /// The ID for a terminal type of a speaker on a telephone handset receiver.
@@ -81,7 +81,7 @@ extension AudioStream {
         ///
         /// > Constant: `kAudioStreamTerminalTypeReceiverSpeaker`
         case receiverSpeaker
-        
+
         /// Microphone
         ///
         /// The ID for a terminal type of a microphone.
@@ -90,7 +90,7 @@ extension AudioStream {
         ///
         /// > Constant: `kAudioStreamTerminalTypeMicrophone`
         case microphone
-        
+
         /// Headset Microphone
         ///
         /// The ID for a terminal type of a microphone attached to an headset.
@@ -99,7 +99,7 @@ extension AudioStream {
         ///
         /// > Constant: `kAudioStreamTerminalTypeHeadsetMicrophone`
         case headsetMicrophone
-        
+
         /// Receiver Microphone
         ///
         /// The ID for a terminal type of a microphone on a telephone handset receiver.
@@ -108,7 +108,7 @@ extension AudioStream {
         ///
         /// > Constant: `kAudioStreamTerminalTypeReceiverMicrophone`
         case receiverMicrophone
-        
+
         /// TTY
         ///
         /// The ID for a terminal type of a device providing a TTY signal.
@@ -117,7 +117,7 @@ extension AudioStream {
         ///
         /// > Constant: `kAudioStreamTerminalTypeTTY`
         case tty
-        
+
         /// HDMI
         ///
         /// The ID for a terminal type of a stream from/to an HDMI port.
@@ -126,7 +126,7 @@ extension AudioStream {
         ///
         /// > Constant: `kAudioStreamTerminalTypeHDMI`
         case hdmi
-        
+
         /// DisplayPort
         ///
         /// The ID for a terminal type of a stream from/to an DisplayPort port.
@@ -176,6 +176,7 @@ extension AudioStream.TerminalType: RawRepresentable {
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .unknown: kAudioStreamTerminalTypeUnknown // 0
         case .line: kAudioStreamTerminalTypeLine // "line"
         case .digitalAudioInterface: kAudioStreamTerminalTypeDigitalAudioInterface // "spdf"
@@ -198,6 +199,7 @@ extension AudioStream.TerminalType: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .unknown: "Unknown"
         case .line: "Line"
         case .digitalAudioInterface: "Digital Audio Interface"

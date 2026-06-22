@@ -1,6 +1,6 @@
 //
 //  AudioSystemProperties+Taps.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -20,14 +20,14 @@ extension AudioSystemProperties {
         var tapID: AudioObjectID = kAudioObjectUnknown
         try AudioHardwareCreateProcessTap(tapDescription, &tapID)
             .throwingSwiftCoreAudioError(message: "Failed to create audio tap.")
-        
+
         guard tapID != kAudioObjectUnknown else {
             throw .tapCreationFailed(message: "Returned object ID is 0 (invalid).")
         }
-        
+
         return AudioTap(id: tapID)
     }
-    
+
     /// Destroys an audio tap.
     @available(macOS 14.2, *)
     @available(macCatalyst, unavailable)

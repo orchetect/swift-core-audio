@@ -1,6 +1,6 @@
 //
 //  AudioStereoPanControlPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioStereoPanControl` class.
 public enum AudioStereoPanControlPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Value
     ///
     /// A `Float32` where 0.0 is full left, 1.0 is full right, and 0.5 is center.
@@ -22,7 +22,7 @@ public enum AudioStereoPanControlPropertySelectorConstant {
     ///
     /// > Constant: `kAudioStereoPanControlPropertyValue`
     case value
-    
+
     /// Panning Channels
     ///
     /// An array of two `UInt32`s that indicate which elements of the device the
@@ -71,11 +71,12 @@ extension AudioStereoPanControlPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .value: kAudioStereoPanControlPropertyValue // "spcv"
         case .panningChannels: kAudioStereoPanControlPropertyPanningChannels // "spcc"
         }
@@ -87,6 +88,7 @@ extension AudioStereoPanControlPropertySelectorConstant: CustomStringConvertible
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .value: "Value"
         case .panningChannels: "Panning Channels"
         }

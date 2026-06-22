@@ -1,6 +1,6 @@
 //
 //  AudioObjectPropertyListenerRef.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -22,7 +22,7 @@ public final class AudioObjectPropertyListenerRef: Sendable {
     let address: AudioObjectPropertyAddress
     let queue: DispatchQueue?
     nonisolated(unsafe) let listener: AudioObjectPropertyListenerBlock
-    
+
     /// Internal init.
     init(
         id: AudioObjectID,
@@ -35,11 +35,11 @@ public final class AudioObjectPropertyListenerRef: Sendable {
         self.queue = queue
         self.listener = listener
     }
-    
+
     deinit {
         try? removeListener()
     }
-    
+
     func removeListener() throws {
         var address = address
         try AudioObjectRemovePropertyListenerBlock(

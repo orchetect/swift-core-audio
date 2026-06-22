@@ -1,6 +1,6 @@
 //
 //  AudioStreamPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioStream` class.
 public enum AudioStreamPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Is Active
     ///
     /// A `UInt32` where a non-zero value indicates that the stream is enabled and doing IO.
@@ -22,7 +22,7 @@ public enum AudioStreamPropertySelectorConstant {
     ///
     /// > Constant: `kAudioStreamPropertyIsActive`
     case isActive
-    
+
     /// Direction
     ///
     /// A `UInt32` where a value of `0` means that this `AudioStream` is an output stream
@@ -32,7 +32,7 @@ public enum AudioStreamPropertySelectorConstant {
     ///
     /// > Constant: `kAudioStreamPropertyDirection`
     case direction
-    
+
     /// Terminal Type
     ///
     /// A `UInt32` whose value describes the general kind of functionality attached
@@ -42,7 +42,7 @@ public enum AudioStreamPropertySelectorConstant {
     ///
     /// > Constant: `kAudioStreamPropertyTerminalType`
     case terminalType
-    
+
     /// Starting Channel
     ///
     /// A `UInt32` that specifies the first element in the owning device that
@@ -52,7 +52,7 @@ public enum AudioStreamPropertySelectorConstant {
     ///
     /// > Constant: `kAudioStreamPropertyStartingChannel`
     case startingChannel
-    
+
     /// Latency
     ///
     /// A `UInt32` containing the number of frames of latency in the `AudioStream`.
@@ -65,7 +65,7 @@ public enum AudioStreamPropertySelectorConstant {
     ///
     /// > Constant: `kAudioStreamPropertyLatency`
     case latency
-    
+
     /// Virtual Format
     ///
     /// An `AudioStreamBasicDescription` that describes the current data format for
@@ -76,7 +76,7 @@ public enum AudioStreamPropertySelectorConstant {
     ///
     /// > Constant: `kAudioStreamPropertyVirtualFormat`
     case virtualFormat
-    
+
     /// Available Virtual Formats
     ///
     /// An array of `AudioStreamRangedDescriptions` that describe the available data
@@ -87,7 +87,7 @@ public enum AudioStreamPropertySelectorConstant {
     ///
     /// > Constant: `kAudioStreamPropertyAvailableVirtualFormats`
     case availableVirtualFormats
-    
+
     /// Physical Format
     ///
     /// An `AudioStreamBasicDescription` that describes the current data format for
@@ -98,7 +98,7 @@ public enum AudioStreamPropertySelectorConstant {
     ///
     /// > Constant: `kAudioStreamPropertyPhysicalFormat`
     case physicalFormat
-    
+
     /// Available Physical Formats
     ///
     /// An array of `AudioStreamRangedDescriptions` that describe the available data
@@ -110,7 +110,7 @@ public enum AudioStreamPropertySelectorConstant {
     ///
     /// > Constant: `kAudioStreamPropertyAvailablePhysicalFormats`
     case availablePhysicalFormats
-    
+
     // (Note that the CoreAudio/AudioHardwareDeprecated.h enum labelled
     // "AudioStream Properties That Ought To Some Day Be Deprecated" is not implemented here,
     // as all of its contents have preferable alternatives.)
@@ -153,11 +153,12 @@ extension AudioStreamPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .isActive: kAudioStreamPropertyIsActive // "sact"
         case .direction: kAudioStreamPropertyDirection // "sdir"
         case .terminalType: kAudioStreamPropertyTerminalType // "term"
@@ -176,6 +177,7 @@ extension AudioStreamPropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .isActive: "Is Active"
         case .direction: "Direction"
         case .terminalType: "Terminal Type"

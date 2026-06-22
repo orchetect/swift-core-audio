@@ -1,6 +1,6 @@
 //
 //  AudioBox+UIDIdentifiableAudioObject Tests.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -15,7 +15,7 @@ extension SerializedTests {
     @Suite
     struct AudioBox_UIDIdentifiableAudioObject_Tests {
         // MARK: uid
-        
+
         @Test
         func uid_invalid() throws {
             let aggregate = AudioBox(id: .randomUnused)
@@ -23,7 +23,7 @@ extension SerializedTests {
                 _ = try aggregate.uid
             }
         }
-        
+
         @Test
         func uid_valid() throws {
             guard let box = try AudioSystem.shared.boxes.first(where: { (try? $0.uid) != nil })
@@ -34,7 +34,7 @@ extension SerializedTests {
                 return
             }
             let uid = try box.uid
-            
+
             // verify
             #expect(try box.uid == uid)
         }

@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot ClockPropertyKey.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -29,6 +29,7 @@ extension AudioObjectSnapshot.ClockPropertyKey: AudioObjectSnapshot.PropertyKey 
 
 extension AudioObjectSnapshot.ClockPropertyKey {
     public func getValue(of object: some AudioClockProperties) -> String? {
+        // swiftformat:disable hoistTry
         switch self {
         case .deviceUID:
             withErrorCapture(key: self, try object.deviceUID, transform: \.rawValue)
@@ -63,6 +64,7 @@ extension AudioObjectSnapshot.ClockPropertyKey {
                 return string.isEmpty ? nil : string
             })
         }
+        // swiftformat:enable hoistTry
     }
 }
 

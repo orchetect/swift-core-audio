@@ -1,6 +1,6 @@
 //
 //  AudioAggregateDevicePropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioAggregateDevice` class.
 public enum AudioAggregateDevicePropertySelectorConstant {
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// Full SubDevice List
     ///
     /// A `CFArray` of `CFString`s that contain the UIDs of all the devices, active or
@@ -28,7 +28,7 @@ public enum AudioAggregateDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioAggregateDevicePropertyFullSubDeviceList`
     case fullSubDeviceList
-    
+
     /// Active SubDevice List
     ///
     /// An array of `AudioObjectID`s for all the active sub-devices in the aggregate device.
@@ -37,7 +37,7 @@ public enum AudioAggregateDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioAggregateDevicePropertyActiveSubDeviceList`
     case activeSubDeviceList
-    
+
     /// Composition
     ///
     /// A `CFDictionary` that describes the composition of the `AudioAggregateDevice`.
@@ -48,7 +48,7 @@ public enum AudioAggregateDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioAggregateDevicePropertyComposition`
     case composition
-    
+
     /// Main SubDevice
     ///
     /// A `CFString` that contains the UID for the `AudioDevice` that is currently
@@ -60,7 +60,7 @@ public enum AudioAggregateDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioAggregateDevicePropertyMainSubDevice`
     case mainSubDevice
-    
+
     /// Clock Device
     ///
     /// A `CFString` that contains the UID for the `AudioClockDevice` that is currently
@@ -78,7 +78,7 @@ public enum AudioAggregateDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioAggregateDevicePropertyClockDevice`
     case clockDevice
-    
+
     /// Tap List
     ///
     /// A `CFArray` of `CFString`s that contain the UIDs of all the tap objects in the
@@ -88,7 +88,7 @@ public enum AudioAggregateDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioAggregateDevicePropertyTapList`
     case tapList
-    
+
     /// SubTap List
     ///
     /// An array of `AudioObjectID`s for all the active sub-taps in the aggregate
@@ -137,11 +137,12 @@ extension AudioAggregateDevicePropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .fullSubDeviceList: kAudioAggregateDevicePropertyFullSubDeviceList // "grup"
         case .activeSubDeviceList: kAudioAggregateDevicePropertyActiveSubDeviceList // "agrp"
         case .composition: kAudioAggregateDevicePropertyComposition // "acom"
@@ -158,6 +159,7 @@ extension AudioAggregateDevicePropertySelectorConstant: CustomStringConvertible 
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .fullSubDeviceList: "Full SubDevice List"
         case .activeSubDeviceList: "Active SubDevice List"
         case .composition: "Composition"

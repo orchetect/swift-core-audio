@@ -1,6 +1,6 @@
 //
 //  AudioObjectPropertyScopeConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,7 +11,7 @@ import CoreAudio
 /// Analogous to CoreAudio `kAudioObjectPropertyScope*` scope constants.
 public enum AudioObjectPropertyScopeConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Global scope.
     ///
     /// The `AudioObjectPropertyScope` for properties that apply to the object as a whole.
@@ -21,7 +21,7 @@ public enum AudioObjectPropertyScopeConstant {
     ///
     /// > Constant: `kAudioObjectPropertyScopeGlobal`
     case global
-    
+
     /// Input scope.
     ///
     /// The `AudioObjectPropertyScope` for properties that apply to the input side of an object.
@@ -30,7 +30,7 @@ public enum AudioObjectPropertyScopeConstant {
     ///
     /// > Constant: `kAudioObjectPropertyScopeInput`
     case input
-    
+
     /// Output scope.
     ///
     /// The `AudioObjectPropertyScope` for properties that apply to the output side of an object.
@@ -39,7 +39,7 @@ public enum AudioObjectPropertyScopeConstant {
     ///
     /// > Constant: `kAudioObjectPropertyScopeOutput`
     case output
-    
+
     /// PlayThrough scope.
     ///
     /// The `AudioObjectPropertyScope` for properties that apply to the play through side of an object.
@@ -87,11 +87,12 @@ extension AudioObjectPropertyScopeConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .global: kAudioObjectPropertyScopeGlobal // "glob"
         case .input: kAudioObjectPropertyScopeInput // "inpt"
         case .output: kAudioObjectPropertyScopeOutput // "outp"
@@ -105,6 +106,7 @@ extension AudioObjectPropertyScopeConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .global: "Global"
         case .input: "Input"
         case .output: "Output"

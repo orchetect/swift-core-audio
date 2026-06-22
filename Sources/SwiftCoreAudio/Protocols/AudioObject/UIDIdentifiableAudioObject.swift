@@ -1,6 +1,6 @@
 //
 //  UIDIdentifiableAudioObject.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -16,7 +16,7 @@ nonisolated
 public protocol UIDIdentifiableAudioObject: AudioObject {
     /// Strongly-typed persistent unique identifier.
     typealias UID = AudioUID<Self>
-    
+
     /// Strongly-typed persistent unique identifier.
     nonisolated
     var uid: UID { get throws(SwiftCoreAudioError) }

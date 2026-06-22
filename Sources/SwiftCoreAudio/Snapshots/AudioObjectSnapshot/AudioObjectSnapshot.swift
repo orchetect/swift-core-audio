@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -18,26 +18,26 @@ public struct AudioObjectSnapshot {
     /// Unique identifier used only for `Identifiable`.
     /// Not related to any Core Audio property.
     public let id: UUID
-    
+
     /// Version of the snapshot data format.
     public internal(set) var dataVersion: Int = 1
-    
+
     /// `AudioObjectID` identifier of the audio object.
     public let objectID: Int
-    
+
     /// Timestamp of when the snapshot was captured.
     public var date: Date
-    
+
     /// Properties.
     public var properties: [AnyPropertyKey: String]
-    
+
     /// Child objects.
     public var children: [AudioObjectSnapshot]
-    
+
     /// Any errors encountered while reading Core Audio object properties.
     /// Keyed by property name with values containing the error.
     public var errors: [String]
-    
+
     /// Initialize from pre-captured data.
     public init(
         objectID: Int,
@@ -74,7 +74,7 @@ extension AudioObjectSnapshot {
         let children = Self._children(of: object)
         self.init(objectID: objectID, properties: properties, children: children)
     }
-    
+
     // This method is functionally identical to the one above it, except it uses concurrency for improved performance
     /// Creates a full Core Audio system snapshot of the audio object.
     public init(of object: some AudioObject) async {

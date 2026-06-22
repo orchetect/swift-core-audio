@@ -1,6 +1,6 @@
 //
 //  AudioAggregateDevice Composition SubDevice Key.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -15,7 +15,7 @@ extension AudioAggregateDevice.Composition.SubDevice {
     /// CoreAudio `kAudioSubDevice*Key` constants.
     public enum Key {
         // MARK: CoreAudio/AudioHardware.h
-        
+
         /// A `String` that contains the UID of the subdevice.
         ///
         /// The underlying type is `CFString`.
@@ -24,7 +24,7 @@ extension AudioAggregateDevice.Composition.SubDevice {
         ///
         /// > Constant: `kAudioSubDeviceUIDKey`
         case uid
-        
+
         /// A `String` that contains the human readable name of the subdevice.
         ///
         /// The underlying type is `CFString`.
@@ -33,7 +33,7 @@ extension AudioAggregateDevice.Composition.SubDevice {
         ///
         /// > Constant: `kAudioSubDeviceNameKey`
         case name
-        
+
         /// Total number of input channels for the subdevice.
         ///
         /// The underlying type is `CFNumber`.
@@ -42,7 +42,7 @@ extension AudioAggregateDevice.Composition.SubDevice {
         ///
         /// > Constant: `kAudioSubDeviceInputChannelsKey`
         case inputChannels
-        
+
         /// Total number of output channels for the subdevice.
         ///
         /// The underlying type is `CFNumber`.
@@ -51,7 +51,7 @@ extension AudioAggregateDevice.Composition.SubDevice {
         ///
         /// > Constant: `kAudioSubDeviceOutputChannelsKey`
         case outputChannels
-        
+
         /// Total number of frames of additional latency that will be added to the input side of the
         /// subdevice.
         ///
@@ -61,7 +61,7 @@ extension AudioAggregateDevice.Composition.SubDevice {
         ///
         /// > Constant: `kAudioSubDeviceExtraInputLatencyKey`
         case extraInputLatency
-        
+
         /// Total number of frames of additional latency that will be added to the output side of the
         /// subdevice.
         ///
@@ -71,14 +71,14 @@ extension AudioAggregateDevice.Composition.SubDevice {
         ///
         /// > Constant: `kAudioSubDeviceExtraOutputLatencyKey`
         case extraOutputLatency
-        
+
         /// A boolean value describing whether drift compensation is enabled for the subdevice.
         ///
         /// > File: CoreAudio/AudioHardware.h
         ///
         /// > Constant: `kAudioSubDeviceDriftCompensationKey`
         case isDriftCompensationEnabled
-        
+
         /// Quality of the drift compensation for the subdevice.
         ///
         /// This value controls the trade-off between quality and CPU load in the drift compensation.
@@ -91,19 +91,19 @@ extension AudioAggregateDevice.Composition.SubDevice {
         ///
         /// > Constant: `kAudioSubDeviceDriftCompensationQualityKey`
         case driftCompensationQuality
-        
+
         // MARK: Other
-        
+
         /// Don't pad.
         ///
         /// Discovered in composition dictionary of aggregates found in the system.
         /// Not documented in Core Audio headers.
-        /// 
+        ///
         /// The underlying type is boolean stored as a `CFNumber`.
         ///
         /// > Constant: "don't pad" string literal
         case dontPad
-        
+
         /// Drift algorithm.
         ///
         /// Discovered in composition dictionary of aggregates found in the system.
@@ -151,11 +151,12 @@ extension AudioAggregateDevice.Composition.SubDevice.Key: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: String {
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .uid: kAudioSubDeviceUIDKey // "uid"
         case .name: kAudioSubDeviceNameKey // "name"
         case .inputChannels: kAudioSubDeviceInputChannelsKey // "channels-in"
@@ -164,6 +165,7 @@ extension AudioAggregateDevice.Composition.SubDevice.Key: RawRepresentable {
         case .extraOutputLatency: kAudioSubDeviceExtraOutputLatencyKey // "latency-out"
         case .isDriftCompensationEnabled: kAudioSubDeviceDriftCompensationKey // "drift"
         case .driftCompensationQuality: kAudioSubDeviceDriftCompensationQualityKey // "drift quality"
+
         // MARK: Other
         case .dontPad: "don't pad"
         case .driftAlgorithm: "drift algorithm"
@@ -176,6 +178,7 @@ extension AudioAggregateDevice.Composition.SubDevice.Key: CustomStringConvertibl
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .uid: "UID"
         case .name: "Name"
         case .inputChannels: "Input Channel Count"
@@ -184,6 +187,7 @@ extension AudioAggregateDevice.Composition.SubDevice.Key: CustomStringConvertibl
         case .extraOutputLatency: "Extra Output Latency"
         case .isDriftCompensationEnabled: "Is Drift Compensation Enabled"
         case .driftCompensationQuality: "Drift Compensation Quality"
+
         // MARK: Other
         case .dontPad: "Don't Pad"
         case .driftAlgorithm: "Drift Algorithm"

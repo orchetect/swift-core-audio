@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot AggregatePropertyKey.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -27,6 +27,7 @@ extension AudioObjectSnapshot.AggregatePropertyKey: AudioObjectSnapshot.Property
 
 extension AudioObjectSnapshot.AggregatePropertyKey {
     public func getValue(of object: some AudioAggregateDeviceProperties) -> String? {
+        // swiftformat:disable hoistTry
         switch self {
         case .subdeviceUIDs:
             withErrorCapture(key: self, try object.subdeviceUIDs, transform: {
@@ -48,7 +49,7 @@ extension AudioObjectSnapshot.AggregatePropertyKey {
                 "["
                 + $0.dictionary()
                     .sorted { $0.key < $1.key }
-                    .map { (key, value) in "\(key): \(value)" }
+                    .map { key, value in "\(key): \(value)" }
                     .joined(separator: ", ")
                 + "]"
             })
@@ -72,6 +73,7 @@ extension AudioObjectSnapshot.AggregatePropertyKey {
                 return string.isEmpty ? nil : string
             })
         }
+        // swiftformat:enable hoistTry
     }
 }
 

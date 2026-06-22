@@ -1,6 +1,6 @@
 //
 //  AudioProperty+Process.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -9,12 +9,17 @@
 import CoreAudio
 import SwiftProcess
 
+// swiftformat:disable wrap wrapArguments
+// swiftformat:options --wrap-collections preserve
+
 // MARK: Scope & Element
 
 extension AudioProperty where SelectorConstant == AudioProcessPropertySelectorConstant {
     nonisolated
-    private static var defaultScope: any AudioPropertyScopeConstant { .object(.global) }
-    
+    private static var defaultScope: any AudioPropertyScopeConstant {
+        .object(.global)
+    }
+
     nonisolated
     private static func scope(for direction: AudioStream.Direction?) -> any AudioPropertyScopeConstant {
         switch direction {
@@ -23,9 +28,11 @@ extension AudioProperty where SelectorConstant == AudioProcessPropertySelectorCo
         case nil: .object(.global) // TODO: I assume this works, needs testing
         }
     }
-    
+
     nonisolated
-    private static var element: any AudioPropertyElementConstant { .object(.main) }
+    private static var element: any AudioPropertyElementConstant {
+        .object(.main)
+    }
 }
 
 // MARK: - CoreAudio/AudioHardware.h

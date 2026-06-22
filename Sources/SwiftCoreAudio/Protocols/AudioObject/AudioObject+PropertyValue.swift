@@ -1,6 +1,6 @@
 //
 //  AudioObject+PropertyValue.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -18,8 +18,8 @@ extension AudioObject {
     /// Note that a return value of `true` is not a guarantee that attempting to get the
     /// property's size or data will succeed.
     nonisolated
-    public func getHasProperty<Property: AudioPropertyProtocol>(
-        property: Property
+    public func getHasProperty(
+        property: some AudioPropertyProtocol
     ) -> Bool {
         getHasProperty(address: property.address)
     }
@@ -29,7 +29,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `AudioChannelLayout` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -38,7 +38,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == AudioChannelLayout, Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `AudioChannelLayout` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -50,9 +50,9 @@ extension AudioObject {
         try getPropertyValue(address: property.address, value: &value, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
         return value
     }
-    
+
     // MARK: Set
-    
+
     // implement as-needed in future
 }
 
@@ -60,7 +60,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `AudioStreamBasicDescription` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -69,7 +69,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == AudioStreamBasicDescription, Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `AudioStreamBasicDescription` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -81,9 +81,9 @@ extension AudioObject {
         try getPropertyValue(address: property.address, value: &value, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
         return value
     }
-    
+
     // MARK: Set
-    
+
     // implement as-needed in future
 }
 
@@ -91,7 +91,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `[RangedDescription]` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -100,7 +100,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [AudioStreamRangedDescription], Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `[RangedDescription]` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -109,12 +109,17 @@ extension AudioObject {
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [AudioStreamRangedDescription] {
         let element = AudioStreamRangedDescription()
-        let array = try getPropertyArrayValue(address: property.address, newElement: element, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
+        let array = try getPropertyArrayValue(
+            address: property.address,
+            newElement: element,
+            qualifier: qualifier,
+            osStatusErrorMessage: osStatusErrorMessage
+        )
         return array
     }
-    
+
     // MARK: Set
-    
+
     // implement as-needed in future
 }
 
@@ -122,7 +127,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `AudioValueRange` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -131,7 +136,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == AudioValueRange, Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `AudioStreamBasicDescription` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -143,9 +148,9 @@ extension AudioObject {
         try getPropertyValue(address: property.address, value: &value, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
         return value
     }
-    
+
     // MARK: Set
-    
+
     // implement as-needed in future
 }
 
@@ -153,7 +158,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `[AudioValueRange]` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -162,7 +167,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [AudioValueRange], Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `[AudioValueRange]` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -171,12 +176,17 @@ extension AudioObject {
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [AudioValueRange] {
         let element = AudioValueRange()
-        let array = try getPropertyArrayValue(address: property.address, newElement: element, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
+        let array = try getPropertyArrayValue(
+            address: property.address,
+            newElement: element,
+            qualifier: qualifier,
+            osStatusErrorMessage: osStatusErrorMessage
+        )
         return array
     }
-    
+
     // MARK: Set
-    
+
     // implement as-needed in future
 }
 
@@ -184,7 +194,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `Bool` value for the given property.
     ///
     /// The underlying type for booleans is `UInt32` where booleans are stored as a `0` or `1` integer.
@@ -195,7 +205,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == Bool, Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `Bool` value for the given property.
     ///
     /// The underlying type for booleans is `UInt32` where booleans are stored as a `0` or `1` integer.
@@ -215,9 +225,9 @@ extension AudioObject {
         )
         return value != 0
     }
-    
+
     // MARK: Set
-    
+
     /// Sets a `Bool` value for the given property of the audio object.
     ///
     /// The underlying type for booleans is `UInt32` where booleans are stored as a `0` or `1` integer.
@@ -230,7 +240,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == Bool, Property.Qualifier == Never {
         try setPropertyValue(property: property, qualifier: .none, value: value, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Sets a `Bool` value for the given property of the audio object.
     ///
     /// The underlying type for booleans is `UInt32` where booleans are stored as a `0` or `1` integer.
@@ -243,7 +253,12 @@ extension AudioObject {
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == Bool {
         let value: UInt32 = value ? 1 : 0
-        let newValue = try setPropertyValue(address: property.address, qualifier: qualifier, value: value, osStatusErrorMessage: osStatusErrorMessage)
+        let newValue = try setPropertyValue(
+            address: property.address,
+            qualifier: qualifier,
+            value: value,
+            osStatusErrorMessage: osStatusErrorMessage
+        )
         return newValue != 0
     }
 }
@@ -252,7 +267,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `Float32` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -261,7 +276,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == Float32, Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `Float32` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -273,9 +288,9 @@ extension AudioObject {
         try getPropertyValue(address: property.address, value: &value, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
         return value
     }
-    
+
     // MARK: Set
-    
+
     /// Sets a `UInt32` value for the given property of the audio object.
     @discardableResult
     nonisolated
@@ -286,7 +301,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == UInt32, Property.Qualifier == Never {
         try setPropertyValue(property: property, qualifier: .none, value: value, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Sets a `UInt32` value for the given property of the audio object.
     @discardableResult
     nonisolated
@@ -296,7 +311,12 @@ extension AudioObject {
         value: Property.Value,
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == UInt32 {
-        let newValue = try setPropertyValue(address: property.address, qualifier: qualifier, value: value, osStatusErrorMessage: osStatusErrorMessage)
+        let newValue = try setPropertyValue(
+            address: property.address,
+            qualifier: qualifier,
+            value: value,
+            osStatusErrorMessage: osStatusErrorMessage
+        )
         return newValue
     }
 }
@@ -305,7 +325,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `Double` value for the given property.
     ///
     /// The underlying type is `Float64`.
@@ -316,7 +336,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == Double, Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `Double` value for the given property.
     ///
     /// The underlying type is `Float64`.
@@ -330,9 +350,9 @@ extension AudioObject {
         try getPropertyValue(address: property.address, value: &value, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
         return value
     }
-    
+
     // MARK: Set
-    
+
     /// Sets a `Double` value for the given property of the audio object.
     ///
     /// The underlying type is `Float64`.
@@ -345,7 +365,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == Double, Property.Qualifier == Never {
         try setPropertyValue(property: property, qualifier: .none, value: value, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Sets a `Double` value for the given property of the audio object.
     ///
     /// The underlying type is `Float64`.
@@ -357,7 +377,12 @@ extension AudioObject {
         value: Property.Value,
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == Double {
-        let newValue = try setPropertyValue(address: property.address, qualifier: qualifier, value: value, osStatusErrorMessage: osStatusErrorMessage)
+        let newValue = try setPropertyValue(
+            address: property.address,
+            qualifier: qualifier,
+            value: value,
+            osStatusErrorMessage: osStatusErrorMessage
+        )
         return newValue
     }
 }
@@ -366,7 +391,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `Int32` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -375,7 +400,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == Int32, Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `Int32` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -387,9 +412,9 @@ extension AudioObject {
         try getPropertyValue(address: property.address, value: &value, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
         return value
     }
-    
+
     // MARK: Set
-    
+
     // implement as-needed in future
 }
 
@@ -397,7 +422,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `String` value for the given property.
     ///
     /// The underlying type is `CFString`.
@@ -408,7 +433,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == String, Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `String` value for the given property.
     ///
     /// The underlying type is `CFString`.
@@ -418,12 +443,16 @@ extension AudioObject {
         qualifier: AudioPropertyQualifier<Property.Qualifier>,
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == String {
-        let cfString: CFString = try getPropertyObject(address: property.address, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
+        let cfString: CFString = try getPropertyObject(
+            address: property.address,
+            qualifier: qualifier,
+            osStatusErrorMessage: osStatusErrorMessage
+        )
         return cfString as String
     }
-    
+
     // MARK: Set
-    
+
     /// Sets a `String` value for the given property of the audio object.
     ///
     /// The underlying type is `CFString`.
@@ -436,7 +465,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == String, Property.Qualifier == Never {
         try setPropertyValue(property: property, qualifier: .none, value: value, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Sets a `String` value for the given property of the audio object.
     ///
     /// The underlying type is `CFString`.
@@ -458,7 +487,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `[String]` value for the given property.
     ///
     /// The underlying type is a `CFArray` of `CFString`.
@@ -469,7 +498,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [String], Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `[String]` value for the given property.
     ///
     /// The underlying type is a `CFArray` of `CFString`.
@@ -479,15 +508,19 @@ extension AudioObject {
         qualifier: AudioPropertyQualifier<Property.Qualifier>,
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [String] {
-        let value: CFArray = try getPropertyObject(address: property.address, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
+        let value: CFArray = try getPropertyObject(
+            address: property.address,
+            qualifier: qualifier,
+            osStatusErrorMessage: osStatusErrorMessage
+        )
         guard let value = value as? [CFString] else {
             throw .osStatus(AudioOSStatusError(unsafe: .invalidPropertyValue), message: osStatusErrorMessage)
         }
         return value as [String]
     }
-    
+
     // MARK: Set
-    
+
     /// Sets a `[String]` value for the given property of the audio object.
     ///
     /// The underlying type is a `CFArray` of `CFString`.
@@ -499,7 +532,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) where Property.Value == [String], Property.Qualifier == Never {
         try setPropertyValue(property: property, qualifier: .none, value: value, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Sets a `[String]` value for the given property of the audio object.
     ///
     /// The underlying type is a `CFArray` of `CFString`.
@@ -512,7 +545,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [String], Property.Qualifier == Never {
         try setPropertyValue(property: property, qualifier: .none, value: value, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Sets a `[String]` value for the given property of the audio object.
     ///
     /// The underlying type is a `CFArray` of `CFString`.
@@ -526,7 +559,7 @@ extension AudioObject {
         let cfArray: CFArray = value as [CFString] as CFArray
         try setPropertyObject(address: property.address, qualifier: qualifier, object: cfArray, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Sets a `[String]` value for the given property of the audio object.
     ///
     /// The underlying type is a `CFArray` of `CFString`.
@@ -551,7 +584,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `[String: Any]` value for the given property.
     ///
     /// The underlying type is a `CFDictionary` of `NSString` keys and `NSObject` values.
@@ -563,7 +596,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [String: Any], Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, keys: keys, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `[String: Any]` value for the given property.
     ///
     /// The underlying type is a `CFDictionary` of `CFString` keys and `CFObject` values.
@@ -574,13 +607,17 @@ extension AudioObject {
         keys: [String]? = nil,
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [String: Any] {
-        let cfDict: CFDictionary = try getPropertyObject(address: property.address, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
+        let cfDict: CFDictionary = try getPropertyObject(
+            address: property.address,
+            qualifier: qualifier,
+            osStatusErrorMessage: osStatusErrorMessage
+        )
         let converted = Self.convertCFDictionary(cfDict)
         return converted
     }
-    
+
     // MARK: Set
-    
+
     /// Sets a `[String: Any]` value for the given property of the audio object.
     ///
     /// The underlying type is a `CFDictionary` of `NSString` keys and `NSObject` values.
@@ -592,7 +629,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) where Property.Value == [String: Any], Property.Qualifier == Never {
         try setPropertyValue(property: property, qualifier: .none, value: value, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Sets a `[String: Any]` value for the given property of the audio object.
     ///
     /// The underlying type is a `CFDictionary` of `NSString` keys and `NSObject` values.
@@ -605,7 +642,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [String: Any], Property.Qualifier == Never {
         try setPropertyValue(property: property, qualifier: .none, value: value, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Sets a `[String: Any]` value for the given property of the audio object.
     ///
     /// The underlying type is a `CFDictionary` of `NSString` keys and `NSObject` values.
@@ -619,7 +656,7 @@ extension AudioObject {
         let cfDict: CFDictionary = value as CFDictionary
         try setPropertyObject(address: property.address, qualifier: qualifier, object: cfDict, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Sets a `[String: Any]` value for the given property of the audio object.
     ///
     /// The underlying type is a `CFDictionary` of `NSString` keys and `NSObject` values.
@@ -636,9 +673,9 @@ extension AudioObject {
         let converted = Self.convertCFDictionary(cfDict)
         return converted
     }
-    
+
     // MARK: Utilities
-    
+
     nonisolated
     private static func convertCFDictionary(
         _ cfDictionary: CFDictionary,
@@ -646,11 +683,11 @@ extension AudioObject {
     ) -> [String: Any] {
         // toll-free bridge to NSDictionary
         let nsDict = cfDictionary as NSDictionary
-        
+
         // filter keys if needed
         let keys = (keys ?? nsDict.allKeys.compactMap { $0 as? String })
         let mapped = nsDict.dictionaryWithValues(forKeys: keys)
-        
+
         return mapped
     }
 }
@@ -659,7 +696,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `UInt32` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -668,7 +705,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == UInt32, Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `UInt32` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -680,9 +717,9 @@ extension AudioObject {
         try getPropertyValue(address: property.address, value: &value, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
         return value
     }
-    
+
     // MARK: Set
-    
+
     // implement as-needed in future
 }
 
@@ -690,7 +727,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `[UInt32]` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -699,7 +736,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [UInt32], Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `[UInt32]` value for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -708,11 +745,16 @@ extension AudioObject {
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [UInt32] {
         let element: UInt32 = 0
-        return try getPropertyArrayValue(address: property.address, newElement: element, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
+        return try getPropertyArrayValue(
+            address: property.address,
+            newElement: element,
+            qualifier: qualifier,
+            osStatusErrorMessage: osStatusErrorMessage
+        )
     }
-    
+
     // MARK: Set
-    
+
     /// Sets a `[UInt32]` value for the given property of the audio object.
     @discardableResult
     nonisolated
@@ -723,7 +765,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == [UInt32], Property.Qualifier == Never {
         try setPropertyValue(property: property, qualifier: .none, value: value, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Sets a `[UInt32]` value for the given property of the audio object.
     @discardableResult
     nonisolated
@@ -741,7 +783,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `UInt32` value pair for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -750,7 +792,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == (UInt32, UInt32), Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `UInt32` value pair for the given property.
     nonisolated
     public func getPropertyValue<Property: AudioPropertyProtocol>(
@@ -762,9 +804,9 @@ extension AudioObject {
         try getPropertyValue(address: property.address, value: &value, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
         return value
     }
-    
+
     // MARK: Set
-    
+
     // implement as-needed in future
 }
 
@@ -772,7 +814,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: Get
-    
+
     /// Queries the audio object to return the `URL` value for the given property.
     ///
     /// The underlying type is `CFURL`.
@@ -783,7 +825,7 @@ extension AudioObject {
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == URL?, Property.Qualifier == Never {
         try getPropertyValue(property: property, qualifier: .none, osStatusErrorMessage: osStatusErrorMessage)
     }
-    
+
     /// Queries the audio object to return the `URL` value for the given property.
     ///
     /// The underlying type is `CFURL`.
@@ -793,12 +835,16 @@ extension AudioObject {
         qualifier: AudioPropertyQualifier<Property.Qualifier>,
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == URL? {
-        let cfURL: CFURL? = try getPropertyOptionalObject(address: property.address, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
+        let cfURL: CFURL? = try getPropertyOptionalObject(
+            address: property.address,
+            qualifier: qualifier,
+            osStatusErrorMessage: osStatusErrorMessage
+        )
         return cfURL as URL?
     }
-    
+
     // MARK: Set
-    
+
     // implement as-needed in future
 }
 

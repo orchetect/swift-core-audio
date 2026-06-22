@@ -1,6 +1,6 @@
 //
 //  AudioStreamPropertyElementConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,7 +11,7 @@ import CoreAudio
 /// Core Audio audio stream element constants.
 public enum AudioStreamPropertyElementConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Stream channel number (1-based).
     ///
     /// Channel numbers are 1:1 with user-facing channel numbers (starting from channel 1, then 2,
@@ -39,11 +39,12 @@ extension AudioStreamPropertyElementConstant: RawRepresentable {
         // The only case we have is channel number, so just use that
         self = .channelNumber(Int(rawValue))
     }
-    
+
     nonisolated
     public var rawValue: UInt32 {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case let .channelNumber(chan): AudioObjectPropertyElement(chan)
         }
     }
@@ -54,6 +55,7 @@ extension AudioStreamPropertyElementConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case let .channelNumber(chan): "Channel #\(chan)"
         }
     }

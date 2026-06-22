@@ -1,6 +1,6 @@
 //
 //  AudioProcessPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioProcess` class.
 public enum AudioProcessPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// Process ID (PID)
     ///
     /// A `pid_t` indicating the process ID associated with the process.
@@ -22,7 +22,7 @@ public enum AudioProcessPropertySelectorConstant {
     ///
     /// > Constant: `kAudioProcessPropertyPID`
     case pid
-    
+
     /// Bundle ID
     ///
     /// A `CFString` that contains the bundle ID of the process.
@@ -33,7 +33,7 @@ public enum AudioProcessPropertySelectorConstant {
     ///
     /// > Constant: `kAudioProcessPropertyBundleID`
     case bundleID
-    
+
     /// Devices
     ///
     /// An array of `AudioObjectID`s that represent the devices currently used by the
@@ -45,7 +45,7 @@ public enum AudioProcessPropertySelectorConstant {
     ///
     /// > Constant: `kAudioProcessPropertyDevices`
     case devices
-    
+
     /// Is Running
     ///
     /// A `UInt32` where a value of `0` indicates that there is not audio IO in progress
@@ -57,7 +57,7 @@ public enum AudioProcessPropertySelectorConstant {
     ///
     /// > Constant: `kAudioProcessPropertyIsRunning`
     case isRunning
-    
+
     /// Is Running Input
     ///
     /// A `UInt32` where a value of `0` indicates that the process is not running any
@@ -68,7 +68,7 @@ public enum AudioProcessPropertySelectorConstant {
     ///
     /// > Constant: `kAudioProcessPropertyIsRunningInput`
     case isRunningInput
-    
+
     /// Is Running Output
     ///
     /// A `UInt32` where a value of `0` indicates that the process is not running any
@@ -118,11 +118,12 @@ extension AudioProcessPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .pid: kAudioProcessPropertyPID // "ppid"
         case .bundleID: kAudioProcessPropertyBundleID // "pbid"
         case .devices: kAudioProcessPropertyDevices // "pdv#"
@@ -138,6 +139,7 @@ extension AudioProcessPropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .pid: "PID"
         case .bundleID: "Bundle ID"
         case .devices: "Devices"

@@ -1,6 +1,6 @@
 //
 //  AudioBoxPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioBox` class.
 public enum AudioBoxPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// A `CFString` that contains a persistent identifier for the `AudioBox`.
     ///
     /// An AudioBox's UID is persistent across boots. The content of the UID string is a
@@ -27,49 +27,49 @@ public enum AudioBoxPropertySelectorConstant {
     ///
     /// > Constant: `kAudioBoxPropertyBoxUID`
     case boxUID
-    
+
     /// A `UInt32` whose value indicates how the `AudioBox` is connected to the system.
     ///
     /// > File: CoreAudio/AudioHardwareBase.h
     ///
     /// > Constant: `kAudioBoxPropertyTransportType`
     case transportType
-    
+
     /// A `UInt32` where a non-zero value indicates that the box supports audio.
     ///
     /// > File: CoreAudio/AudioHardwareBase.h
     ///
     /// > Constant: `kAudioBoxPropertyHasAudio`
     case hasAudio
-    
+
     /// A `UInt32` where a non-zero value indicates that the box supports video.
     ///
     /// > File: CoreAudio/AudioHardwareBase.h
     ///
     /// > Constant: `kAudioBoxPropertyHasVideo`
     case hasVideo
-    
+
     /// A `UInt32` where a non-zero value indicates that the box supports MIDI.
     ///
     /// > File: CoreAudio/AudioHardwareBase.h
     ///
     /// > Constant: `kAudioBoxPropertyHasMIDI`
     case hasMIDI
-    
+
     /// A `UInt32` where a non-zero value indicates that the box requires authentication to use.
     ///
     /// > File: CoreAudio/AudioHardwareBase.h
     ///
     /// > Constant: `kAudioBoxPropertyIsProtected`
     case isProtected
-    
+
     /// A UInt32 where a non-zero value indicates that the box's contents are available to the system.
     ///
     /// > File: CoreAudio/AudioHardwareBase.h
     ///
     /// > Constant: `kAudioBoxPropertyAcquired`
     case acquired
-    
+
     /// An `OSStatus` that indicates the reason for an attempt to acquire a box failed.
     /// Note that this property is primarily used for notifications.
     ///
@@ -77,7 +77,7 @@ public enum AudioBoxPropertySelectorConstant {
     ///
     /// > Constant: `kAudioBoxPropertyAcquisitionFailed`
     case acquisitionFailed
-    
+
     /// An array of `AudioObjectID`s that represent all the `AudioDevice` objects that
     /// came out of the given `AudioBox`.
     ///
@@ -87,7 +87,7 @@ public enum AudioBoxPropertySelectorConstant {
     ///
     /// > Constant: `kAudioBoxPropertyDeviceList`
     case deviceList
-    
+
     /// An array of `AudioObjectID`s that represent all the `AudioClockDevice` objects that
     /// came out of the given `AudioBox`.
     ///
@@ -136,11 +136,12 @@ extension AudioBoxPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .boxUID: kAudioBoxPropertyBoxUID // "buid"
         case .transportType: kAudioBoxPropertyTransportType // "tran"
         case .hasAudio: kAudioBoxPropertyHasAudio // "bhau"
@@ -160,6 +161,7 @@ extension AudioBoxPropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .boxUID: "Box UID"
         case .transportType: "Transport Type"
         case .hasAudio: "Has Audio"

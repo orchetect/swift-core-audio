@@ -1,6 +1,6 @@
 //
 //  AudioTap+UIDConstructibleAudioObject.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,7 +11,7 @@ extension AudioTap: UIDConstructibleAudioObject {
     public init?(uid: UID) throws(SwiftCoreAudioError) {
         guard let tap = try AudioSystem.shared.tap(forUID: uid)
         else { return nil }
-        
+
         self.init(id: tap.id.rawValue)
     }
 }

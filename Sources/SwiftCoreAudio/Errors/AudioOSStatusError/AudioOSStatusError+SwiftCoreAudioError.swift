@@ -1,6 +1,6 @@
 //
 //  AudioOSStatusError+SwiftCoreAudioError.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -14,13 +14,13 @@ extension AudioOSStatusError {
         line: Int = #line
     ) throws(SwiftCoreAudioError) {
         let metadata = "(\(file):\(line))"
-        
+
         let errorMessage = if let message {
             "\(message) \(metadata)"
         } else {
             metadata
         }
-        
+
         throw .osStatus(self, message: errorMessage)
     }
 }

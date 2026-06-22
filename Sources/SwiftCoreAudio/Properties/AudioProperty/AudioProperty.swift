@@ -1,6 +1,6 @@
 //
 //  AudioProperty.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,13 +11,13 @@ import CoreAudio
 public struct AudioProperty<SelectorConstant: AudioPropertySelectorConstant, Qualifier, Value> {
     public typealias Selector = AudioPropertySelector<SelectorConstant, Qualifier, Value>
     public let selector: Selector
-    
+
     public typealias Scope = AudioPropertyScopeConstant
     public let scope: any Scope
-    
+
     public typealias Element = AudioPropertyElementConstant
     public let element: any Element
-    
+
     public init(selector: Selector, scope: any Scope, element: any Element) {
         self.selector = selector
         self.scope = scope
@@ -47,7 +47,7 @@ extension AudioProperty: CustomDebugStringConvertible {
 
 extension AudioProperty {
     public init(selectorConstant: SelectorConstant, scope: any Scope, element: any Element) {
-        self.selector = Selector(constant: selectorConstant)
+        selector = Selector(constant: selectorConstant)
         self.scope = scope
         self.element = element
     }

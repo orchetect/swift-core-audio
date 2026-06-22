@@ -1,6 +1,6 @@
 //
 //  AudioPropertySelector.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -15,7 +15,7 @@ public struct AudioPropertySelector<
     Value
 >: Equatable, Hashable, Sendable {
     public let constant: Constant
-    
+
     /// Internal init.
     init(constant: Constant) {
         self.constant = constant

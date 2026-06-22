@@ -1,6 +1,6 @@
 //
 //  AudioOSStatus+CustomStringConvertible.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -14,11 +14,12 @@ extension AudioOSStatus: CustomStringConvertible {
 
 extension AudioOSStatus {
     // TODO: Make these localized strings, allowing future localizations.
-    
+
     /// Returns a human-readable description of the constant.
     public var constantDescription: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .noError: "No error occurred."
         case .notRunning: "The audio hardware is not running."
         case .unspecifiedError: "An unspecified error occurred."
@@ -32,6 +33,7 @@ extension AudioOSStatus {
         case .notReady: "The audio object is not ready."
         case .unsupportedFormat: "The stream format is unsupported."
         case .permissionsError: "The process doesn't have permission."
+
         // MARK: CoreAudioTypes/CoreAudioBaseTypes.h
         case .unimplemented: "Unimplemented."
         case .fileNotFound: "File not found."
@@ -40,6 +42,7 @@ extension AudioOSStatus {
         case .badFilePath: "Bad file path."
         case .paramError: "Parameter error."
         case .memFull: "Memory full."
+
         // MARK: AudioToolkit/AUComponent.h
         case .invalidProperty: "The property is not supported."
         case .invalidParameter: "The parameter is not supported."
@@ -70,6 +73,7 @@ extension AudioOSStatus {
         case .missingKey: "Missing key."
         case .componentManagerNotSupported: "Component manager not supported."
         case .multipleVoiceProcessors: "Multiple voice processors."
+
         // MARK: AudioToolkit/AUComponent.h - Inter-App Audio
         case .duplicateDescription: "Duplicate description."
         case .unsupportedType: "Unsupported type."
@@ -77,22 +81,23 @@ extension AudioOSStatus {
         case .notPermitted: "Not permitted."
         case .initializationTimedOut: "Initialization timed out."
         case .invalidFormat: "Invalid format."
+
         // MARK: AudioToolkit/AUComponent.h - Deprecated
         case .illegalInstrument: "Illegal instrument."
         case .instrumentTypeNotFound: "Instrument type not found."
+
         // MARK: AudioToolkit/AudioCodec.h
         case .stateError: "The codec is in an invalid state."
         case .notEnoughBufferSpace: "Not enough buffer space available."
         case .badData: "Bad codec data."
-        // MARK: AudioToolkit/AudioUnitProperties.h
-        // case .unexpectedNumberOfInputChannels: "An unexpected number of input channels was encountered."
         }
     }
-    
+
     /// Returns the constant symbol name. Useful for debugging.
     public var constantName: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .noError: "kAudioHardwareNoError"
         case .notRunning: "kAudioHardwareNotRunningError"
         case .unspecifiedError: "kAudioHardwareUnspecifiedError"
@@ -106,6 +111,7 @@ extension AudioOSStatus {
         case .notReady: "kAudioHardwareNotReadyError"
         case .unsupportedFormat: "kAudioDeviceUnsupportedFormatError"
         case .permissionsError: "kAudioDevicePermissionsError"
+
         // MARK: CoreAudioTypes/CoreAudioBaseTypes.h
         case .unimplemented: "kAudio_UnimplementedError"
         case .fileNotFound: "kAudio_FileNotFoundError"
@@ -114,6 +120,7 @@ extension AudioOSStatus {
         case .badFilePath: "kAudio_BadFilePathError"
         case .paramError: "kAudio_ParamError"
         case .memFull: "kAudio_MemFullError"
+
         // MARK: AudioToolkit/AUComponent.h
         case .invalidProperty: "kAudioUnitErr_InvalidProperty"
         case .invalidParameter: "kAudioUnitErr_InvalidParameter"
@@ -144,6 +151,7 @@ extension AudioOSStatus {
         case .missingKey: "kAudioUnitErr_MissingKey"
         case .componentManagerNotSupported: "kAudioUnitErr_ComponentManagerNotSupported"
         case .multipleVoiceProcessors: "kAudioUnitErr_MultipleVoiceProcessors"
+
         // MARK: AudioToolkit/AUComponent.h - Inter-App Audio
         case .duplicateDescription: "kAudioComponentErr_DuplicateDescription"
         case .unsupportedType: "kAudioComponentErr_UnsupportedType"
@@ -151,15 +159,15 @@ extension AudioOSStatus {
         case .notPermitted: "kAudioComponentErr_NotPermitted"
         case .initializationTimedOut: "kAudioComponentErr_InitializationTimedOut"
         case .invalidFormat: "kAudioComponentErr_InvalidFormat"
+
         // MARK: AudioToolkit/AUComponent.h - Deprecated
         case .illegalInstrument: "kAudioUnitErr_IllegalInstrument"
         case .instrumentTypeNotFound: "kAudioUnitErr_InstrumentTypeNotFound"
+
         // MARK: AudioToolkit/AudioCodec.h
         case .stateError: "kAudioCodecStateError"
         case .notEnoughBufferSpace: "kAudioCodecNotEnoughBufferSpaceError"
         case .badData: "kAudioCodecBadDataError"
-        // MARK: AudioToolkit/AudioUnitProperties.h
-        // case .unexpectedNumberOfInputChannels: "kAUVoiceIOErr_UnexpectedNumberOfInputChannels"
         }
     }
 }

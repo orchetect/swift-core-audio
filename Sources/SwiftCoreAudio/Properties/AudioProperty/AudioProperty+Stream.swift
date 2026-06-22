@@ -1,6 +1,6 @@
 //
 //  AudioProperty+Stream.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -9,16 +9,23 @@
 import CoreAudio
 import SwiftProcess
 
+// swiftformat:disable wrap wrapArguments
+// swiftformat:options --wrap-collections preserve
+
 // MARK: Scope & Element
 
 extension AudioProperty where SelectorConstant == AudioStreamPropertySelectorConstant {
     /// Has only the single scope, `kAudioObjectPropertyScopeGlobal`.
     nonisolated
-    private static var scope: any AudioPropertyScopeConstant { .object(.global) }
-    
+    private static var scope: any AudioPropertyScopeConstant {
+        .object(.global)
+    }
+
     /// Has a main element, and an element for each channel in the stream numbered upward from `1`.
     nonisolated
-    private static var element: any AudioPropertyElementConstant { .object(.main) }
+    private static var element: any AudioPropertyElementConstant {
+        .object(.main)
+    }
 }
 
 // MARK: CoreAudio/AudioHardware.h

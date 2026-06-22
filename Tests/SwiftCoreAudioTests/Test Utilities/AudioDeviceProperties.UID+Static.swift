@@ -1,6 +1,6 @@
 //
 //  AudioDeviceProperties.UID+Static.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,7 +11,7 @@ import SwiftCoreAudio
 
 extension AudioUID where Object: AudioDeviceProperties {
     // MARK: - Built-In Devices
-    
+
     /// `BuiltInSpeakerDevice`: Audio device UID common on many Macs for built-in speakers (has outputs).
     ///
     /// - Name on Mac Pro is "Mac Pro Speakers"
@@ -19,16 +19,16 @@ extension AudioUID where Object: AudioDeviceProperties {
     static var builtInSpeakerDevice: Self {
         Self("BuiltInSpeakerDevice")
     }
-    
+
     /// `BuiltInMicrophoneDevice`: Audio device UID common on many Macs for built-in microphone (has input).
     ///
     /// - Name on MacBook Pro is "MacBook Pro Microphone"
     static var builtInMicrophoneDevice: Self {
         Self("BuiltInMicrophoneDevice")
     }
-    
+
     // MARK: - BlackHole
-    
+
     /// `BlackHole2ch_UID`: BlackHole (2-channel variant).
     ///
     /// BlackHole is an open-source audio loopback driver for macOS.

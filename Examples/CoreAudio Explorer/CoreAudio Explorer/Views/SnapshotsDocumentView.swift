@@ -1,19 +1,19 @@
 //
 //  SnapshotsDocumentView.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
-import SwiftUI
 import SwiftCoreAudio
+import SwiftUI
 import UniformTypeIdentifiers
 
 struct SnapshotsDocumentView: View {
     @Binding var document: SnapshotsDocument
     @State private var model = SnapshotsModel()
-    
+
     @Environment(\.newDocument) private var newDocument
-    
+
     var body: some View {
         SnapshotView(snapshot: model.selectedSnapshot)
             .onAppear {
@@ -39,7 +39,7 @@ struct SnapshotsDocumentView: View {
                     }
                 }
                 .hidden(model.snapshots.isEmpty)
-                
+
                 ToolbarItem(placement: .navigation) {
                     Button {
                         newSnapshot()
@@ -47,7 +47,7 @@ struct SnapshotsDocumentView: View {
                         Label("New Snapshot", systemImage: "camera.shutter.button.fill")
                     }
                 }
-                
+
                 ToolbarItem(placement: .navigation) {
                     Button {
                         newDocumentFromCurrentSnapshot()
@@ -58,7 +58,7 @@ struct SnapshotsDocumentView: View {
                 }
             }
     }
-    
+
     private func newSnapshot() {
         Task {
             let snapshot = await AudioObjectSnapshot.system()
@@ -66,11 +66,11 @@ struct SnapshotsDocumentView: View {
             model.selectedSnapshot = snapshot
         }
     }
-    
+
     private func newDocumentFromCurrentSnapshot() {
         guard let selectedSnapshot = model.selectedSnapshot else { return }
         let newSnapshotDocument = SnapshotDocument(snapshot: selectedSnapshot)
-        
+
         newDocument(newSnapshotDocument)
     }
 }

@@ -1,6 +1,6 @@
 //
 //  AudioDevicePropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioDevice` class.
 public enum AudioDevicePropertySelectorConstant {
     // MARK: Aliased to AudioObject
-    
+
     /// Element Name
     ///
     /// A `CFString` that contains a human readable name for the given element in the given scope.
@@ -24,7 +24,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: Aliased to `kAudioObjectPropertyElementName`
     case elementName
-    
+
     /// Element Category Name
     ///
     /// A `CFString` that contains a human readable name for the category of the given
@@ -36,7 +36,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: Aliased to `kAudioObjectPropertyElementCategoryName`
     case elementCategoryName
-    
+
     /// Element Number Name
     ///
     /// A `CFString` that contains a human readable name for the number of the given
@@ -48,9 +48,9 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: Aliased to `kAudioObjectPropertyElementNumberName`
     case elementNumberName
-    
+
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Configuration Application
     ///
     /// A `CFString` that contains the bundle ID for an application that provides a GUI for
@@ -64,7 +64,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyConfigurationApplication`
     case configurationApplication
-    
+
     /// Device UID
     ///
     /// A `CFString` that contains a persistent identifier for the `AudioDevice`.
@@ -81,7 +81,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyDeviceUID`
     case deviceUID
-    
+
     /// Model UID
     ///
     /// A `CFString` that contains a persistent identifier for the model of an `AudioDevice`.
@@ -98,7 +98,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyModelUID`
     case modelUID
-    
+
     /// Transport Type
     ///
     /// A `UInt32` whose value indicates how the `AudioDevice` is connected to the CPU.
@@ -107,7 +107,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyTransportType`
     case transportType
-    
+
     /// Related Devices
     ///
     /// An array of `AudioDeviceID`s for devices related to the `AudioDevice`.
@@ -119,7 +119,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyRelatedDevices`
     case relatedDevices
-    
+
     /// Clock Domain
     ///
     /// A `UInt32` whose value indicates the clock domain to which this AudioDevice belongs.
@@ -133,7 +133,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyClockDomain`
     case clockDomain
-    
+
     /// Device Is Alive
     ///
     /// A `UInt32` where a value of `1` means the device is ready and available and `0`
@@ -143,7 +143,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyDeviceIsAlive`
     case deviceIsAlive
-    
+
     /// Device Is Running
     ///
     /// A `UInt32` where a value of `0` means the `AudioDevice` is not performing IO and
@@ -159,7 +159,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyDeviceIsRunning`
     case deviceIsRunning
-    
+
     /// Device Can Be Default Device
     ///
     /// A `UInt32` where `1` means that the `AudioDevice` is a possible selection for
@@ -170,7 +170,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyDeviceCanBeDefaultDevice`
     case deviceCanBeDefaultDevice
-    
+
     /// Device Can Be Default System Device
     ///
     /// A `UInt32` where `1` means that the `AudioDevice` is a possible selection for
@@ -180,7 +180,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyDeviceCanBeDefaultSystemDevice`
     case deviceCanBeDefaultSystemDevice
-    
+
     /// Latency
     ///
     /// A `UInt32` containing the number of frames of latency in the `AudioDevice`.
@@ -194,7 +194,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyLatency`
     case latency
-    
+
     /// Streams
     ///
     /// An array of `AudioStreamID`s that represent the `AudioStream`s of the `AudioDevice`.
@@ -206,7 +206,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyStreams`
     case streams
-    
+
     /// Control List
     ///
     /// An array of `AudioObjectID`s that represent the `AudioControl`s of the `AudioDevice`.
@@ -218,7 +218,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyControlList`
     case controlList
-    
+
     /// Safety Offset
     ///
     /// A `UInt32` whose value indicates the number for frames ahead (for output)
@@ -228,7 +228,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertySafetyOffset`
     case safetyOffset
-    
+
     /// Nominal Sample Rate
     ///
     /// A `Float64` that indicates the current nominal sample rate of the `AudioDevice`.
@@ -237,7 +237,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyNominalSampleRate`
     case nominalSampleRate
-    
+
     /// Available Nominal Sample Rates
     ///
     /// An array of `AudioValueRange` structs that indicates the valid ranges for the
@@ -247,7 +247,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyAvailableNominalSampleRates`
     case availableNominalSampleRates
-    
+
     /// Icon
     ///
     /// A `CFURLRef` that indicates an image file that can be used to represent the
@@ -259,7 +259,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyIcon`
     case icon
-    
+
     /// Is Hidden
     ///
     /// A `UInt32` where a non-zero value indicates that the device is not included
@@ -271,7 +271,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyIsHidden`
     case isHidden
-    
+
     /// Preferred Channels For Stereo
     ///
     /// An array of two `UInt32`s, the first for the left channel, the second for the
@@ -283,7 +283,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyPreferredChannelsForStereo`
     case preferredChannelsForStereo
-    
+
     /// Preferred Channel Layout
     ///
     /// An `AudioChannelLayout` that indicates how each channel of the `AudioDevice`
@@ -293,9 +293,9 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyPreferredChannelLayout`
     case preferredChannelLayout
-    
+
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// Plug-In Load Status
     ///
     /// An `OSStatus` that contains any error codes generated by loading the `IOAudio` driver
@@ -309,7 +309,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyPlugIn`
     case plugIn
-    
+
     /// Device Has Changed
     ///
     /// The type of this property is a `UInt32`, but its value has no meaning.
@@ -323,7 +323,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyDeviceHasChanged`
     case deviceHasChanged
-    
+
     /// Device is Running Somewhere
     ///
     /// A `UInt32` where `1` means that the `AudioDevice` is running in at least one process on
@@ -333,7 +333,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyDeviceIsRunningSomewhere`
     case deviceIsRunningSomewhere
-    
+
     /// Processor Overload
     ///
     /// A `UInt32` where the value has no meaning.
@@ -346,7 +346,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDeviceProcessorOverload`
     case processorOverload
-    
+
     /// IO Stopped Abnormally
     ///
     /// A `UInt32` where the value has no meaning.
@@ -360,7 +360,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyIOStoppedAbnormally`
     case ioStoppedAbnormally
-    
+
     /// Hog Mode
     ///
     /// A `pid_t` indicating the process that currently owns exclusive access to the `AudioDevice`
@@ -382,7 +382,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyHogMode`
     case hogMode
-    
+
     /// Buffer Frame Size
     ///
     /// A `UInt32` whose value indicates the number of frames in the IO buffers.
@@ -391,7 +391,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyBufferFrameSize`
     case bufferFrameSize
-    
+
     /// Buffer Frame Size Range
     ///
     /// An `AudioValueRange` indicating the minimum and maximum values, inclusive, for
@@ -401,7 +401,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyBufferFrameSizeRange`
     case bufferFrameSizeRange
-    
+
     /// Uses Variable Buffer Frame Sizes
     ///
     /// A `UInt32` that, if implemented by a device, indicates that the sizes of the buffers
@@ -420,7 +420,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyUsesVariableBufferFrameSizes`
     case usesVariableBufferFrameSizes
-    
+
     /// IO Cycle Usage
     ///
     /// A `Float32` whose range is from `0` to `1`.
@@ -434,7 +434,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyIOCycleUsage`
     case ioCycleUsage
-    
+
     /// Stream Configuration
     ///
     /// This property returns the stream configuration of the device in an `AudioBufferList`
@@ -445,7 +445,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyStreamConfiguration`
     case streamConfiguration
-    
+
     /// IOProc Stream Usage
     ///
     /// An `AudioHardwareIOProcStreamUsage` structure which details the stream usage of a given
@@ -463,7 +463,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyIOProcStreamUsage`
     case ioProcStreamUsage
-    
+
     /// Actual Sample Rate
     ///
     /// A `Float64` that indicates the current actual sample rate of the `AudioDevice`as measured
@@ -473,7 +473,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyActualSampleRate`
     case actualSampleRate
-    
+
     /// Clock Device
     ///
     /// A `CFString` that contains the UID for the `AudioClockDevice` that is currently serving
@@ -485,7 +485,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyClockDevice`
     case clockDevice
-    
+
     /// IO Thread OS Workgroup
     ///
     /// An `os_workgroup_t` that represents the thread workgroup the `AudioDevice`'s IO thread
@@ -497,7 +497,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyIOThreadOSWorkgroup`
     case ioThreadOSWorkgroup
-    
+
     /// Process Mute
     ///
     /// A `UInt32` where a non-zero value indicates that the current process's audio will be
@@ -509,9 +509,9 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyProcessMute`
     case processMute
-    
+
     // MARK: CoreAudio/AudioHardwareDeprecated.h
-    
+
     /// Volume Decibels to Scalar Transfer Function
     ///
     /// A `UInt32` whose value indicates the transfer function the HAL uses to convert
@@ -524,7 +524,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyVolumeDecibelsToScalarTransferFunction`
     case volumeDecibelsToScalarTransferFunction
-    
+
     /// Play Through Volume Decibels to Scalar Transfer Function
     ///
     /// A `UInt32` whose value indicates the transfer function the HAL uses to convert
@@ -540,7 +540,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyPlayThruVolumeDecibelsToScalarTransferFunction`
     case playThruVolumeDecibelsToScalarTransferFunction
-    
+
     /// Driver Should Own iSub
     ///
     /// A `UInt32` where a value of `0` means that the `AudioDevice` should not claim
@@ -556,7 +556,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertyDriverShouldOwniSub`
     case driverShouldOwniSub
-    
+
     /// Sub Volume Decibels to Scalar Transfer Function
     ///
     /// A `UInt32` whose value indicates the transfer function the HAL uses to convert
@@ -569,7 +569,7 @@ public enum AudioDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioDevicePropertySubVolumeDecibelsToScalarTransferFunction`
     case subVolumeDecibelsToScalarTransferFunction
-    
+
     // (Note that the CoreAudio/AudioHardwareDeprecated.h enum labelled
     // "AudioDevice Properties That Ought To Some Day Be Deprecated" is not implemented here,
     // as all of its contents have preferable alternatives.)
@@ -612,14 +612,16 @@ extension AudioDevicePropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: Aliased to AudioObject
+
         case .elementName: AudioObjectPropertySelectorConstant.elementName.rawValue
         case .elementCategoryName: AudioObjectPropertySelectorConstant.elementCategoryName.rawValue
         case .elementNumberName: AudioObjectPropertySelectorConstant.elementNumberName.rawValue
+
         // MARK: CoreAudio/AudioHardwareBase.h
         case .configurationApplication: kAudioDevicePropertyConfigurationApplication // "capp"
         case .deviceUID: kAudioDevicePropertyDeviceUID // "uid "
@@ -641,6 +643,7 @@ extension AudioDevicePropertySelectorConstant: RawRepresentable {
         case .isHidden: kAudioDevicePropertyIsHidden // "hidn"
         case .preferredChannelsForStereo: kAudioDevicePropertyPreferredChannelsForStereo // "dch2"
         case .preferredChannelLayout: kAudioDevicePropertyPreferredChannelLayout // "srnd"
+
         // MARK: CoreAudio/AudioHardware.h
         case .plugIn: kAudioDevicePropertyPlugIn // "plug"
         case .deviceHasChanged: kAudioDevicePropertyDeviceHasChanged // "diff"
@@ -658,6 +661,7 @@ extension AudioDevicePropertySelectorConstant: RawRepresentable {
         case .clockDevice: kAudioDevicePropertyClockDevice // "apcd"
         case .ioThreadOSWorkgroup: kAudioDevicePropertyIOThreadOSWorkgroup // "oswg"
         case .processMute: kAudioDevicePropertyProcessMute // "appm"
+
         // MARK: CoreAudio/AudioHardwareDeprecated.h
         case .volumeDecibelsToScalarTransferFunction: kAudioDevicePropertyVolumeDecibelsToScalarTransferFunction // "vctf"
         case .playThruVolumeDecibelsToScalarTransferFunction: kAudioDevicePropertyPlayThruVolumeDecibelsToScalarTransferFunction // "mvtf"
@@ -672,9 +676,11 @@ extension AudioDevicePropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: Aliased to AudioObject
+
         case .elementName: AudioObjectPropertySelectorConstant.elementName.description
         case .elementCategoryName: AudioObjectPropertySelectorConstant.elementCategoryName.description
         case .elementNumberName: AudioObjectPropertySelectorConstant.elementNumberName.description
+
         // MARK: CoreAudio/AudioHardwareBase.h
         case .configurationApplication: "Configuration Application"
         case .deviceUID: "Device UID"
@@ -696,6 +702,7 @@ extension AudioDevicePropertySelectorConstant: CustomStringConvertible {
         case .isHidden: "Is Hidden"
         case .preferredChannelsForStereo: "Preferred Channels For Stereo"
         case .preferredChannelLayout: "Preferred Channel Layout"
+
         // MARK: CoreAudio/AudioHardware.h
         case .plugIn: "Plug-In"
         case .deviceHasChanged: "Device Has Changed"
@@ -713,6 +720,7 @@ extension AudioDevicePropertySelectorConstant: CustomStringConvertible {
         case .clockDevice: "Clock Device"
         case .ioThreadOSWorkgroup: "IO Thread OS Workgroup"
         case .processMute: "Process Mute"
+
         // MARK: CoreAudio/AudioHardwareDeprecated.h
         case .volumeDecibelsToScalarTransferFunction: "Volume Decibels to Scalar Transfer Function"
         case .playThruVolumeDecibelsToScalarTransferFunction: "Play Through Volume Decibels to Scalar Transfer Function"

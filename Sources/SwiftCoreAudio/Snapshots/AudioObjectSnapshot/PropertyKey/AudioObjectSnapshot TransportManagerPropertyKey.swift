@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot TransportManagerPropertyKey.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -23,9 +23,12 @@ extension AudioObjectSnapshot.TransportManagerPropertyKey: AudioObjectSnapshot.P
 extension AudioObjectSnapshot.TransportManagerPropertyKey {
     public func getValue(of object: some AudioTransportManagerProperties) -> String? {
         // TODO: implement after implementing properties on AudioTransportManager
+
+        // swiftformat:disable hoistTry
         switch self {
         case .foo: nil
         }
+        // swiftformat:enable hoistTry
     }
 }
 

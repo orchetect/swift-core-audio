@@ -1,6 +1,6 @@
 //
 //  AudioDeviceProperties+Convenience.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -39,7 +39,7 @@ extension AudioDeviceProperties {
         }
         return count
     }
-    
+
     /// Returns the total channel count of channels for all streams for both directions.
     /// This method is more efficient than calling ``channelCount(for:)`` twice (for each direction).
     nonisolated
@@ -48,11 +48,11 @@ extension AudioDeviceProperties {
             let audioStreams = try streams
             var inputCount: Int = 0
             var outputCount: Int = 0
-            
+
             for audioStream in audioStreams {
                 let direction = try audioStream.direction
                 let channels = try audioStream.channelCount
-                
+
                 switch direction {
                 case .input:
                     inputCount += channels
@@ -60,11 +60,11 @@ extension AudioDeviceProperties {
                     outputCount += channels
                 }
             }
-            
+
             return (inputs: inputCount, outputs: outputCount)
         }
     }
-    
+
     /// Returns the channel name if one is assigned for the given channel number (1-based).
     ///
     /// Note that users are able to manually assign custom channel names to channels in Audio MIDI Setup.
@@ -80,11 +80,11 @@ extension AudioDeviceProperties {
         let property: DeviceProperty = .channelName(forChannelNumber: channelNumber, of: direction)
         let cfString: CFString? = try getPropertyOptionalObject(address: property.address, qualifier: .none)
         let string = cfString as String?
-        
+
         // if a channel name is not assigned, or if the channel index does not exist, Core Audio gives us an empty string.
         // we'll convert an empty string to a `nil` return value.
         if string?.isEmpty == true { return nil }
-        
+
         return string
     }
 }
@@ -93,25 +93,25 @@ extension AudioDeviceProperties {
 
 extension AudioDeviceProperties {
     nonisolated
-    public func streams(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) ->[AudioStream] {
+    public func streams(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> [AudioStream] {
         var filteredStreams: [AudioStream] = []
         for stream in try streams {
             if try stream.direction == direction { filteredStreams.append(stream) }
         }
         return filteredStreams
     }
-    
+
     /// Returns a boolean value indicating whether the device has at least one stream for the given
     /// direction.
     nonisolated
     public func hasStreams(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> Bool {
         let audioStreams = try streams
-        
+
         // if any stream is the specified direction return true
         for audioStream in audioStreams {
             if try audioStream.direction == direction { return true }
         }
-        
+
         return false
     }
 }

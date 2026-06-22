@@ -1,6 +1,6 @@
 //
 //  AudioObject.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -27,7 +27,7 @@ nonisolated
 public protocol AudioObject: Equatable, Hashable, Sendable {
     /// Strongly-typed audio object identifier.
     typealias ID = AudioID<Self>
-    
+
     /// Strongly-typed audio object identifier.
     nonisolated
     var id: ID { get }

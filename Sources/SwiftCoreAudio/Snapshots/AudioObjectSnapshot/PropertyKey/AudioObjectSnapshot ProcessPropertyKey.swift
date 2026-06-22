@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot ProcessPropertyKey.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -26,6 +26,7 @@ extension AudioObjectSnapshot.ProcessPropertyKey: AudioObjectSnapshot.PropertyKe
 
 extension AudioObjectSnapshot.ProcessPropertyKey {
     public func getValue(of object: some AudioProcessProperties) -> String? {
+        // swiftformat:disable hoistTry
         switch self {
         case .pid:
             withErrorCapture(key: self, try object.pid, transform: {
@@ -52,6 +53,7 @@ extension AudioObjectSnapshot.ProcessPropertyKey {
         case .isRunningForOutput:
             withErrorCapture(key: self, try object.isRunning(for: .output), transform: \.description)
         }
+        // swiftformat:enable hoistTry
     }
 }
 

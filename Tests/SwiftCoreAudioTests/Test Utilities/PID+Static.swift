@@ -1,6 +1,6 @@
 //
 //  PID+Static.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -12,7 +12,7 @@ import SwiftProcess
 
 extension PID {
     // MARK: - Random
-    
+
     /// Random PID useful for testing a PID that is guaranteed to not exist.
     static var randomUnused: Self {
         func newPID() -> PID {
@@ -22,7 +22,7 @@ extension PID {
         while let pids = try? PID.all, pids.contains(pid) {
             pid = newPID()
         }
-        
+
         return pid
     }
 }

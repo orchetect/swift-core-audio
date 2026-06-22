@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot SubTapPropertyKey.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -23,16 +23,18 @@ extension AudioObjectSnapshot.SubTapPropertyKey: AudioObjectSnapshot.PropertyKey
 
 extension AudioObjectSnapshot.SubTapPropertyKey {
     public func getValue(of object: some AudioSubTapProperties) -> String? {
+        // swiftformat:disable hoistTry
         switch self {
         case .extraLatency:
             withErrorCapture(key: self, try object.extraLatency, transform: \.description)
-            
+
         case .isDriftCompensationEnabled:
             withErrorCapture(key: self, try object.isDriftCompensationEnabled, transform: \.description)
-            
+
         case .driftCompensationQuality:
             withErrorCapture(key: self, try object.driftCompensationQuality, transform: \.rawValue.description)
         }
+        // swiftformat:enable hoistTry
     }
 }
 

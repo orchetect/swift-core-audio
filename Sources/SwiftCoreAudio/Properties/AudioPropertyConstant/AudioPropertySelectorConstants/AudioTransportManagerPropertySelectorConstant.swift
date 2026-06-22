@@ -1,6 +1,6 @@
 //
 //  AudioTransportManagerPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioTransportManager` class.
 public enum AudioTransportManagerPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// EndPoint List
     ///
     /// An array of `AudioObjectID`s for all the `AudioEndPoint` objects the transport manager
@@ -23,7 +23,7 @@ public enum AudioTransportManagerPropertySelectorConstant {
     ///
     /// > Constant: `kAudioTransportManagerPropertyEndPointList`
     case endPointList
-    
+
     /// Translate UID to EndPoint
     ///
     /// This property fetches the `AudioObjectID` that corresponds to the `AudioEndPoint` that
@@ -39,7 +39,7 @@ public enum AudioTransportManagerPropertySelectorConstant {
     ///
     /// > Constant: `kAudioTransportManagerPropertyTranslateUIDToEndPoint`
     case translateUIDToEndPoint
-    
+
     /// Transport Type
     ///
     /// A `UInt32` whose value indicates how the transport manager's endpoints and endpoint
@@ -49,9 +49,9 @@ public enum AudioTransportManagerPropertySelectorConstant {
     ///
     /// > Constant: `kAudioTransportManagerPropertyTransportType`
     case transportType
-    
+
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// Create EndPoint Device
     ///
     /// This property is used to tell a transport manager to create a new `AudioEndPointDevice`.
@@ -118,14 +118,16 @@ extension AudioTransportManagerPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .endPointList: kAudioTransportManagerPropertyEndPointList // "end#"
         case .translateUIDToEndPoint: kAudioTransportManagerPropertyTranslateUIDToEndPoint // "uide"
         case .transportType: kAudioTransportManagerPropertyTransportType // "tran"
+
         // MARK: CoreAudio/AudioHardware.h
         case .createEndPointDevice: kAudioTransportManagerCreateEndPointDevice // "cdev"
         case .destroyEndPointDevice: kAudioTransportManagerDestroyEndPointDevice // "ddev"
@@ -138,9 +140,11 @@ extension AudioTransportManagerPropertySelectorConstant: CustomStringConvertible
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .endPointList: "EndPoint List"
         case .translateUIDToEndPoint: "Translate UID to EndPoint"
         case .transportType: "Transport Type"
+
         // MARK: CoreAudio/AudioHardware.h
         case .createEndPointDevice: "Create EndPoint Device"
         case .destroyEndPointDevice: "Destroy EndPoint Device"

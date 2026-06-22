@@ -1,10 +1,12 @@
 //
 //  AudioSystemProperties+AggregateDevices.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if os(macOS) || targetEnvironment(macCatalyst)
+
+// swiftformat:disable opaqueGenericParameters
 
 import CoreAudio
 import SwiftProcess
@@ -44,7 +46,7 @@ extension AudioSystemProperties {
         let cfDictionary = composition.cfDictionary()
         return try makeAggregateDevice(composition: cfDictionary, waitForCompletionWithTimeout: timeout)
     }
-    
+
     /// Create a new aggregate audio device, or update an existing aggregate with the same UID.
     ///
     /// If an aggregate device with the given UID already exists, it will be updated.
@@ -76,7 +78,7 @@ extension AudioSystemProperties {
             return try makeAggregateDevice(composition: composition, waitForCompletionWithTimeout: timeout)
         }
     }
-    
+
     /// Create a new aggregate audio device.
     ///
     /// Note that Core Audio requires a UID when creating an aggregate device, and it must be unique
@@ -96,7 +98,7 @@ extension AudioSystemProperties {
     ) throws(SwiftCoreAudioError) -> AudioAggregateDevice {
         // get UID just for error/debug purposes
         let aggregateUID = (composition as NSDictionary)[kAudioAggregateDeviceUIDKey] as? String
-        
+
         var aggregateID: AudioObjectID = kAudioObjectUnknown
         try AudioHardwareCreateAggregateDevice(
             composition,
@@ -109,13 +111,13 @@ extension AudioSystemProperties {
                 return msg
             }()
         )
-        
+
         guard aggregateID != kAudioObjectUnknown else {
             throw .aggregateCreationFailed(message: "Returned object ID is 0 (invalid).")
         }
-        
+
         let newAggregate = AudioAggregateDevice(id: aggregateID)
-        
+
         if let timeout {
             // CoreAudio does not fully create the aggregate synchronously, so we have to wait for it before returning.
             // TODO: Not ideal but it works.
@@ -128,10 +130,10 @@ extension AudioSystemProperties {
                 }
             }
         }
-        
+
         return newAggregate
     }
-    
+
     /// Destroys an aggregate audio device.
     ///
     /// If an aggregate does not exist, this method will return gracefully without throwing an error.
@@ -147,7 +149,7 @@ extension AudioSystemProperties {
     ) throws(SwiftCoreAudioError) {
         try AudioHardwareDestroyAggregateDevice(aggregate.id.rawValue)
             .throwingSwiftCoreAudioError(message: "Failed to destroy aggregate device with ID \(aggregate.id).")
-        
+
         if let timeout {
             // CoreAudio does not fully destroy the aggregate synchronously, so we have to wait for it before returning.
             // TODO: Not ideal but it works.
@@ -168,7 +170,8 @@ extension AudioSystemProperties {
 extension AudioSystemProperties {
     /// Convenience to create or update an aggregate audio device by with ``AudioAggregateDevice/Composition`` properties.
     ///
-    /// For additional properties, see ``makeAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
+    /// For additional properties, see
+    /// ``makeAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
     ///
     /// - Parameters:
     ///   - uid: Aggregate composition `UID` property.
@@ -214,7 +217,8 @@ extension AudioSystemProperties {
 
     /// Convenience to create or update an aggregate audio device by with ``AudioAggregateDevice/Composition`` properties.
     ///
-    /// For additional properties, see ``makeAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
+    /// For additional properties, see
+    /// ``makeAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
     ///
     /// - Parameters:
     ///   - uid: Aggregate composition `UID` property.
@@ -233,7 +237,12 @@ extension AudioSystemProperties {
     /// - Throws: Throws an error if an aggregate device with the same UID already exists.
     @_disfavoredOverload
     nonisolated
-    public func makeAggregateDevice<Device: AudioDeviceProperties, Tap: AudioTapProperties, Clock: AudioClockProperties, MainDevice: AudioDeviceProperties>(
+    public func makeAggregateDevice<
+        Device: AudioDeviceProperties,
+        Tap: AudioTapProperties,
+        Clock: AudioClockProperties,
+        MainDevice: AudioDeviceProperties
+    >(
         withUID uid: AudioAggregateDevice.UID,
         name: String? = nil,
         deviceUIDs: [Device.UID] = [] as [AudioDevice.UID],
@@ -271,7 +280,8 @@ extension AudioSystemProperties {
     /// If an aggregate device with the given UID already exists, it will be updated.
     /// Otherwise, a new aggregate device will be created.
     ///
-    /// For additional properties, see ``makeOrUpdateAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
+    /// For additional properties, see
+    /// ``makeOrUpdateAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
     ///
     /// - Parameters:
     ///   - uid: Aggregate composition `UID` property.
@@ -337,7 +347,8 @@ extension AudioSystemProperties {
     /// If an aggregate device with the given UID already exists, it will be updated.
     /// Otherwise, a new aggregate device will be created.
     ///
-    /// For additional properties, see ``makeOrUpdateAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
+    /// For additional properties, see
+    /// ``makeOrUpdateAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
     ///
     /// - Parameters:
     ///   - uid: Aggregate composition `UID` property.
@@ -356,7 +367,12 @@ extension AudioSystemProperties {
     /// - Throws: Throws an error if an aggregate device with the same UID already exists.
     @_disfavoredOverload
     nonisolated
-    public func makeOrUpdateAggregateDevice<Device: AudioDeviceProperties, Tap: AudioTapProperties, Clock: AudioClockProperties, MainDevice: AudioDeviceProperties>(
+    public func makeOrUpdateAggregateDevice<
+        Device: AudioDeviceProperties,
+        Tap: AudioTapProperties,
+        Clock: AudioClockProperties,
+        MainDevice: AudioDeviceProperties
+    >(
         withUID uid: AudioAggregateDevice.UID,
         name: String? = nil,
         deviceUIDs: [Device.UID]? = nil as [AudioDevice.UID]?,

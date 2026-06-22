@@ -1,6 +1,6 @@
 //
 //  AudioDevice+AudioObjectProperties Tests.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -15,7 +15,7 @@ extension SerializedTests {
     @Suite
     struct AudioDevice_AudioObjectProperties_Tests {
         // MARK: baseClassID
-        
+
         @Test
         func baseClassID_invalid() throws {
             let device = AudioDevice(id: .randomUnused)
@@ -23,15 +23,15 @@ extension SerializedTests {
                 _ = try device.baseClassID
             }
         }
-        
+
         @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
         func baseClassID_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.baseClassID == .object) // device always has object base class
         }
-        
+
         // MARK: classID
-        
+
         @Test
         func classID_invalid() throws {
             let device = AudioDevice(id: .randomUnused)
@@ -39,15 +39,15 @@ extension SerializedTests {
                 _ = try device.classID
             }
         }
-        
+
         @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
         func classID_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.classID == .device)
         }
-        
+
         // MARK: owner
-        
+
         @Test
         func owner_invalid() throws {
             let device = AudioDevice(id: .randomUnused)
@@ -55,7 +55,7 @@ extension SerializedTests {
                 _ = try device.owner
             }
         }
-        
+
         @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
         func owner_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
@@ -63,9 +63,9 @@ extension SerializedTests {
             // devices are owned by the system
             #expect(owner as? AudioSystem != nil)
         }
-        
+
         // MARK: name
-        
+
         @Test
         func name_invalid() throws {
             let device = AudioDevice(id: .randomUnused)
@@ -73,15 +73,15 @@ extension SerializedTests {
                 _ = try device.name
             }
         }
-        
+
         @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
         func name_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.name == "BlackHole 2ch")
         }
-        
+
         // MARK: modelName
-        
+
         @Test
         func modelName_invalid() throws {
             let device = AudioDevice(id: .randomUnused)
@@ -89,16 +89,16 @@ extension SerializedTests {
                 _ = try device.modelName
             }
         }
-        
+
         @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
         func modelName_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole does not set a model name
             #expect(try device.modelName == nil)
         }
-        
+
         // MARK: manufacturer
-        
+
         @Test
         func manufacturer_invalid() throws {
             let device = AudioDevice(id: .randomUnused)
@@ -106,15 +106,15 @@ extension SerializedTests {
                 _ = try device.manufacturer
             }
         }
-        
+
         @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
         func manufacturer_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.manufacturer == "Existential Audio Inc.")
         }
-        
+
         // MARK: ownedObjects
-        
+
         @Test
         func ownedObjects_invalid() throws {
             let device = AudioDevice(id: .randomUnused)
@@ -122,15 +122,15 @@ extension SerializedTests {
                 _ = try device.ownedObjects
             }
         }
-        
+
         @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
         func ownedObjects_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.ownedObjects.isEmpty)
         }
-        
+
         // MARK: isIdentifying
-        
+
         @Test
         func isIdentifying_invalid() throws {
             let device = AudioDevice(id: .randomUnused)
@@ -138,15 +138,15 @@ extension SerializedTests {
                 _ = try device.isIdentifying
             }
         }
-        
+
         @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
         func isIdentifying_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try !device.isIdentifying)
         }
-        
+
         // MARK: serialNumber
-        
+
         @Test
         func serialNumber_invalid() throws {
             let device = AudioDevice(id: .randomUnused)
@@ -154,16 +154,16 @@ extension SerializedTests {
                 _ = try device.serialNumber
             }
         }
-        
+
         @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
         func serialNumber_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole does not set a serial number
             #expect(try device.serialNumber == nil)
         }
-        
+
         // MARK: firmwareVersion
-        
+
         @Test
         func firmwareVersion_invalidID() throws {
             let device = AudioDevice(id: .randomUnused)
@@ -171,7 +171,7 @@ extension SerializedTests {
                 _ = try device.firmwareVersion
             }
         }
-        
+
         /// Note: This test only runs if BlackHole 2ch is installed.
         @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
         func firmwareVersion_valid() throws {
@@ -180,9 +180,9 @@ extension SerializedTests {
             // it does set a firmware version for its AudioBox (tested in another file)
             #expect(try device.firmwareVersion == nil)
         }
-        
+
         // MARK: creator
-        
+
         @Test
         func creator_invalidID() throws {
             let device = AudioDevice(id: .randomUnused)
@@ -190,7 +190,7 @@ extension SerializedTests {
                 _ = try device.creator
             }
         }
-        
+
         /// Note: This test only runs if BlackHole 2ch is installed.
         @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
         func creator_valid() throws {

@@ -1,6 +1,6 @@
 //
 //  AudioStreamProperties.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,20 +13,20 @@ import SwiftProcess
 nonisolated
 public protocol AudioStreamProperties where Self: AudioObject {
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// Returns a boolean value indicating whether the stream is enabled and doing IO.
     nonisolated
     var isActive: Bool { get throws(SwiftCoreAudioError) }
-    
+
     /// Returns the direction of the stream (input or output).
     nonisolated
     var direction: AudioStream.Direction { get throws(SwiftCoreAudioError) }
-    
+
     /// Returns a ``AudioStream/TerminalType`` instance that describes the general kind of functionality
     /// attached to the stream.
     nonisolated
     var terminalType: AudioStream.TerminalType { get throws(SwiftCoreAudioError) }
-    
+
     /// Starting channel number (1-based).
     ///
     /// Specifies the first element in the owning device that corresponds to element one of this
@@ -36,7 +36,7 @@ public protocol AudioStreamProperties where Self: AudioObject {
     /// etc...), not to be confused with channel index (zero-based).
     nonisolated
     var startingChannelNumber: UInt32 { get throws(SwiftCoreAudioError) }
-    
+
     /// Returns the number of frames of latency in the stream.
     ///
     /// Note that the owning `AudioDevice` may have additional latency so it should be queried
@@ -44,7 +44,7 @@ public protocol AudioStreamProperties where Self: AudioObject {
     /// for the stream is the device latency summed with the stream latency.
     nonisolated
     var latency: UInt32 { get throws(SwiftCoreAudioError) }
-    
+
     /// Returns a ``AudioStream/CurrentBasicDescription`` instance describing the current virtual format of the stream.
     ///
     /// The virtual format refers to the data format in which all `IOProc`s for the owning
@@ -53,7 +53,7 @@ public protocol AudioStreamProperties where Self: AudioObject {
     /// The underlying type is a Core Audio `AudioStreamBasicDescription`.
     nonisolated
     var virtualFormat: AudioStream.CurrentBasicDescription { get throws(SwiftCoreAudioError) }
-    
+
     /// Returns an array of ``AudioStream/RangedDescription`` instances describing the available virtual formats
     /// of the stream.
     ///
@@ -63,7 +63,7 @@ public protocol AudioStreamProperties where Self: AudioObject {
     /// The underlying type is an array of Core Audio `AudioStreamRangedDescription`.
     nonisolated
     var availableVirtualFormats: [AudioStream.RangedDescription] { get throws(SwiftCoreAudioError) }
-    
+
     /// Returns a ``AudioStream/CurrentBasicDescription`` instance describing the current physical format of the stream.
     ///
     /// The physical format refers to the data format in which the hardware for the owning
@@ -72,7 +72,7 @@ public protocol AudioStreamProperties where Self: AudioObject {
     /// The underlying type is a Core Audio `AudioStreamBasicDescription`.
     nonisolated
     var physicalFormat: AudioStream.CurrentBasicDescription { get throws(SwiftCoreAudioError) }
-    
+
     /// Returns an array of ``AudioStream/RangedDescription`` instances describing the available physical formats
     /// of the stream.
     ///

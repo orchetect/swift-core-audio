@@ -1,6 +1,6 @@
 //
 //  AudioAggregateDevice Composition Key.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -15,7 +15,7 @@ extension AudioAggregateDevice.Composition {
     /// CoreAudio `kAudioAggregateDevice*Key` constants.
     public enum Key {
         // MARK: CoreAudio/AudioHardware.h
-        
+
         /// A `String` that contains the UID of the aggregate device.
         ///
         /// The underlying type is `CFString`.
@@ -24,7 +24,7 @@ extension AudioAggregateDevice.Composition {
         ///
         /// > Constant: `kAudioAggregateDeviceUIDKey`
         case uid
-        
+
         /// A `String` that contains the human readable name of the aggregate device.
         ///
         /// The underlying type is `CFString`.
@@ -33,7 +33,7 @@ extension AudioAggregateDevice.Composition {
         ///
         /// > Constant: `kAudioAggregateDeviceNameKey`
         case name
-        
+
         /// Subdevices that are included in the aggregate device.
         ///
         /// The underlying type is a `CFArray` of `CFDictionaries` that describe each sub-device
@@ -44,7 +44,7 @@ extension AudioAggregateDevice.Composition {
         ///
         /// > Constant: `kAudioAggregateDeviceSubDeviceListKey`
         case subdevices
-        
+
         /// A `String` that contains the UID for the sub-device that is the time source for the
         /// aggregate device.
         ///
@@ -54,7 +54,7 @@ extension AudioAggregateDevice.Composition {
         ///
         /// > Constant: `kAudioAggregateDeviceMainSubDeviceKey`
         case mainSubdeviceUID
-        
+
         /// A `String` that contains the UID for the clock device that is the time source for the
         /// aggregate device.
         ///
@@ -67,7 +67,7 @@ extension AudioAggregateDevice.Composition {
         ///
         /// > Constant: `kAudioAggregateDeviceClockDeviceKey`
         case clockUID
-        
+
         /// A boolean value where `true` makes the the aggregate device published to the entire system,
         /// and `false` makes it private to the process that created it.
         ///
@@ -79,7 +79,7 @@ extension AudioAggregateDevice.Composition {
         ///
         /// > Constant: `kAudioAggregateDeviceIsPrivateKey`
         case isPrivate
-        
+
         /// A boolean value describing whether the sub-devices of the aggregate device are arranged
         /// such that the output streams are all fed the same data or not.
         ///
@@ -89,7 +89,7 @@ extension AudioAggregateDevice.Composition {
         ///
         /// > Constant: `kAudioAggregateDeviceIsStackedKey`
         case isStacked
-        
+
         /// Taps that are included in the aggregate device.
         ///
         /// The underlying type is a `CFArray` of `CFDictionaries` that describe each tap
@@ -100,7 +100,7 @@ extension AudioAggregateDevice.Composition {
         ///
         /// > Constant: `kAudioAggregateDeviceTapListKey`
         case taps
-        
+
         /// A boolean value describing whether the aggregate device’s start should wait for the first
         /// tap that receives audio.
         ///
@@ -116,9 +116,9 @@ extension AudioAggregateDevice.Composition {
         ///
         /// > Constant: `kAudioAggregateDeviceTapAutoStartKey`
         case isTapAutoStartEnabled
-        
+
         // MARK: Other
-        
+
         /// Vocal isolation type.
         ///
         /// Discovered in composition dictionary of aggregates found in the system.
@@ -166,11 +166,12 @@ extension AudioAggregateDevice.Composition.Key: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: String {
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .uid: kAudioAggregateDeviceUIDKey // "uid"
         case .name: kAudioAggregateDeviceNameKey // "name"
         case .subdevices: kAudioAggregateDeviceSubDeviceListKey // "subdevices"
@@ -180,6 +181,7 @@ extension AudioAggregateDevice.Composition.Key: RawRepresentable {
         case .isStacked: kAudioAggregateDeviceIsStackedKey // "stacked"
         case .taps: kAudioAggregateDeviceTapListKey // "taps"
         case .isTapAutoStartEnabled: kAudioAggregateDeviceTapAutoStartKey // "tapautostart"
+
         // MARK: Other
         case .vocalIsolationType: "vocal isolation type"
         }
@@ -191,6 +193,7 @@ extension AudioAggregateDevice.Composition.Key: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .uid: "UID"
         case .name: "Name"
         case .subdevices: "Subdevices"
@@ -200,6 +203,7 @@ extension AudioAggregateDevice.Composition.Key: CustomStringConvertible {
         case .isStacked: "Is Stacked"
         case .taps: "Taps"
         case .isTapAutoStartEnabled: "Tap Auto-Start Enabled"
+
         // MARK: Other
         case .vocalIsolationType: "Vocal Isolation Type"
         }

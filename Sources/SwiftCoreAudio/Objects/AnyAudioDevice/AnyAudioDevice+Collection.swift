@@ -1,6 +1,6 @@
 //
-//  AnyAudioDevice.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  AnyAudioDevice+Collection.swift
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -19,7 +19,7 @@ extension Sequence<AnyAudioDevice> {
             return device
         }
     }
-    
+
     /// Returns all ``AudioAggregateDevice`` instances in the collection.
     nonisolated
     public var audioAggregateDevices: [AudioAggregateDevice] {

@@ -1,6 +1,6 @@
 //
 //  AudioTapPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioTap` class.
 public enum AudioTapPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// UID
     ///
     /// A `CFString` that contains a persistent identifier for the Tap. A Tap's UID
@@ -25,7 +25,7 @@ public enum AudioTapPropertySelectorConstant {
     ///
     /// > Constant: `kAudioTapPropertyUID`
     case uid
-    
+
     /// Description
     ///
     /// The `CATapDescription` used to initially create this tap. This property can be used
@@ -35,7 +35,7 @@ public enum AudioTapPropertySelectorConstant {
     ///
     /// > Constant: `kAudioTapPropertyDescription`
     case description
-    
+
     /// Format
     ///
     /// An `AudioStreamBasicDescription` that describes the current data format for
@@ -85,11 +85,12 @@ extension AudioTapPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .uid: kAudioTapPropertyUID // "tuid"
         case .description: kAudioTapPropertyDescription // "tdsc"
         case .format: kAudioTapPropertyFormat // "tfmt"
@@ -102,6 +103,7 @@ extension AudioTapPropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .uid: "UID"
         case .description: "Description"
         case .format: "Format"

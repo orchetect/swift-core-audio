@@ -1,6 +1,6 @@
 //
 //  Receiver.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,5 +13,8 @@ actor Receiver<T> {
         print(element)
         items.append(element)
     }
-    func reset() { items.removeAll() }
+
+    func reset() {
+        items.removeAll()
+    }
 }

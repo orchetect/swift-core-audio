@@ -1,6 +1,6 @@
 //
 //  AudioPlugInProperties.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,15 +13,15 @@ import SwiftProcess
 nonisolated
 public protocol AudioPlugInProperties where Self: AudioObject {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Returns the bundle ID string associated with the plugin.
     nonisolated
     var bundleID: BundleID? { get throws(SwiftCoreAudioError) }
-    
+
     /// Returns an array of devices provided by the plugin.
     nonisolated
     var devices: [AnyAudioDevice] { get throws(SwiftCoreAudioError) }
-    
+
     /// Returns the device for the given UID.
     nonisolated
     func device<Device: AudioDeviceProperties & IDConstructibleAudioObject>(
@@ -31,7 +31,7 @@ public protocol AudioPlugInProperties where Self: AudioObject {
     /// Returns an array of boxes provided by the plugin.
     nonisolated
     var boxes: [AudioBox] { get throws(SwiftCoreAudioError) }
-    
+
     /// Returns the box for the given UID.
     nonisolated
     func box<Box: AudioBoxProperties & IDConstructibleAudioObject>(
@@ -41,7 +41,7 @@ public protocol AudioPlugInProperties where Self: AudioObject {
     /// Returns an array of clocks provided by the plugin.
     nonisolated
     var clocks: [AudioClock] { get throws(SwiftCoreAudioError) }
-    
+
     /// Returns the device for the given UID.
     nonisolated
     func clock<Clock: AudioClockProperties & IDConstructibleAudioObject>(
@@ -61,7 +61,7 @@ public protocol AudioPlugInProperties where Self: AudioObject {
         composition: AudioAggregateDevice.Composition,
         waitForCompletionWithTimeout timeout: TimeInterval?
     ) throws(SwiftCoreAudioError) -> AudioAggregateDevice
-    
+
     /// Tell the plug-in to create a new aggregate audio device.
     ///
     /// - Parameters:
@@ -75,7 +75,7 @@ public protocol AudioPlugInProperties where Self: AudioObject {
         composition: CFDictionary,
         waitForCompletionWithTimeout timeout: TimeInterval?
     ) throws(SwiftCoreAudioError) -> AudioAggregateDevice
-    
+
     /// Tell the plug-in to destroy an aggregate audio device.
     ///
     /// - Parameters:

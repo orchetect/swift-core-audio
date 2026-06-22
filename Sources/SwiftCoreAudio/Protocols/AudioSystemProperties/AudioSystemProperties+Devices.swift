@@ -1,6 +1,6 @@
 //
 //  AudioSystemProperties+Devices.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -26,14 +26,14 @@ extension AudioSystemProperties {
     nonisolated
     public func devices(with direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> [AnyAudioDevice] {
         let allDevices = try devices
-        
+
         var includedDevices: [AnyAudioDevice] = []
         for device in allDevices {
             if try device.hasStreams(for: direction) {
                 includedDevices.append(device)
             }
         }
-        
+
         return includedDevices
     }
 }

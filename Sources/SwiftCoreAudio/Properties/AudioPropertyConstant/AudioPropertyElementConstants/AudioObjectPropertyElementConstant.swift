@@ -1,6 +1,6 @@
 //
 //  AudioObjectPropertyElementConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,7 +11,7 @@ import CoreAudio
 /// Analogous to CoreAudio `kAudioObjectPropertyElement*` element constants.
 public enum AudioObjectPropertyElementConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Main element.
     ///
     /// The `AudioObjectPropertyElement` value for properties that apply to the main element or to the entire scope.
@@ -59,11 +59,12 @@ extension AudioObjectPropertyElementConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: UInt32 {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .main: kAudioObjectPropertyElementMain // 0
         }
     }
@@ -74,6 +75,7 @@ extension AudioObjectPropertyElementConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .main: "Main"
         }
     }

@@ -1,6 +1,6 @@
 //
 //  OSStatus+SwiftCoreAudioError.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -25,7 +25,7 @@ extension OSStatus /* a.k.a. Int32 */ {
         guard let error = AudioOSStatusError(rawValue: self) else {
             return
         }
-        
+
         try error.throwSwiftCoreAudioError(message: message, file: file, line: line)
     }
 }

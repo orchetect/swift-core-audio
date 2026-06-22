@@ -1,6 +1,6 @@
 //
-//  AudioAggregateDevice+AudioAggregateDevice.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  AudioAggregateDevice+Collection.swift
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 

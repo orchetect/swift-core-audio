@@ -1,6 +1,6 @@
 //
 //  AudioSubTap.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -20,7 +20,7 @@
 public struct AudioSubTap {
     nonisolated
     public let id: ID
-    
+
     nonisolated
     public init(id: ID) {
         self.id = id

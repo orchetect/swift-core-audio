@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot AnyPropertyKey.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -33,7 +33,9 @@ extension AudioObjectSnapshot.AnyPropertyKey: Sendable { }
 
 extension AudioObjectSnapshot.AnyPropertyKey: CaseIterable {
     public static var allCases: [AudioObjectSnapshot.AnyPropertyKey] {
+        // swiftformat:disable preferKeyPath
         allKeyTypes.flatMap { $0.allCasesAsAnyPropertyKeys }
+        // swiftformat:enable preferKeyPath
     }
 
     public static var allKeyTypes: [any AudioObjectSnapshot.PropertyKey.Type] {
@@ -65,7 +67,7 @@ extension AudioObjectSnapshot.AnyPropertyKey: RawRepresentable {
         }
         return nil
     }
-    
+
     public var rawValue: String {
         switch self {
         case let .system(key): key.rawValue
@@ -92,20 +94,20 @@ extension AudioObjectSnapshot.AnyPropertyKey: Codable {
                 DecodingError.Context(codingPath: [], debugDescription: "Key is in an invalid format.")
             )
         }
-        
+
         guard let key = Self(rawValue: rawValue) else {
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(codingPath: [], debugDescription: "Key not recognized.")
             )
         }
-        
+
         self = key
     }
-    
+
     public func encode(to encoder: any Encoder) throws {
         // encode as if Self was a flat list of keys, with the assumption that all possible keys are unique
         var container = encoder.singleValueContainer()
-        
+
         switch self {
         case let .system(key): try container.encode(key)
         case let .object(key): try container.encode(key)
@@ -144,7 +146,7 @@ extension AudioObjectSnapshot.AnyPropertyKey {
             case let .aggregate(aggregate): aggregate
             }
         }
-        
+
         switch self {
         case let .system(key):
             guard let typedObject = object as? any AudioSystemProperties else { return nil }

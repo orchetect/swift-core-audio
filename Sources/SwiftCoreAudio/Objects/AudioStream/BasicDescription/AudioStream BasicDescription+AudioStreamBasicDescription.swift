@@ -1,6 +1,6 @@
 //
 //  AudioStream BasicDescription+AudioStreamBasicDescription.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -15,7 +15,7 @@ extension AudioStream.BasicDescription {
     public init(from description: AudioStreamBasicDescription) throws(SwiftCoreAudioError) {
         let audioFormat = try AudioFormat(tryingRawValue: description.mFormatID)
         let sampleRate = try SampleRate(tryingAudioStreamSampleRate: description.mSampleRate)
-        
+
         self.init(
             format: audioFormat,
             formatFlags: description.mFormatFlags,
@@ -28,7 +28,7 @@ extension AudioStream.BasicDescription {
             reserved: description.mReserved
         )
     }
-    
+
     /// Returns a new Core Audio `AudioStreamBasicDescription` instance by converting
     /// from this instance.
     nonisolated

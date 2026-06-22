@@ -1,6 +1,6 @@
 //
 //  AudioControlPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioControl` class.
 public enum AudioControlPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Scope
     ///
     /// An `AudioServerPlugIn_PropertyScope` that indicates which part of a device the
@@ -23,7 +23,7 @@ public enum AudioControlPropertySelectorConstant {
     ///
     /// > Constant: `kAudioControlPropertyScope`
     case scope
-    
+
     /// Element
     ///
     /// An `AudioServerPlugIn_PropertyElement` that indicates which element of the
@@ -33,9 +33,9 @@ public enum AudioControlPropertySelectorConstant {
     ///
     /// > Constant: `kAudioControlPropertyElement`
     case element
-    
+
     // MARK: CoreAudio/AudioHardwareDeprecated.h
-    
+
     /// Variant
     ///
     /// A `UInt32` that identifies the specific variant of an `AudioControl`.
@@ -87,14 +87,17 @@ extension AudioControlPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .scope: kAudioControlPropertyScope // "cscp"
         case .element: kAudioControlPropertyElement // "celm"
+
         // MARK: CoreAudio/AudioHardwareDeprecated.h
+
         case .variant: kAudioControlPropertyVariant // "cvar"
         }
     }
@@ -105,9 +108,13 @@ extension AudioControlPropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .scope: "Scope"
+
         case .element: "Element"
+
         // MARK: CoreAudio/AudioHardwareDeprecated.h
+
         case .variant: "Variant"
         }
     }

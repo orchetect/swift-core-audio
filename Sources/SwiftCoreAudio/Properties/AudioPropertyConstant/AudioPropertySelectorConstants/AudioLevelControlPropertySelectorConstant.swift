@@ -1,6 +1,6 @@
 //
 //  AudioLevelControlPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioLevelControl` class.
 public enum AudioLevelControlPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Scalar Value
     ///
     /// A `Float32` that represents the value of the volume control.
@@ -28,7 +28,7 @@ public enum AudioLevelControlPropertySelectorConstant {
     ///
     /// > Constant: `kAudioLevelControlPropertyScalarValue`
     case scalarValue
-    
+
     /// Decibel Value
     ///
     /// A Float32 that represents the value of the volume control in dB.
@@ -42,7 +42,7 @@ public enum AudioLevelControlPropertySelectorConstant {
     ///
     /// > Constant: `kAudioLevelControlPropertyDecibelValue`
     case decibelValue
-    
+
     /// Decibel Range
     ///
     /// An `AudioValueRange` that contains the minimum and maximum dB values the
@@ -50,7 +50,7 @@ public enum AudioLevelControlPropertySelectorConstant {
     ///
     /// > Constant: `kAudioLevelControlPropertyDecibelRange`
     case decibelRange
-    
+
     /// Convert Scalar to Decibels
     ///
     /// A `Float32` that on input contains a scalar volume value for the and on exit
@@ -60,7 +60,7 @@ public enum AudioLevelControlPropertySelectorConstant {
     ///
     /// > Constant: `kAudioLevelControlPropertyConvertScalarToDecibels`
     case convertScalarToDecibels
-    
+
     /// Convert Decibels to Scalar
     ///
     /// A `Float32` that on input contains a dB volume value for the and on exit
@@ -70,9 +70,9 @@ public enum AudioLevelControlPropertySelectorConstant {
     ///
     /// > Constant: `kAudioLevelControlPropertyConvertDecibelsToScalar`
     case convertDecibelsToScalar
-    
+
     // MARK: CoreAudio/AudioHardwareDeprecated.h
-    
+
     /// Decibels to Scalar Transfer Function
     ///
     /// A `UInt32` whose value indicates the transfer function the HAL uses to convert
@@ -121,16 +121,18 @@ extension AudioLevelControlPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
             // MARK: CoreAudio/AudioHardwareBase.h
+
         case .scalarValue: kAudioLevelControlPropertyScalarValue // "lcsv"
         case .decibelValue: kAudioLevelControlPropertyDecibelValue // "lcdv"
         case .decibelRange: kAudioLevelControlPropertyDecibelRange // "lcdr"
         case .convertScalarToDecibels: kAudioLevelControlPropertyConvertScalarToDecibels // "lcsd"
         case .convertDecibelsToScalar: kAudioLevelControlPropertyConvertDecibelsToScalar // "lcds"
+
             // MARK: CoreAudio/AudioHardwareDeprecated.h
         case .decibelsToScalarTransferFunction: kAudioLevelControlPropertyDecibelsToScalarTransferFunction // "lctf"
         }
@@ -142,11 +144,13 @@ extension AudioLevelControlPropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
             // MARK: CoreAudio/AudioHardwareBase.h
+
         case .scalarValue: "Scalar Value"
         case .decibelValue: "Decibel Value"
         case .decibelRange: "Decibel Range"
         case .convertScalarToDecibels: "Convert Scalar to Decibels"
         case .convertDecibelsToScalar: "Convert Decibels to Scalar"
+
             // MARK: CoreAudio/AudioHardwareDeprecated.h
         case .decibelsToScalarTransferFunction: "Decibels to Scalar Transfer Function"
         }

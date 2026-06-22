@@ -1,6 +1,6 @@
 //
 //  AudioObjectConcreteType.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -16,7 +16,7 @@ import Foundation
 public struct AudioObjectConcreteType<Object: AudioObject> {
     /// The ``AudioObjectType`` case that corresponds to the concrete object type.
     public let classID: AudioObjectClassID
-    
+
     /// Internal:
     /// Init used for static constructors.
     init(classID: AudioObjectClassID) {

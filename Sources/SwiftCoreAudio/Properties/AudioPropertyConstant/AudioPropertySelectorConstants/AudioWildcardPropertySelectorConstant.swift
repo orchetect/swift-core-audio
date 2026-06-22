@@ -1,6 +1,6 @@
 //
 //  AudioWildcardPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -35,7 +35,7 @@ extension AudioWildcardPropertySelectorConstant: RawRepresentable {
     public init?(rawValue: FourCharCode) { // a.k.a. UInt32
         guard rawValue == self.rawValue else { return nil }
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         kAudioObjectPropertySelectorWildcard // "****"

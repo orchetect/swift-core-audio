@@ -1,6 +1,6 @@
 //
 //  AudioAggregateDeviceProperties.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -8,18 +8,20 @@
 
 import CoreAudio
 
+// swiftformat:disable opaqueGenericParameters
+
 /// Properties offered by the Core Audio `AudioAggregateDevice` class.
 nonisolated
 public protocol AudioAggregateDeviceProperties where Self: AudioObject, Self: AudioDeviceProperties {
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// Returns the UIDs of all the devices, active or inactive, contained in the aggregate.
     ///
     /// The order of the items in the array is significant and is used to determine the order of the
     /// streams of the aggregate.
     nonisolated
     var subdeviceUIDs: [AudioSubDevice.UID] { get throws(SwiftCoreAudioError) }
-    
+
     /// Sets the UIDs of all the subdevices, active or inactive, contained in the aggregate.
     ///
     /// The order of the items in the array is significant and is used to determine the order of the
@@ -30,14 +32,14 @@ public protocol AudioAggregateDeviceProperties where Self: AudioObject, Self: Au
     /// Returns all of the active devices contained in the aggregate.
     nonisolated
     var activeSubdevices: [AudioSubDevice] { get throws(SwiftCoreAudioError) }
-    
+
     nonisolated
     var compositionDictionary: [String: Any] { get throws(SwiftCoreAudioError) }
-    
+
     /// A dictionary that describes the composition of the aggregate.
     nonisolated
     var composition: AudioAggregateDevice.Composition { get throws(SwiftCoreAudioError) }
-    
+
     /// Sets the dictionary that describes the composition of the aggregate.
     ///
     /// > Note:
@@ -51,7 +53,7 @@ public protocol AudioAggregateDeviceProperties where Self: AudioObject, Self: Au
     /// > The original UID that was used to create it in order to look the aggregate up.
     nonisolated
     func setComposition(_ composition: AudioAggregateDevice.Composition) throws(SwiftCoreAudioError)
-    
+
     /// Returns the UID of the device that is currently serving as the time base of the aggregate device.
     /// Returns `nil` if the aggregate does not contain any subdevices.
     ///
@@ -61,7 +63,7 @@ public protocol AudioAggregateDeviceProperties where Self: AudioObject, Self: Au
     /// main subdevice and one cannot be assigned.
     nonisolated
     var mainSubdeviceUID: AudioSubDevice.UID? { get throws(SwiftCoreAudioError) }
-    
+
     /// Sets the UID of the subdevice that is currently serving as the time base of the aggregate device.
     /// The UID must be a UID of one of the aggregate's subdevices.
     ///
@@ -78,7 +80,7 @@ public protocol AudioAggregateDeviceProperties where Self: AudioObject, Self: Au
     /// device will control the time base.
     nonisolated
     var clockUID: AudioClock.UID? { get throws(SwiftCoreAudioError) }
-    
+
     /// Sets the UID of the device that is currently serving as the time base of the aggregate
     /// device.
     ///
@@ -89,11 +91,11 @@ public protocol AudioAggregateDeviceProperties where Self: AudioObject, Self: Au
     /// aggregate device.
     nonisolated
     func setClock<Clock: AudioClockProperties>(uid: Clock.UID) throws(SwiftCoreAudioError)
-    
+
     /// Returns the UIDs of all the taps contained in the aggregate.
     nonisolated
     var tapUIDs: [AudioTap.UID] { get throws(SwiftCoreAudioError) }
-    
+
     /// Sets the UIDs of all the taps contained in the aggregate.
     nonisolated
     func setTaps<Tap: AudioTapProperties>(uids: some Sequence<Tap.UID>) throws(SwiftCoreAudioError)

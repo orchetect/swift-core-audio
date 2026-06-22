@@ -1,6 +1,6 @@
 //
 //  AudioProperty+AggregateDevice.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -9,14 +9,21 @@
 import CoreAudio
 import SwiftProcess
 
+// swiftformat:disable wrap wrapArguments
+// swiftformat:options --wrap-collections preserve
+
 // MARK: Scope & Element
 
 extension AudioProperty where SelectorConstant == AudioAggregateDevicePropertySelectorConstant {
     nonisolated
-    private static var scope: any AudioPropertyScopeConstant { .object(.global) }
-    
+    private static var scope: any AudioPropertyScopeConstant {
+        .object(.global)
+    }
+
     nonisolated
-    private static var element: any AudioPropertyElementConstant { .object(.main) }
+    private static var element: any AudioPropertyElementConstant {
+        .object(.main)
+    }
 }
 
 // MARK: CoreAudio/AudioHardware.h
@@ -35,7 +42,8 @@ extension AudioProperty where SelectorConstant == AudioAggregateDevicePropertySe
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioAggregateDevicePropertySelectorConstant, Qualifier == Never, Value == [String: Any] { // toll-free bridged from CFDictionary
+// dictionary toll-free bridged from CFDictionary
+extension AudioProperty where SelectorConstant == AudioAggregateDevicePropertySelectorConstant, Qualifier == Never, Value == [String: Any] {
     nonisolated
     public static var composition: Self {
         AudioProperty(selectorConstant: .composition, scope: scope, element: element)

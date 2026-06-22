@@ -1,6 +1,6 @@
 //
 //  AudioSubDeviceProperties.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,25 +13,25 @@ import SwiftProcess
 nonisolated
 public protocol AudioSubDeviceProperties where Self: AudioObject {
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// The number of sample frames to add to or subtract from the latency compensation used for this subdevice.
     nonisolated
     var extraLatency: Double { get throws(SwiftCoreAudioError) }
-    
+
     // TODO: needs testing
     /// Set the number of sample frames to add to or subtract from the latency compensation used for this subdevice.
     nonisolated
     func setExtraLatency(_ value: Double) throws(SwiftCoreAudioError)
-    
+
     /// A boolean value describing whether drift compensation is enabled for the subdevice.
     nonisolated
     var isDriftCompensationEnabled: Bool { get throws(SwiftCoreAudioError) }
-    
+
     // TODO: needs testing
     /// Sets the boolean value describing whether drift compensation is enabled for the subdevice.
     nonisolated
     func setIsDriftCompensationEnabled(_ value: Bool) throws(SwiftCoreAudioError)
-    
+
     /// The quality of the drift compensation for the subdevice.
     ///
     /// This value controls the trade-off between quality and CPU load in the drift compensation.
@@ -39,7 +39,7 @@ public protocol AudioSubDeviceProperties where Self: AudioObject {
     /// quality but also the less CPU is used to do the compensation.
     nonisolated
     var driftCompensationQuality: AudioAggregateDevice.DriftCompensationQuality { get throws(SwiftCoreAudioError) }
-    
+
     // TODO: needs testing
     /// Sets the quality of the drift compensation for the subdevice.
     ///
@@ -51,4 +51,3 @@ public protocol AudioSubDeviceProperties where Self: AudioObject {
 }
 
 #endif
-

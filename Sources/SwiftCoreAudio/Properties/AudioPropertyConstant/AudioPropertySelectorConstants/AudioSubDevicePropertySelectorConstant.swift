@@ -1,6 +1,6 @@
 //
 //  AudioSubDevicePropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioSubDevice` class.
 public enum AudioSubDevicePropertySelectorConstant {
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// Extra Latency
     ///
     /// A `Float64` indicating the number of sample frames to add to or subtract from
@@ -23,7 +23,7 @@ public enum AudioSubDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioSubDevicePropertyExtraLatency`
     case extraLatency
-    
+
     /// Drift Compensation
     ///
     /// A `UInt32` where a value of `0` indicates that no drift compensation should be
@@ -33,7 +33,7 @@ public enum AudioSubDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioSubDevicePropertyDriftCompensation`
     case driftCompensation
-    
+
     /// Drift Compensation Quality
     ///
     /// A `UInt32` that controls the trade-off between quality and CPU load in the
@@ -84,11 +84,12 @@ extension AudioSubDevicePropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .extraLatency: kAudioSubDevicePropertyExtraLatency // "xltc"
         case .driftCompensation: kAudioSubDevicePropertyDriftCompensation // "drft"
         case .driftCompensationQuality: kAudioSubDevicePropertyDriftCompensationQuality // "drfq"
@@ -101,6 +102,7 @@ extension AudioSubDevicePropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .extraLatency: "Extra Latency"
         case .driftCompensation: "Drift Compensation"
         case .driftCompensationQuality: "Drift Compensation Quality"

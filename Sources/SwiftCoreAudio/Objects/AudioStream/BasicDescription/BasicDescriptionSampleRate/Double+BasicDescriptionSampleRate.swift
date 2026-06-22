@@ -1,6 +1,6 @@
 //
 //  Double+BasicDescriptionSampleRate.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -14,7 +14,7 @@ extension Double: AudioStream.BasicDescriptionSampleRate {
     public var audioStreamSampleRate: Double {
         self
     }
-    
+
     nonisolated
     public init?(audioStreamSampleRate: Double) {
         self = audioStreamSampleRate

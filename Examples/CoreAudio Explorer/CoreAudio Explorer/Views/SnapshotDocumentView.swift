@@ -1,15 +1,15 @@
 //
 //  SnapshotDocumentView.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
-import SwiftUI
 import SwiftCoreAudio
+import SwiftUI
 
 struct SnapshotDocumentView: View {
     @Binding var document: SnapshotDocument
-    
+
     var body: some View {
         SnapshotView(snapshot: document.snapshot)
             .toolbar {
@@ -22,7 +22,7 @@ struct SnapshotDocumentView: View {
                 }
             }
     }
-    
+
     private func refreshSnapshot() {
         Task { document.snapshot = await AudioObjectSnapshot.system() }
     }

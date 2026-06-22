@@ -1,6 +1,6 @@
 //
 //  SnapshotDocument.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -23,12 +23,12 @@ struct SnapshotDocument: FileDocument {
     static let writableContentTypes: [UTType] = [
         .coreAudioSnapshot
     ]
-    
+
     init(configuration: ReadConfiguration) throws {
         guard let data = configuration.file.regularFileContents else {
             throw CocoaError(.fileReadCorruptFile)
         }
-        
+
         let jsonDecoder = JSONDecoder()
         snapshot = try jsonDecoder.decode(AudioObjectSnapshot.self, from: data)
     }

@@ -1,6 +1,6 @@
 //
 //  Logging.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -33,9 +33,9 @@ extension Logging {
 extension Logging {
     private static func _printLog(logLevel: OSLogType, message: String) {
         var output = ""
-        if let name = logLevel.name { output += "\(name): "}
+        if let name = logLevel.name { output += "\(name): " }
         output += message
-        
+
         print(output)
     }
 }

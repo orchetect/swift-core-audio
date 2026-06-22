@@ -1,6 +1,6 @@
 //
 //  AudioObjectProperties+Listeners.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -22,7 +22,7 @@ extension AudioObjectProperties {
     ) throws(SwiftCoreAudioError) -> AudioObjectPropertyListenerRef {
         try _addListener(forProperty: property, queue: queue, block: block)
     }
-    
+
     /// Registers for notifications to be received for the given property for this object and returns
     /// an `AsyncThrowingStream` that may be indefinitely iterated on within a `Task` until cancelled.
     ///

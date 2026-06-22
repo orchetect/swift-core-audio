@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot TapPropertyKey.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -23,6 +23,7 @@ extension AudioObjectSnapshot.TapPropertyKey: AudioObjectSnapshot.PropertyKey {
 
 extension AudioObjectSnapshot.TapPropertyKey {
     public func getValue(of object: some AudioTapProperties) -> String? {
+        // swiftformat:disable hoistTry
         switch self {
         case .tapUID:
             withErrorCapture(key: self, try object.tapUID, transform: \.rawValue)
@@ -35,6 +36,7 @@ extension AudioObjectSnapshot.TapPropertyKey {
             // TODO: may need custom serialization
             withErrorCapture(key: self, try object.format, transform: \.description)
         }
+        // swiftformat:enable hoistTry
     }
 }
 

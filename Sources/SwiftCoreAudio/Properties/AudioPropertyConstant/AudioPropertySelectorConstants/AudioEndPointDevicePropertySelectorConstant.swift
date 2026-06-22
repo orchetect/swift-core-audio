@@ -1,6 +1,6 @@
 //
 //  AudioEndPointDevicePropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioEndPointDevice` class.
 public enum AudioEndPointDevicePropertySelectorConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Composition
     ///
     /// A `CFDictionary` that describes the composition of the `AudioEndPointDevice`.
@@ -24,7 +24,7 @@ public enum AudioEndPointDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioEndPointDevicePropertyComposition`
     case composition
-    
+
     /// EndPoint List
     ///
     /// An array of `AudioObjectID`s for all the `AudioEndPoint`s in the device.
@@ -33,7 +33,7 @@ public enum AudioEndPointDevicePropertySelectorConstant {
     ///
     /// > Constant: `kAudioEndPointDevicePropertyEndPointList`
     case endPointList
-    
+
     /// Is Private
     ///
     /// A non-zero value indicates the `pid_t` of the process that owns the device.
@@ -82,11 +82,12 @@ extension AudioEndPointDevicePropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .composition: kAudioEndPointDevicePropertyComposition // "acom"
         case .endPointList: kAudioEndPointDevicePropertyEndPointList // "agrp"
         case .isPrivate: kAudioEndPointDevicePropertyIsPrivate // "priv"
@@ -99,6 +100,7 @@ extension AudioEndPointDevicePropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .composition: "Composition"
         case .endPointList: "EndPoint List"
         case .isPrivate: "Is Private"

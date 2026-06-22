@@ -1,6 +1,6 @@
 //
 //  AudioSubTapPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioSubTap` class.
 public enum AudioSubTapPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// A `Float64` indicating the number of sample frames to add to or subtract from
     /// the latency compensation used for this `AudioSubTap`.
     ///
@@ -21,7 +21,7 @@ public enum AudioSubTapPropertySelectorConstant {
     ///
     /// > Constant: `kAudioSubTapPropertyExtraLatency`
     case extraLatency
-    
+
     /// A `UInt32` where a value of `0` indicates that no drift compensation should be
     /// done for this `AudioSubTap` and a value of `1` means that it should.
     ///
@@ -29,7 +29,7 @@ public enum AudioSubTapPropertySelectorConstant {
     ///
     /// > Constant: `kAudioSubTapPropertyDriftCompensation`
     case driftCompensation
-    
+
     /// A `UInt32` that controls the trade-off between quality and CPU load in the
     /// drift compensation. The range of values is from `0` to `127`, where the lower
     /// the number, the worse the quality but also the less CPU is used to do the
@@ -78,11 +78,12 @@ extension AudioSubTapPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .extraLatency: kAudioSubTapPropertyExtraLatency // "xltc"
         case .driftCompensation: kAudioSubTapPropertyDriftCompensation // "drft"
         case .driftCompensationQuality: kAudioSubTapPropertyDriftCompensationQuality // "drfq"
@@ -95,6 +96,7 @@ extension AudioSubTapPropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .extraLatency: "Extra Latency"
         case .driftCompensation: "Drift Compensation"
         case .driftCompensationQuality: "Drift Compensation Quality"

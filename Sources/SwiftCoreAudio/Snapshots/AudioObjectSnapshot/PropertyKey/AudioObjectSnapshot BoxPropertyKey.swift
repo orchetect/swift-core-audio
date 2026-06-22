@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot BoxPropertyKey.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -30,6 +30,7 @@ extension AudioObjectSnapshot.BoxPropertyKey: AudioObjectSnapshot.PropertyKey {
 
 extension AudioObjectSnapshot.BoxPropertyKey {
     public func getValue(of object: some AudioBoxProperties) -> String? {
+        // swiftformat:disable hoistTry
         switch self {
         case .boxUID:
             withErrorCapture(key: self, try object.boxUID, transform: \.rawValue)
@@ -62,6 +63,7 @@ extension AudioObjectSnapshot.BoxPropertyKey {
                 return string.isEmpty ? nil : string
             })
         }
+        // swiftformat:enable hoistTry
     }
 }
 

@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot PropertyKey.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -8,8 +8,7 @@
 
 extension AudioObjectSnapshot {
     public protocol PropertyKey: Equatable, Hashable, CaseIterable, RawRepresentable, Codable, CustomStringConvertible, Sendable
-    where RawValue == String
-    {
+    where RawValue == String {
         /// Returns the property key as an``AudioObjectSnapshot/AnyPropertyKey`` instance.
         var asAnyPropertyKey: AudioObjectSnapshot.AnyPropertyKey { get }
     }

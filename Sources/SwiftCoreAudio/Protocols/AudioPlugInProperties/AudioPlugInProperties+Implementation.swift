@@ -1,6 +1,6 @@
 //
 //  AudioPlugInProperties+Implementation.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,25 +11,25 @@ import SwiftProcess
 
 extension AudioPlugInProperties {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     nonisolated
     public var bundleID: BundleID? {
         get throws(SwiftCoreAudioError) {
             let string = try withRecovery(
-                try getPropertyValue(property: PlugInProperty.bundleID),
+                getPropertyValue(property: PlugInProperty.bundleID),
                 unknownPropertyDefault: nil
             )
-            
+
             guard let string, !string.isEmpty else { return nil }
             return BundleID(string)
         }
     }
-    
+
     nonisolated
     public var devices: [AnyAudioDevice] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: PlugInProperty.deviceList)
-            
+
             var anyDevices: [AnyAudioDevice] = []
             for id in ids {
                 let anyDevice = AnyAudioDevice(id: id)
@@ -38,7 +38,7 @@ extension AudioPlugInProperties {
             return anyDevices
         }
     }
-    
+
     nonisolated
     public func device<Device: AudioDeviceProperties & IDConstructibleAudioObject>(
         forUID uid: Device.UID
@@ -48,7 +48,7 @@ extension AudioPlugInProperties {
         guard id != kAudioObjectUnknown else { return nil }
         return Device(id: id)
     }
-    
+
     nonisolated
     public var boxes: [AudioBox] {
         get throws(SwiftCoreAudioError) {
@@ -56,7 +56,7 @@ extension AudioPlugInProperties {
             return ids.map(AudioBox.init(id:))
         }
     }
-    
+
     nonisolated
     public func box<Box: AudioBoxProperties & IDConstructibleAudioObject>(
         forUID uid: Box.UID
@@ -66,7 +66,7 @@ extension AudioPlugInProperties {
         guard id != kAudioObjectUnknown else { return nil }
         return Box(id: id)
     }
-    
+
     nonisolated
     public var clocks: [AudioClock] {
         get throws(SwiftCoreAudioError) {
@@ -74,7 +74,7 @@ extension AudioPlugInProperties {
             return ids.map(AudioClock.init(id:))
         }
     }
-    
+
     nonisolated
     public func clock<Clock: AudioClockProperties & IDConstructibleAudioObject>(
         forUID uid: Clock.UID
@@ -99,7 +99,7 @@ extension AudioPlugInProperties {
         let cfDictionary = composition.cfDictionary()
         return try makeAggregateDevice(composition: cfDictionary, waitForCompletionWithTimeout: timeout)
     }
-    
+
     // TODO: needs testing
     /// - Throws: Throws an error if an aggregate device with the same UID already exists.
     nonisolated
@@ -108,9 +108,9 @@ extension AudioPlugInProperties {
         waitForCompletionWithTimeout timeout: TimeInterval? = 5.0
     ) throws(SwiftCoreAudioError) -> AudioAggregateDevice {
         let aggregateID = try getPropertyValue(property: PlugInProperty.createAggregateDevice, qualifier: .init(initialValue: composition))
-        
+
         let newAggregate = AudioAggregateDevice(id: aggregateID)
-        
+
         if let timeout {
             // CoreAudio does not fully create the aggregate synchronously, so we have to wait for it before returning.
             // TODO: Not ideal but it works.
@@ -123,10 +123,10 @@ extension AudioPlugInProperties {
                 }
             }
         }
-        
+
         return newAggregate
     }
-    
+
     // TODO: needs testing
     nonisolated
     public func destroyAggregateDevice(
@@ -141,7 +141,7 @@ extension AudioPlugInProperties {
             qualifier: .none
         )
         // TODO: not sure if a value gets returned (OSStatus? docs don't say.)
-        
+
         if let timeout {
             // CoreAudio does not fully destroy the aggregate synchronously, so we have to wait for it before returning.
             // TODO: Not ideal but it works.

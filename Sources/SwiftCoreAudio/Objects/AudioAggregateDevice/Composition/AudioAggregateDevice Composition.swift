@@ -1,6 +1,6 @@
 //
 //  AudioAggregateDevice Composition.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -28,7 +28,7 @@ extension AudioAggregateDevice {
         /// > Constant: `kAudioAggregateDeviceUIDKey`
         nonisolated
         public var uid: AudioAggregateDevice.UID?
-        
+
         /// A `String` that contains the human readable name of the aggregate device.
         ///
         /// The underlying type is `CFString`.
@@ -38,7 +38,7 @@ extension AudioAggregateDevice {
         /// > Constant: `kAudioAggregateDeviceNameKey`
         nonisolated
         public var name: String?
-        
+
         /// Subdevices that are included in the aggregate device.
         ///
         /// The underlying type is a `CFArray` of `CFDictionaries` that describe each sub-device
@@ -50,7 +50,7 @@ extension AudioAggregateDevice {
         /// > Constant: `kAudioAggregateDeviceSubDeviceListKey`
         nonisolated
         public var subdevices: [SubDevice] = []
-        
+
         /// Taps that are included in the aggregate device.
         ///
         /// The underlying type is a `CFArray` of `CFDictionaries` that describe each tap
@@ -62,7 +62,7 @@ extension AudioAggregateDevice {
         /// > Constant: `kAudioAggregateDeviceTapListKey`
         nonisolated
         public var subtaps: [SubTap] = []
-        
+
         /// A `String` that contains the UID for the clock device that is the time source for the
         /// aggregate device.
         ///
@@ -76,7 +76,7 @@ extension AudioAggregateDevice {
         /// > Constant: `kAudioAggregateDeviceClockDeviceKey`
         nonisolated
         public var clockUID: AudioClock.UID?
-        
+
         /// A `String` that contains the UID for the sub-device that is the time source for the
         /// aggregate device. If `nil`, Core Audio will automatically assign the first subdevice as
         /// the main subdevice.
@@ -93,7 +93,7 @@ extension AudioAggregateDevice {
         /// > Constant: `kAudioAggregateDeviceMainSubDeviceKey`
         nonisolated
         public var mainSubdeviceUID: AudioSubDevice.UID?
-        
+
         /// A boolean value where `true` makes the the aggregate device published to the entire system,
         /// and `false` makes it private to the process that created it.
         ///
@@ -106,7 +106,7 @@ extension AudioAggregateDevice {
         /// > Constant: `kAudioAggregateDeviceIsPrivateKey`
         nonisolated
         public var isPrivate: Bool?
-        
+
         /// A boolean value describing whether the sub-devices of the aggregate device are arranged
         /// such that the output streams are all fed the same data or not.
         ///
@@ -117,7 +117,7 @@ extension AudioAggregateDevice {
         /// > Constant: `kAudioAggregateDeviceIsStackedKey`
         nonisolated
         public var isStacked: Bool?
-        
+
         /// A boolean value describing whether the aggregate device’s start should wait for the first
         /// tap that receives audio.
         ///
@@ -134,9 +134,9 @@ extension AudioAggregateDevice {
         /// > Constant: `kAudioAggregateDeviceTapAutoStartKey`
         nonisolated
         public var isTapAutoStartEnabled: Bool?
-        
+
         // MARK: Other
-        
+
         /// Vocal isolation type.
         ///
         /// Discovered in composition dictionary of aggregates found in the system.
@@ -145,11 +145,12 @@ extension AudioAggregateDevice {
         /// > Constant: "vocal isolation type" string literal
         nonisolated
         public var vocalIsolationType: Int?
-        
+
         /// Unknown properties.
         nonisolated(unsafe)
         public var unknownProperties: [NSString: NSObject] = [:]
-        
+
+        // swiftformat:disable opaqueGenericParameters
         public init<Clock: AudioClockProperties, MainDevice: AudioDeviceProperties>(
             uid: AudioAggregateDevice.UID? = nil,
             name: String? = nil,
@@ -175,6 +176,7 @@ extension AudioAggregateDevice {
             self.vocalIsolationType = vocalIsolationType
             self.unknownProperties = unknownProperties
         }
+        // swiftformat:enable opaqueGenericParameters
     }
 }
 
@@ -194,7 +196,7 @@ extension AudioAggregateDevice.Composition {
         let cfDict = dictionary as CFDictionary
         self.init(dictionary: cfDict)
     }
-        
+
     /// Initialize by decoding a `CFDictionary` used by Core Audio for aggregate audio device
     /// configuration.
     nonisolated
@@ -202,21 +204,21 @@ extension AudioAggregateDevice.Composition {
         for (keyAny, valueAny) in dictionary as NSDictionary {
             do throws(SwiftCoreAudioError) {
                 // Type key as string and form an enum case
-                
+
                 guard let keyString = keyAny as? String else {
                     throw .invalidAggregateConfiguration(
                         message: "Encountered invalid composition dictionary key type: \(type(of: keyAny)) (\(keyAny))."
                     )
                 }
-                
+
                 guard let key = Key(rawValue: keyString) else {
                     throw .invalidAggregateConfiguration(
                         message: "Encountered unrecognized composition dictionary key: \(keyString)."
                     )
                 }
-                
+
                 // Value typing
-                
+
                 func castValue<T>(as valueType: T.Type) throws(SwiftCoreAudioError) -> T {
                     guard let value = valueAny as? T else {
                         throw .invalidAggregateConfiguration(
@@ -225,7 +227,7 @@ extension AudioAggregateDevice.Composition {
                     }
                     return value
                 }
-                
+
                 func boolValue() throws(SwiftCoreAudioError) -> Bool {
                     guard let value = valueAny as? NSNumber else { // allows Int and Bool when traversing non-CF dictionary
                         throw .invalidAggregateConfiguration(
@@ -234,7 +236,7 @@ extension AudioAggregateDevice.Composition {
                     }
                     return value != 0
                 }
-                
+
                 func stringValue() throws(SwiftCoreAudioError) -> String {
                     guard let value = valueAny as? String else {
                         throw .invalidAggregateConfiguration(
@@ -243,7 +245,7 @@ extension AudioAggregateDevice.Composition {
                     }
                     return value
                 }
-                
+
                 func cfDictionaryArrayValue() throws(SwiftCoreAudioError) -> [NSDictionary] {
                     guard let value = valueAny as? NSArray, let array = value as? [NSDictionary] else {
                         throw .invalidAggregateConfiguration(
@@ -252,9 +254,9 @@ extension AudioAggregateDevice.Composition {
                     }
                     return array
                 }
-                
+
                 // Convert values
-                
+
                 switch key {
                 case .uid:
                     let value = try stringValue()
@@ -303,13 +305,13 @@ extension AudioAggregateDevice.Composition {
             }
         }
     }
-    
+
     /// Converts the instance to a `[String: Any]` dictionary representation of the `CFDictionary` used by
     /// Core Audio for aggregate audio device configuration.
     nonisolated
     public func dictionary() -> [String: Any] {
         var dict: [String: Any] = [:]
-        
+
         for key in Key.allCases {
             switch key {
             case .uid:
@@ -336,18 +338,18 @@ extension AudioAggregateDevice.Composition {
                 dict[key.rawValue] = vocalIsolationType
             }
         }
-        
+
         dict.merge(unknownProperties as [String: Any]) { _, new in new }
-        
+
         return dict
     }
-    
+
     /// Converts the instance to a `CFDictionary` used by Core Audio for aggregate audio device
     /// configuration.
     nonisolated
     public func cfDictionary() -> CFDictionary {
         var dict: [String: Any] = [:]
-        
+
         for key in Key.allCases {
             switch key {
             case .uid:
@@ -374,9 +376,9 @@ extension AudioAggregateDevice.Composition {
                 dict[key.rawValue] = vocalIsolationType as NSNumber?
             }
         }
-        
+
         dict.merge(unknownProperties as [String: Any]) { _, new in new }
-        
+
         return dict as CFDictionary
     }
 }

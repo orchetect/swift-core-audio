@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot+Description.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -24,22 +24,22 @@ extension AudioObjectSnapshot {
     /// Returns a human-readable output suitable for logging or debugging.
     public var prettyDescription: String {
         var output = ""
-        
+
         // AudioObject
         output += "id: \(id)\n"
-        
+
         // iterate over all property keys so that ordering remains stable to the enum ordering
         for key in AnyPropertyKey.allCases {
             if let value = properties[key] {
                 output += "\(key): \(value)\n"
             }
         }
-        
+
         // iterate over children
         for child in children {
             output += child.prettyDescription
         }
-        
+
         return output
             .trimmingCharacters(in: .newlines)
     }

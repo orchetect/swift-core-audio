@@ -1,6 +1,6 @@
 //
 //  AudioSystemPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioSystemObject` class.
 public enum AudioSystemPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// Devices
     ///
     /// An array of the `AudioObjectID`s that represent all the devices currently
@@ -23,7 +23,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyDevices`
     case devices
-    
+
     /// Default Input Device
     ///
     /// The `AudioObjectID` of the default input `AudioDevice`.
@@ -32,7 +32,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyDefaultInputDevice`
     case defaultInputDevice
-    
+
     /// Default Output Device
     ///
     /// The `AudioObjectID` of the default output `AudioDevice`.
@@ -41,7 +41,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyDefaultOutputDevice`
     case defaultOutputDevice
-    
+
     /// Default System Output Device
     ///
     /// The `AudioObjectID` of the output `AudioDevice` to use for system related sound
@@ -51,7 +51,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyDefaultSystemOutputDevice`
     case defaultSystemOutputDevice
-    
+
     /// Translate UID to Device
     ///
     /// This property fetches the `AudioObjectID` that corresponds to the `AudioDevice`
@@ -67,7 +67,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyTranslateUIDToDevice`
     case translateUIDToDevice
-    
+
     /// Mix Stereo to Mono
     ///
     /// A `UInt32` where a value other than `0` indicates that `AudioDevice`s should mix
@@ -79,7 +79,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyMixStereoToMono`
     case mixStereoToMono
-    
+
     /// Plug-In List
     ///
     /// An array of `AudioObjectID`s that represent all the `AudioPlugIn` objects
@@ -89,7 +89,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyPlugInList`
     case plugInList
-    
+
     /// Translate Bundle ID to Plug-In
     ///
     /// This property fetches the `AudioObjectID` that corresponds to the `AudioPlugIn`
@@ -105,7 +105,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyTranslateBundleIDToPlugIn`
     case translateBundleIDToPlugIn
-    
+
     /// Transport Manager List
     ///
     /// An array of the `AudioObjectID`s for all the `AudioTransportManager` objects.
@@ -114,7 +114,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyTransportManagerList`
     case transportManagerList
-    
+
     /// Translate Bundle ID to Transport Manager
     ///
     /// This property fetches the `AudioObjectID` that corresponds to the `AudioTransportManager`
@@ -130,7 +130,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyTranslateBundleIDToTransportManager`
     case translateBundleIDToTransportManager
-    
+
     /// Box List
     ///
     /// An array of `AudioObjectID`s that represent all the AudioBox objects currently
@@ -140,7 +140,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyBoxList`
     case boxList
-    
+
     /// Translate UID to Box
     ///
     /// This property fetches the `AudioObjectID` that corresponds to the `AudioBox`
@@ -156,7 +156,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyTranslateUIDToBox`
     case translateUIDToBox
-    
+
     /// Clock Device List
     ///
     /// An array of `AudioObjectID`s that represent all the `AudioClockDevice` objects
@@ -166,7 +166,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyClockDeviceList`
     case clockDeviceList
-    
+
     /// Translate UID to Clock Device
     ///
     /// This property fetches the `AudioObjectID` that corresponds to the `AudioClockDevice`
@@ -182,7 +182,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyTranslateUIDToClockDevice`
     case translateUIDToClockDevice
-    
+
     /// Process is Main
     ///
     /// A `UInt32` where `1` means that the current process contains the main instance
@@ -195,7 +195,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyProcessIsMain`
     case processIsMain
-    
+
     /// Is Initing or Exiting
     ///
     /// A `UInt32` whose value will be non-zero if the HAL is either in the midst of
@@ -205,7 +205,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyIsInitingOrExiting`
     case isInitingOrExiting
-    
+
     /// User ID Changed
     ///
     /// This property exists so that clients can tell the HAL when they are changing
@@ -220,7 +220,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyUserIDChanged`
     case userIDChanged
-    
+
     /// Process Input Mute
     ///
     /// A `UInt32` where a non-zero value indicates that all data coming into the process
@@ -231,7 +231,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyProcessInputMute`
     case processInputMute
-    
+
     /// Process Is Audible
     ///
     /// A `UInt32` where a non-zero value indicates that the audio of the process will
@@ -242,7 +242,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyProcessIsAudible`
     case processIsAudible
-    
+
     /// Sleeping Is Allowed
     ///
     /// A `UInt32` where `1` means that the process will allow the CPU to idle sleep
@@ -255,7 +255,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertySleepingIsAllowed`
     case sleepingIsAllowed
-    
+
     /// Unloading Is Allowed
     ///
     /// A `UInt32` where `1` means that this process wants the HAL to unload itself
@@ -266,7 +266,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyUnloadingIsAllowed`
     case unloadingIsAllowed
-    
+
     /// Hog Mode is Allowed
     ///
     /// A `UInt32` where `1` means that this process wants the HAL to automatically take
@@ -280,7 +280,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyHogModeIsAllowed`
     case hogModeIsAllowed
-    
+
     /// User Session is Active or Headless
     ///
     /// A `UInt32` where a value other than `0` indicates that the login session of the
@@ -291,7 +291,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyUserSessionIsActiveOrHeadless`
     case userSessionIsActiveOrHeadless
-    
+
     /// Service Restarted
     ///
     /// A `UInt32` whose value has no meaning. Rather, this property exists so that
@@ -303,7 +303,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyServiceRestarted`
     case serviceRestarted
-    
+
     /// Power Hint
     ///
     /// A `UInt32` whose values are drawn from the `AudioHardwarePowerHint` enum.
@@ -320,7 +320,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyPowerHint`
     case powerHint
-    
+
     /// Process Object List
     ///
     /// An array of `AudioObjectID`s that represent the Process objects for all client processes
@@ -330,7 +330,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyProcessObjectList`
     case processObjectList
-    
+
     /// Translate PID to Process Object
     ///
     /// This property fetches the `AudioObjectID` that corresponds to the process object
@@ -346,7 +346,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyTranslatePIDToProcessObject`
     case translatePIDToProcessObject
-    
+
     /// Tap List
     ///
     /// An array of `AudioObjectID`s that represent the tap objects on the system.
@@ -355,7 +355,7 @@ public enum AudioSystemPropertySelectorConstant {
     ///
     /// > Constant: `kAudioHardwarePropertyTapList`
     case tapList
-    
+
     /// Translate UID to Tap
     ///
     /// This property fetches the `AudioObjectID` that corresponds to the `AudioTap`
@@ -410,11 +410,12 @@ extension AudioSystemPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .devices: kAudioHardwarePropertyDevices // "dev#"
         case .defaultInputDevice: kAudioHardwarePropertyDefaultInputDevice // "dIn "
         case .defaultOutputDevice: kAudioHardwarePropertyDefaultOutputDevice // "dOut"
@@ -453,6 +454,7 @@ extension AudioSystemPropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardware.h
+
         case .devices: "Devices"
         case .defaultInputDevice: "Default Input Device"
         case .defaultOutputDevice: "Default Output Device"

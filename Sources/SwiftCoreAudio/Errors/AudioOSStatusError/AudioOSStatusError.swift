@@ -1,6 +1,6 @@
 //
 //  AudioOSStatusError.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,15 +13,16 @@ public struct AudioOSStatusError: RawRepresentable {
     public let rawValue: OSStatus
 
     /// Construct from a raw `OSStatus` value.
-    /// 
+    ///
     /// This initializer only returns `nil` if the value is equal to the `OSStatus` `noErr` constant (value of `0`).
     /// As such, it should not be possible for an error type to be constructed from a non-error `OSStatus` value.
-    @inline(__always) nonisolated
+    @inline(__always)
+    nonisolated
     public init?(rawValue: OSStatus) {
         guard rawValue != noErr else { return nil }
         self.rawValue = rawValue
     }
-    
+
     /// Construct from an ``AudioOSStatus`` instance.
     ///
     /// This constructor only returns `nil` if the status is ``AudioOSStatus/noError`` (the `OSStatus` `noErr` constant).
@@ -29,24 +30,27 @@ public struct AudioOSStatusError: RawRepresentable {
     /// ``AudioOSStatus`` is designed to 1:1 correspond to `OSStatus` status values, but the statuses include a `noErr`
     /// constant. This constant is not actually an error, but rather represents the absence of an error.
     /// As such, it should not be possible for an error type to be constructed from a non-error `OSStatus` value.
-    @inline(__always) nonisolated
+    @inline(__always)
+    nonisolated
     public init?(status: AudioOSStatus) {
         guard status != .noError else { return nil }
-        self.rawValue = status.rawValue
+        rawValue = status.rawValue
     }
-    
+
     /// Internal:
     /// Construct from an ``OSStatus`` instance without checking for `noErr`.
-    @inline(__always) nonisolated
+    @inline(__always)
+    nonisolated
     init(unsafe rawValue: OSStatus) {
         self.rawValue = rawValue
     }
-    
+
     /// Internal:
     /// Construct from an ``AudioOSStatus`` instance without checking for `noErr`.
-    @inline(__always) nonisolated
+    @inline(__always)
+    nonisolated
     init(unsafe status: AudioOSStatus) {
-        self.rawValue = status.rawValue
+        rawValue = status.rawValue
     }
 }
 
@@ -83,7 +87,8 @@ extension AudioOSStatusError {
     /// If the code is `noErr` (`0`) or an unrecognized code, this method returns `nil`.
     ///
     /// If `nil` is returned, you may inspect the raw status value by reading the ``rawValue`` property.
-    @inline(__always) nonisolated
+    @inline(__always)
+    nonisolated
     public var status: AudioOSStatus? {
         AudioOSStatus(rawValue: rawValue)
     }

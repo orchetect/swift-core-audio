@@ -1,13 +1,13 @@
 //
 //  AudioPropertyQualifier.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if os(macOS) || targetEnvironment(macCatalyst)
 
-import Foundation
 import CoreAudio
+import Foundation
 
 /// Qualifier value provided to a Core Audio object property method.
 public struct AudioPropertyQualifier<T> {
@@ -16,20 +16,20 @@ public struct AudioPropertyQualifier<T> {
 
     nonisolated
     let size: UInt32
-    
+
     /// Initialize as `nil` (no qualifier).
     nonisolated
     public init() where T == Never {
         value = nil
         size = 0
     }
-    
+
     nonisolated
     public init(initialValue value: T) {
         self.value = value
-        self.size = UInt32(MemoryLayout<T>.stride)
+        size = UInt32(MemoryLayout<T>.stride)
     }
-    
+
     nonisolated
     public init(initialValue value: T, size: UInt32) {
         self.value = value
@@ -39,7 +39,7 @@ public struct AudioPropertyQualifier<T> {
     nonisolated
     public init<S>(initialValue value: T, sizeOf typeForSize: S.Type) {
         self.value = value
-        self.size = UInt32(MemoryLayout<S>.stride)
+        size = UInt32(MemoryLayout<S>.stride)
     }
 }
 

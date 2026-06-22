@@ -1,6 +1,6 @@
 //
 //  AudioObjectPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by objects of the `AudioObject` class.
 public enum AudioObjectPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Base Class
     ///
     /// An `AudioClassID` that identifies the class from which the class of the
@@ -25,7 +25,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyBaseClass`
     case baseClass
-    
+
     /// Class
     ///
     /// An `AudioClassID` that identifies the class of the audio object.
@@ -34,7 +34,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyClass`
     case `class`
-    
+
     /// Owner
     ///
     /// An `AudioObjectID` that identifies the the audio object that owns the given audio object.
@@ -47,7 +47,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyOwner`
     case owner
-    
+
     /// Name
     ///
     /// A `CFString` that contains the human readable name of the object.
@@ -64,7 +64,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyName`
     case name
-    
+
     /// Model Name
     ///
     /// A `CFString` that contains the human readable model name of the object.
@@ -77,7 +77,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyModelName`
     case modelName
-    
+
     /// Manufacturer
     ///
     /// A `CFString` that contains the human readable name of the manufacturer of the
@@ -89,7 +89,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyManufacturer`
     case manufacturer
-    
+
     /// Element Name
     ///
     /// A `CFString` that contains a human readable name for the given element in the given scope.
@@ -100,7 +100,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyElementName`
     case elementName
-    
+
     /// Element Category Name
     ///
     /// A `CFString` that contains a human readable name for the category of the given
@@ -112,7 +112,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyElementCategoryName`
     case elementCategoryName
-    
+
     /// Element Number Name
     ///
     /// A `CFString` that contains a human readable name for the number of the given
@@ -124,7 +124,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyElementNumberName`
     case elementNumberName
-    
+
     /// Owned Objects
     ///
     /// An array of `AudioObjectID`s that represent all the audio objects owned by the
@@ -138,7 +138,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyOwnedObjects`
     case ownedObjects
-    
+
     /// Identify
     ///
     /// A `UInt32` indicating whether an object's hardware is drawing attention to itself.
@@ -155,7 +155,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyIdentify`
     case identify
-    
+
     /// Serial Number
     ///
     /// A `CFString` that contains the human readable serial number for the object.
@@ -173,7 +173,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertySerialNumber`
     case serialNumber
-    
+
     /// Firmware Version
     ///
     /// A `CFString` that contains the human readable firmware version for the object.
@@ -189,9 +189,9 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyFirmwareVersion`
     case firmwareVersion
-    
+
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// Creator
     ///
     /// A `CFString` that contains the bundle ID of the plug-in that instantiated the object.
@@ -202,7 +202,7 @@ public enum AudioObjectPropertySelectorConstant {
     ///
     /// > Constant: `kAudioObjectPropertyCreator`
     case creator
-    
+
     // /// Listener Added
     // ///
     // /// An `AudioObjectPropertyAddress` indicating the address to which a new listener
@@ -268,11 +268,12 @@ extension AudioObjectPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .baseClass: kAudioObjectPropertyBaseClass // "bcls"
         case .class: kAudioObjectPropertyClass // "clas"
         case .owner: kAudioObjectPropertyOwner // "stdv"
@@ -286,6 +287,7 @@ extension AudioObjectPropertySelectorConstant: RawRepresentable {
         case .identify: kAudioObjectPropertyIdentify // "iden"
         case .serialNumber: kAudioObjectPropertySerialNumber // "snum"
         case .firmwareVersion: kAudioObjectPropertyFirmwareVersion // "fwvn"
+
         // MARK: CoreAudio/AudioHardware.h
         case .creator: kAudioObjectPropertyCreator // "oplg"
         // case .listenerAdded: kAudioObjectPropertyListenerAdded // "lisa"
@@ -299,6 +301,7 @@ extension AudioObjectPropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .baseClass: "Base Class"
         case .class: "Class"
         case .owner: "Owner"
@@ -312,6 +315,7 @@ extension AudioObjectPropertySelectorConstant: CustomStringConvertible {
         case .identify: "Identify"
         case .serialNumber: "Serial Number"
         case .firmwareVersion: "Firmware Version"
+
         // MARK: CoreAudio/AudioHardware.h
         case .creator: "Creator"
         // case .listenerAdded: "Listener Added"

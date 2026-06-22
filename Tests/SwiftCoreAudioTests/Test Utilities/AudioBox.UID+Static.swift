@@ -1,6 +1,6 @@
 //
 //  AudioBox.UID+Static.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,7 +11,7 @@ import SwiftCoreAudio
 
 extension AudioUID<AudioBox> /* a.k.a. AudioBox.UID */ {
     // MARK: - BlackHole
-    
+
     /// `BlackHole2ch_UID`: BlackHole (2-channel variant).
     ///
     /// BlackHole is an open-source audio loopback driver for macOS.

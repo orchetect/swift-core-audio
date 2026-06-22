@@ -1,6 +1,6 @@
 //
 //  AudioSubTapProperties+Implementation.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,33 +13,33 @@ import SwiftProcess
 
 extension AudioSubTapProperties {
     // MARK: CoreAudio/AudioHardware.h
-    
+
     nonisolated
     public var extraLatency: Double {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: SubTapProperty.extraLatency)
         }
     }
-    
+
     // TODO: needs testing
     nonisolated
     public func setExtraLatency(_ value: Double) throws(SwiftCoreAudioError) {
         try setPropertyValue(property: SubTapProperty.extraLatency, value: value)
     }
-    
+
     nonisolated
     public var isDriftCompensationEnabled: Bool {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: SubTapProperty.driftCompensation)
         }
     }
-    
+
     // TODO: needs testing
     nonisolated
     public func setIsDriftCompensationEnabled(_ value: Bool) throws(SwiftCoreAudioError) {
         try setPropertyValue(property: SubTapProperty.driftCompensation, value: value)
     }
-    
+
     nonisolated
     public var driftCompensationQuality: AudioAggregateDevice.DriftCompensationQuality {
         get throws(SwiftCoreAudioError) {
@@ -48,7 +48,7 @@ extension AudioSubTapProperties {
             return quality
         }
     }
-    
+
     nonisolated
     public func setDriftCompensationQuality(_ quality: AudioAggregateDevice.DriftCompensationQuality) throws(SwiftCoreAudioError) {
         try setPropertyValue(property: SubTapProperty.driftCompensationQuality, value: quality.rawValue)

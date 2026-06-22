@@ -1,6 +1,6 @@
 //
 //  SwiftCoreAudioError+Recovery.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -28,24 +28,24 @@ public func withRecovery<T>(
     } catch {
         // only attempt to recover OSStatus errors
         guard case let .osStatus(osStatusError, message: message) = error else { throw error }
-        
+
         // it's possible to encounter an OSStatus we don't know about yet; just ignore it here
         // since it's unlikely that we will need/want to reason on it in this context.
         // this helper method is mostly intended for recovering from known OSStatus cases.
         guard let status = osStatusError.status else { throw error }
-        
+
         // if a substitute/recovery value is returned (non-`nil`), return it without throwing
         guard let value = fallback(status) else {
             throw error
         }
-        
+
         #if DEBUG
         var logMessage = "Core Audio error: \(osStatusError)."
         if let message { logMessage += " (\(message))" }
         logMessage += " Recovering with substitute \(T.self) value: \(value)."
         Logging.log(.error, logMessage)
         #endif
-        
+
         return value
     }
 }
@@ -54,7 +54,7 @@ public func withRecovery<T>(
 /// ``AudioOSStatus/unknownProperty`` error recovery by providing a default value.
 public func withRecovery<T>(
     _ block: @autoclosure () throws(SwiftCoreAudioError) -> T,
-    unknownPropertyDefault defaultValue: @autoclosure() -> T
+    unknownPropertyDefault defaultValue: @autoclosure () -> T
 ) throws(SwiftCoreAudioError) -> T {
     try withRecovery(block()) { osStatus in
         if osStatus == .unknownProperty {

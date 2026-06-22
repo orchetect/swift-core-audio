@@ -1,6 +1,6 @@
 //
 //  AudioSelectorControlPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioSelectorControl` class.
 public enum AudioSelectorControlPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Current Item
     ///
     /// An array of `UInt32`s that are the IDs of the items currently selected.
@@ -22,7 +22,7 @@ public enum AudioSelectorControlPropertySelectorConstant {
     ///
     /// > Constant: `kAudioSelectorControlPropertyCurrentItem`
     case currentItem
-    
+
     /// Available Items
     ///
     /// An array of `UInt32`s that represent the IDs of all the items available.
@@ -31,7 +31,7 @@ public enum AudioSelectorControlPropertySelectorConstant {
     ///
     /// > Constant: `kAudioSelectorControlPropertyAvailableItems`
     case availableItems
-    
+
     /// Item Name
     ///
     /// This property translates the given item ID into a human readable name. The
@@ -44,7 +44,7 @@ public enum AudioSelectorControlPropertySelectorConstant {
     ///
     /// > Constant: `kAudioSelectorControlPropertyItemName`
     case itemName
-    
+
     /// Item Kind
     ///
     /// This property returns a `UInt32` that identifies the kind of selector item the
@@ -98,11 +98,12 @@ extension AudioSelectorControlPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .currentItem: kAudioSelectorControlPropertyCurrentItem // "scci"
         case .availableItems: kAudioSelectorControlPropertyAvailableItems // "scai"
         case .itemName: kAudioSelectorControlPropertyItemName // "scin"
@@ -116,6 +117,7 @@ extension AudioSelectorControlPropertySelectorConstant: CustomStringConvertible 
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .currentItem: "Current Item"
         case .availableItems: "Available Items"
         case .itemName: "Item Name"

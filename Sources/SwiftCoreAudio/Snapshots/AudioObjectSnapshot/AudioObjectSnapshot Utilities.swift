@@ -1,13 +1,13 @@
 //
 //  AudioObjectSnapshot Utilities.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if os(macOS) || targetEnvironment(macCatalyst)
 
-func withErrorCapture<Key: RawRepresentable>(
-    key: Key,
+func withErrorCapture(
+    key: some RawRepresentable,
     _ value: @autoclosure () throws(SwiftCoreAudioError) -> String?
 ) -> String? {
     do throws(SwiftCoreAudioError) {
@@ -17,8 +17,8 @@ func withErrorCapture<Key: RawRepresentable>(
     }
 }
 
-func withErrorCapture<Key: RawRepresentable, T>(
-    key: Key,
+func withErrorCapture<T>(
+    key: some RawRepresentable,
     _ value: @autoclosure () throws(SwiftCoreAudioError) -> T?,
     transform: (T) -> String?
 ) -> String? {
@@ -31,8 +31,8 @@ func withErrorCapture<Key: RawRepresentable, T>(
     }
 }
 
-func withErrorCapture<Key: RawRepresentable, T>(
-    key: Key,
+func withErrorCapture<T>(
+    key: some RawRepresentable,
     _ value: @autoclosure () throws(SwiftCoreAudioError) -> T?,
     transform: KeyPath<T, String>
 ) -> String? {
@@ -48,7 +48,7 @@ func withErrorCapture<Key: RawRepresentable, T>(
 extension StringProtocol {
     func prefixingLines(with prefix: String) -> String {
         guard !prefix.isEmpty else { return String(self) }
-        
+
         return split(separator: "\n")
             .map { "\(prefix)\($0)" }
             .joined(separator: "\n")

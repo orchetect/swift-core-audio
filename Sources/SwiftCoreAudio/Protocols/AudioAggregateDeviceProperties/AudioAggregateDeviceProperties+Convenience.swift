@@ -1,6 +1,6 @@
 //
 //  AudioAggregateDeviceProperties+Convenience.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -8,6 +8,8 @@
 
 import CoreAudio
 import SwiftProcess
+
+// swiftformat:disable opaqueGenericParameters
 
 // MARK: - Convenience: Lifecycle
 
@@ -38,7 +40,7 @@ extension AudioAggregateDeviceProperties {
     ) throws(SwiftCoreAudioError) {
         // get existing composition
         var composition = try composition
-        
+
         // update non-nil method parameters
         if let name { composition.name = name }
         if let subdevices { composition.subdevices = subdevices }
@@ -48,11 +50,11 @@ extension AudioAggregateDeviceProperties {
         if let isPrivate { composition.isPrivate = isPrivate }
         if let isStacked { composition.isStacked = isStacked }
         if let isTapAutoStartEnabled { composition.isTapAutoStartEnabled = isTapAutoStartEnabled }
-        
+
         // set the new composition
         try setComposition(composition)
     }
-    
+
     /// A convenience to update the aggregate's ``composition``.
     /// Any parameters that remain `nil` will not be modified from their current values.
     ///
@@ -68,7 +70,12 @@ extension AudioAggregateDeviceProperties {
     /// For information on parameters, see ``AudioAggregateDevice/Composition``.
     @_disfavoredOverload
     nonisolated
-    public func update<Device: AudioDeviceProperties, Tap: AudioTapProperties, Clock: AudioClockProperties, MainDevice: AudioDeviceProperties>(
+    public func update<
+        Device: AudioDeviceProperties,
+        Tap: AudioTapProperties,
+        Clock: AudioClockProperties,
+        MainDevice: AudioDeviceProperties
+    >(
         name: String? = nil,
         deviceUIDs: [Device.UID]? = nil as [AudioDevice.UID]?,
         tapUIDs: [Tap.UID]? = nil as [AudioTap.UID]?,
@@ -130,7 +137,7 @@ extension AudioAggregateDeviceProperties {
                 property: AggregateDeviceProperty.composition,
                 keys: [key]
             )
-            
+
             // if key is not present, return a default value
             guard let value = dict[key] else { return false }
 
@@ -141,7 +148,7 @@ extension AudioAggregateDeviceProperties {
                     message: "IsPrivate key did not return expected value type for aggregate with ID \(id). Got: \(rawValue)"
                 )
             }
-            
+
             return intValue == 1
         }
     }
@@ -214,7 +221,7 @@ extension AudioAggregateDeviceProperties {
             return dict
         }
     }
-    
+
     /// Sets the dictionary that describes the composition of the aggregate.
     ///
     /// > Note:
@@ -236,7 +243,7 @@ extension AudioAggregateDeviceProperties {
 
 extension AudioAggregateDeviceProperties {
     // MARK: List
-    
+
     /// Returns all the subdevices by resolving to their IDs, active or inactive, contained in the aggregate.
     ///
     /// The order of the items in the array is significant and is used to determine the order of the
@@ -319,7 +326,7 @@ extension AudioAggregateDeviceProperties {
     }
 
     // MARK: Add/Remove by Object
-    
+
     /// Add one or more subdevices to the aggregate device by resolving to their UIDs.
     ///
     /// - Parameters:
@@ -361,7 +368,7 @@ extension AudioAggregateDeviceProperties {
         deviceLookupErrorHandler: ((_ device: Device, _ error: SwiftCoreAudioError) -> Void)? = nil
     ) throws(SwiftCoreAudioError) {
         var uids: [AudioSubDevice.UID] = try subdeviceUIDs
-        
+
         for device in devices {
             do throws(SwiftCoreAudioError) {
                 let uid = try device.uid
@@ -376,14 +383,14 @@ extension AudioAggregateDeviceProperties {
     }
 
     // MARK: Add/Remove by UIDs
-    
+
     /// Add one or more subdevices to the aggregate device.
     nonisolated
     public func addSubdevices<Device: AudioDeviceProperties>(
         withUIDs uids: some Sequence<Device.UID>
     ) throws(SwiftCoreAudioError) {
-        var subdeviceUIDs = try self.subdeviceUIDs
-        
+        var subdeviceUIDs = try subdeviceUIDs
+
         // add new subdevices, disallowing duplicates
         for someUID in uids {
             let uid = AudioSubDevice.UID(rawValue: someUID.rawValue)
@@ -391,18 +398,18 @@ extension AudioAggregateDeviceProperties {
                 subdeviceUIDs.append(uid)
             }
         }
-        
+
         // Set the list back on the aggregate device.
         try setSubdevices(uids: subdeviceUIDs)
     }
-    
+
     /// Remove one or more subdevices from the aggregate device.
     nonisolated
     public func removeSubdevices<Device: AudioDeviceProperties>(
         withUIDs uids: some Sequence<Device.UID>
     ) throws(SwiftCoreAudioError) {
         var subdeviceUIDs = try subdeviceUIDs
-        
+
         subdeviceUIDs.removeAll { existingUID in
             uids.contains { $0.rawValue == existingUID.rawValue }
         }
@@ -410,20 +417,20 @@ extension AudioAggregateDeviceProperties {
         // Set the list back on the aggregate device.
         try setSubdevices(uids: subdeviceUIDs)
     }
-    
+
     // MARK: Cleanup Methods
-    
+
     /// Remove all the subdevices from the aggregate audio device.
     nonisolated
     public func clearSubdevices() throws(SwiftCoreAudioError) {
         try setSubdevices(uids: [])
     }
-    
+
     /// Remove stale subdevices from the aggregate that no longer exist in the system.
     nonisolated
     public func removeStaleDevices() throws {
         let subdeviceUIDs = try subdeviceUIDs
-        
+
         var staleSubdevices: [AudioSubDevice.UID] = []
         for subdeviceUID in subdeviceUIDs {
             // check if subdevice exists in the system
@@ -431,7 +438,7 @@ extension AudioAggregateDeviceProperties {
                 staleSubdevices.append(subdeviceUID)
             }
         }
-        
+
         if !staleSubdevices.isEmpty {
             try removeSubdevices(withUIDs: staleSubdevices)
         }
@@ -442,7 +449,7 @@ extension AudioAggregateDeviceProperties {
 
 extension AudioAggregateDeviceProperties {
     // MARK: List
-    
+
     /// Returns all the taps contained in the aggregate by resolving to their UIDs.
     ///
     /// - Parameters:
@@ -471,9 +478,9 @@ extension AudioAggregateDeviceProperties {
         }
         return taps
     }
-    
+
     // MARK: Set by Objects
-    
+
     /// Sets all the taps contained in the aggregate by resolving to their UIDs.
     ///
     /// - Parameters:
@@ -618,18 +625,18 @@ extension AudioAggregateDeviceProperties {
     }
 
     // MARK: Cleanup Methods
-    
+
     /// Remove all the subtaps from the aggregate audio device.
     nonisolated
     public func clearTaps() throws(SwiftCoreAudioError) {
         try setTaps(uids: [])
     }
-    
+
     /// Remove stale subtaps from the aggregate that no longer exist in the system.
     nonisolated
     public func removeStaleTaps(destroyTapsIfNeeded: Bool = false) throws {
         let tapUIDs = try tapUIDs
-        
+
         var staleTapUIDs: [AudioTap.UID] = []
         for tapUID in tapUIDs {
             // check if subtap has a UID, if not then it likely does not exist in the system
@@ -637,7 +644,7 @@ extension AudioAggregateDeviceProperties {
                 staleTapUIDs.append(tapUID)
             }
         }
-        
+
         if !staleTapUIDs.isEmpty {
             try removeTaps(withUIDs: staleTapUIDs, destroyTapsIfNeeded: destroyTapsIfNeeded)
         }

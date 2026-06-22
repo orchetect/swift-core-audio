@@ -1,6 +1,6 @@
 //
-//  AudioTapProperties+Implementation.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  AudioTapProperties+Convenience.swift
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -59,7 +59,7 @@ extension AudioTapProperties {
         throw .failedToLookupAggregateComposition(message: "BundleIDs property is not supported prior to macOS 26.")
         #endif
     }
-    
+
     /// Set the audio processes used by the tap.
     ///
     /// Convenience to get the `CATapDescription` for the tap, update its contents, and re-set it.

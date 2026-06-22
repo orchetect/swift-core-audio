@@ -1,6 +1,6 @@
 //
 //  AudioStream BasicDescription.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -23,39 +23,39 @@ extension AudioStream {
         /// An identifier specifying the general audio data format in the stream.
         nonisolated
         public var format: AudioFormat
-        
+
         /// Format-specific flags to specify details of the format.
         nonisolated
         public var formatFlags: AudioFormatFlags // TODO: Create a new enum for these flags
-        
+
         /// The number of frames per second of the data in the stream, when playing the stream at normal speed.
         nonisolated
         public var sampleRate: SampleRate
-        
+
         /// The number of bits for one audio sample.
         nonisolated
         public var bitsPerChannel: UInt32
-        
+
         /// The number of bytes from the start of one frame to the start of the next frame in an audio buffer.
         nonisolated
         public var bytesPerFrame: UInt32
-        
+
         /// The number of channels in each frame of audio data.
         nonisolated
         public var channelsPerFrame: UInt32
-        
+
         /// The number of bytes in a packet of audio data.
         nonisolated
         public var bytesPerPacket: UInt32
-        
+
         /// The number of frames in a packet of audio data.
         nonisolated
         public var framesPerPacket: UInt32
-        
+
         /// The amount to pad the structure to force an even 8-byte alignment.
         nonisolated
         public var reserved: UInt32
-        
+
         nonisolated
         public init(
             format: AudioFormat,

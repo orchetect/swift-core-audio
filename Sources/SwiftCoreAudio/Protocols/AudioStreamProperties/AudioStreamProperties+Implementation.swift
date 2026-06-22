@@ -1,6 +1,6 @@
 //
 //  AudioStreamProperties+Implementation.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,14 +11,14 @@ import SwiftProcess
 
 extension AudioStreamProperties {
     // MARK: CoreAudio/AudioHardware.h
-    
+
     nonisolated
     public var isActive: Bool {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: StreamProperty.isActive)
         }
     }
-    
+
     nonisolated
     public var direction: AudioStream.Direction {
         get throws(SwiftCoreAudioError) {
@@ -27,7 +27,7 @@ extension AudioStreamProperties {
             return dir
         }
     }
-    
+
     nonisolated
     public var terminalType: AudioStream.TerminalType {
         get throws(SwiftCoreAudioError) {
@@ -36,21 +36,21 @@ extension AudioStreamProperties {
             return term
         }
     }
-    
+
     nonisolated
     public var startingChannelNumber: UInt32 {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: StreamProperty.startingChannel)
         }
     }
-    
+
     nonisolated
     public var latency: UInt32 {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: StreamProperty.latency)
         }
     }
-    
+
     nonisolated
     public var virtualFormat: AudioStream.CurrentBasicDescription {
         get throws(SwiftCoreAudioError) {
@@ -59,7 +59,7 @@ extension AudioStreamProperties {
             return desc
         }
     }
-    
+
     nonisolated
     public var availableVirtualFormats: [AudioStream.RangedDescription] {
         get throws(SwiftCoreAudioError) {
@@ -72,7 +72,7 @@ extension AudioStreamProperties {
             return descs
         }
     }
-    
+
     nonisolated
     public var physicalFormat: AudioStream.CurrentBasicDescription {
         get throws(SwiftCoreAudioError) {
@@ -81,7 +81,7 @@ extension AudioStreamProperties {
             return desc
         }
     }
-    
+
     nonisolated
     public var availablePhysicalFormats: [AudioStream.RangedDescription] {
         get throws(SwiftCoreAudioError) {

@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot DevicePropertyKey.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -57,6 +57,7 @@ extension AudioObjectSnapshot.DevicePropertyKey: AudioObjectSnapshot.PropertyKey
 
 extension AudioObjectSnapshot.DevicePropertyKey {
     public func getValue(of object: some AudioDeviceProperties) -> String? {
+        // swiftformat:disable hoistTry
         switch self {
         case .configurationApplication:
             withErrorCapture(key: self, try object.configurationApplication, transform: \.rawValue)
@@ -161,6 +162,7 @@ extension AudioObjectSnapshot.DevicePropertyKey {
         case .isCurrentProcessMutedForOutput:
             withErrorCapture(key: self, try object.isCurrentProcessMuted(for: .output), transform: \.description)
         }
+        // swiftformat:enable hoistTry
     }
 }
 

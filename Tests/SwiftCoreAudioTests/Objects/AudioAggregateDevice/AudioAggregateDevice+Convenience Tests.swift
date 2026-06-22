@@ -1,6 +1,6 @@
 //
 //  AudioAggregateDevice+Convenience Tests.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -29,19 +29,21 @@ extension SerializedTests {
         func update_valid() async throws {
             // find two devices to use as subdevices and main subdevice alternatively
             // the restrictive device filtering is needed to de-flake CI runners with unpredictable environments
-            let devices = try AudioSystem.shared.devices.audioDevices
+            let devices = try AudioSystem.shared
+                .devices
+                .audioDevices
                 .lazy
-                .filter({
+                .filter {
                     guard let uid = try? $0.uid else { return false }
                     return !uid.rawValue.isEmpty
-                })
-                .filter({
+                }
+                .filter {
                     // use stable transport types, because transports like BlueTooth can cause problems and deadlocks
                     try [.builtIn, .displayPort, .hdmi, .pci, .thunderbolt, .usb, .virtual]
                         .contains($0.transportType)
-                })
-                .filter({ try $0.isAlive })
-                .filter({ try $0.hasStreams(for: .output) }) // devices with at least one output
+                }
+                .filter { try $0.isAlive }
+                .filter { try $0.hasStreams(for: .output) } // devices with at least one output
                 .sorted(by: { lhs, rhs in try rhs.transportType == .virtual }) // sort virtuals last
                 .prefix(2)
             guard devices.count == 2 else {
@@ -57,7 +59,8 @@ extension SerializedTests {
             print("Found devices: \(deviceA_UID), \(deviceB_UID)")
 
             // find a clock to use as clock
-            guard let clock = try AudioSystem.shared.clocks
+            guard let clock = try AudioSystem.shared
+                .clocks
                 .first(where: {
                     guard let uid = try? $0.uid else { return false }
                     return !uid.rawValue.isEmpty
@@ -117,7 +120,7 @@ extension SerializedTests {
             #expect(try aggregate.tapUIDs == [AudioTap.UID("Tap1_UID"), AudioTap.UID("Tap2_UID")])
             #expect(try aggregate.clockUID == clockUID)
             #expect(try aggregate.clockDeviceUID == clockUID) // AudioDeviceProperties property, should return same as `clockUID`
-            #expect(try aggregate.mainSubdeviceUID == AudioSubDevice.UID(deviceA_UID.rawValue)) // same device is main even though devices changed order
+            #expect(try aggregate.mainSubdeviceUID == AudioSubDevice.UID(deviceA_UID.rawValue)) // same, even though devices changed order
             #expect(try aggregate.isPrivate == false)
             #expect(try aggregate.isStacked == true)
             #expect(try aggregate.isTapAutoStartEnabled == true)
@@ -197,7 +200,7 @@ extension SerializedTests {
         }
 
         // MARK: destroy()
-        
+
         @Test
         func destroy_invalid() throws {
             let aggregate = AudioAggregateDevice(id: .randomUnused)
@@ -206,23 +209,23 @@ extension SerializedTests {
                 try aggregate.destroy()
             }
         }
-        
+
         @Test
         func destroy_valid_true() throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
             let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
-            
+
             // destroy aggregate
             try aggregate.destroy()
-            
+
             // verify
             #expect(try !AudioSystem.shared.aggregates.contains(aggregate))
             #expect(!aggregate.isPresent)
         }
 
         // MARK: isPrivate
-        
+
         @Test
         func isPrivate_invalid() throws {
             let aggregate = AudioAggregateDevice(id: .randomUnused)
@@ -230,23 +233,23 @@ extension SerializedTests {
                 _ = try aggregate.isPrivate
             }
         }
-        
+
         @Test
         func isPrivate_valid_true() throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
             let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
-            
+
             // verify
             #expect(try aggregate.isPrivate)
         }
-        
+
         @Test
         func isPrivate_valid_false() throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
             let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: false)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
-            
+
             // verify
             #expect(try !aggregate.isPrivate)
         }
@@ -324,7 +327,9 @@ extension SerializedTests {
         @Test
         func subdevices_uidLookupErrorHandler_valid_existentDevices() async throws {
             // find a device to use
-            guard let device = try AudioSystem.shared.devices.audioDevices
+            guard let device = try AudioSystem.shared
+                .devices
+                .audioDevices
                 .lazy
                 .filter({
                     guard let uid = try? $0.uid else { return false }
@@ -415,7 +420,9 @@ extension SerializedTests {
         @Test
         func setSubdevices_deviceLookupErrorHandler_valid_existentDevices() async throws {
             // find a device to use
-            guard let device = try AudioSystem.shared.devices.audioDevices
+            guard let device = try AudioSystem.shared
+                .devices
+                .audioDevices
                 .lazy
                 .filter({
                     guard let uid = try? $0.uid else { return false }
@@ -508,7 +515,9 @@ extension SerializedTests {
         @Test
         func addSubdevices_deviceLookupErrorHandler_valid_existentDevices() async throws {
             // find a device to use
-            guard let device = try AudioSystem.shared.devices.audioDevices
+            guard let device = try AudioSystem.shared
+                .devices
+                .audioDevices
                 .lazy
                 .filter({
                     guard let uid = try? $0.uid else { return false }
@@ -605,7 +614,9 @@ extension SerializedTests {
         @Test
         func taps_uidLookupErrorHandler_valid_existentTaps() async throws {
             // find a device to tap
-            guard let device = try AudioSystem.shared.devices.audioDevices
+            guard let device = try AudioSystem.shared
+                .devices
+                .audioDevices
                 .lazy
                 .filter({
                     guard let uid = try? $0.uid else { return false }
@@ -624,7 +635,7 @@ extension SerializedTests {
                 return
             }
             let deviceUID = try device.uid
-            print("Found device \(try device.name ?? "with no name") with UID \(deviceUID) to tap.")
+            print("Found device \((try? device.name) ?? "with no name") with UID \(deviceUID) to tap.")
 
             // create a tap
             let tapDescription = CATapDescription()
@@ -723,7 +734,9 @@ extension SerializedTests {
         @Test
         func setTaps_tapLookupErrorHandler_valid_existentTaps() async throws {
             // find a device to tap
-            guard let device = try AudioSystem.shared.devices.audioDevices
+            guard let device = try AudioSystem.shared
+                .devices
+                .audioDevices
                 .lazy
                 .filter({
                     guard let uid = try? $0.uid else { return false }
@@ -742,7 +755,7 @@ extension SerializedTests {
                 return
             }
             let deviceUID = try device.uid
-            print("Found device \(try device.name ?? "with no name") with UID \(deviceUID) to tap.")
+            print("Found device \((try? device.name) ?? "with no name") with UID \(deviceUID) to tap.")
 
             // create a tap
             let tapDescription = CATapDescription()
@@ -843,7 +856,9 @@ extension SerializedTests {
         @Test
         func addTaps_tapLookupErrorHandler_valid_existentTaps() async throws {
             // find a device to tap
-            guard let device = try AudioSystem.shared.devices.audioDevices
+            guard let device = try AudioSystem.shared
+                .devices
+                .audioDevices
                 .lazy
                 .filter({
                     guard let uid = try? $0.uid else { return false }
@@ -862,7 +877,7 @@ extension SerializedTests {
                 return
             }
             let deviceUID = try device.uid
-            print("Found device \(try device.name ?? "with no name") with UID \(deviceUID) to tap.")
+            print("Found device \((try? device.name) ?? "with no name") with UID \(deviceUID) to tap.")
 
             // create a tap
             let tapDescription = CATapDescription()

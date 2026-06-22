@@ -1,6 +1,6 @@
 //
 //  AudioBooleanControlPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioBooleanControl` class.
 public enum AudioBooleanControlPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Value
     ///
     /// A `UInt32` where `0` means off/false and non-zero means on/true.
@@ -61,11 +61,12 @@ extension AudioBooleanControlPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .value: kAudioBooleanControlPropertyValue // "bcvl"
         }
     }
@@ -76,6 +77,7 @@ extension AudioBooleanControlPropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .value: "Value"
         }
     }

@@ -1,6 +1,6 @@
 //
 //  AudioStream Direction+AudioHardware.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -22,7 +22,7 @@ extension AudioStream.Direction {
             fatalError("Unhandled AudioHardwareDirection raw value: \(audioHardwareDirection.rawValue)")
         }
     }
-    
+
     /// Returns the Core Audio `AudioHardwareDirection` instance that corresponds to `self`.
     @available(macOS 15.0, *)
     nonisolated

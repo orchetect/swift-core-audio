@@ -1,6 +1,6 @@
 //
 //  AudioSystem+AggregateDevices Tests.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -22,7 +22,7 @@ extension SerializedTests {
                 _ = try AudioSystem.shared.makeAggregateDevice(composition: composition)
             }
         }
-        
+
         /// Test Core Audio's behavior when you attempt to create two aggregates with the same UID.
         @Test
         func recreateSameAggregate() throws {
@@ -30,7 +30,7 @@ extension SerializedTests {
             let aggregateUID: AudioAggregateDevice.UID = .random
             let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
-            
+
             // attempt to create another aggregate with the same UID; Core Audio should throw an error
             #expect(throws: SwiftCoreAudioError.self) {
                 _ = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)

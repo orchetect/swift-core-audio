@@ -1,6 +1,6 @@
 //
 //  AudioSystemProperties+Implementation.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,7 +11,7 @@ import SwiftProcess
 
 extension AudioSystemProperties {
     // MARK: CoreAudio/AudioHardware.h
-    
+
     nonisolated
     public var devices: [AnyAudioDevice] {
         get throws(SwiftCoreAudioError) {
@@ -24,7 +24,7 @@ extension AudioSystemProperties {
             return anyDevices
         }
     }
-    
+
     nonisolated
     public var defaultInputDevice: AnyAudioDevice {
         get throws(SwiftCoreAudioError) {
@@ -33,7 +33,7 @@ extension AudioSystemProperties {
             return device
         }
     }
-    
+
     nonisolated
     public var defaultOutputDevice: AnyAudioDevice {
         get throws(SwiftCoreAudioError) {
@@ -42,7 +42,7 @@ extension AudioSystemProperties {
             return device
         }
     }
-    
+
     nonisolated
     public var defaultOutputDeviceForSystemSounds: AnyAudioDevice {
         get throws(SwiftCoreAudioError) {
@@ -51,7 +51,7 @@ extension AudioSystemProperties {
             return device
         }
     }
-    
+
     nonisolated
     public func device<Device: AudioDeviceProperties & IDConstructibleAudioObject>(
         forUID uid: Device.UID
@@ -62,7 +62,7 @@ extension AudioSystemProperties {
         let device = Device(id: id)
         return device
     }
-    
+
     nonisolated
     public var isStereoMixedDownToMono: Bool {
         get throws(SwiftCoreAudioError) {
@@ -78,15 +78,16 @@ extension AudioSystemProperties {
             return ids.map(AudioPlugIn.init(id:))
         }
     }
-    
+
+    // TODO: Replace return type with new `AnyAudioPlugIn` type?
     nonisolated
-    public func plugIn(forBundleID bundleID: BundleID) throws(SwiftCoreAudioError) -> AudioPlugIn? { // TODO: Replace with new `AnyAudioPlugIn` type?
+    public func plugIn(forBundleID bundleID: BundleID) throws(SwiftCoreAudioError) -> AudioPlugIn? {
         let id = try getPropertyValue(property: SystemProperty.plugInForBundleID, qualifier: .cfString(bundleID.rawValue))
         // `kAudioObjectUnknown` ID with `noErr` OSStatus means "not found" but is not an error
         guard id != kAudioObjectUnknown else { return nil }
         return AudioPlugIn(id: id)
     }
-    
+
     nonisolated
     public var transportManagers: [AudioTransportManager] {
         get throws(SwiftCoreAudioError) {
@@ -94,7 +95,7 @@ extension AudioSystemProperties {
             return ids.map(AudioTransportManager.init(id:))
         }
     }
-    
+
     nonisolated
     public func transportManager(forBundleID bundleID: BundleID) throws(SwiftCoreAudioError) -> AudioTransportManager? {
         let id = try getPropertyValue(property: SystemProperty.transportManagerForBundleID, qualifier: .cfString(bundleID.rawValue))
@@ -102,7 +103,7 @@ extension AudioSystemProperties {
         guard id != kAudioObjectUnknown else { return nil }
         return AudioTransportManager(id: id)
     }
-    
+
     nonisolated
     public var boxes: [AudioBox] {
         get throws(SwiftCoreAudioError) {
@@ -110,7 +111,7 @@ extension AudioSystemProperties {
             return ids.map(AudioBox.init(id:))
         }
     }
-    
+
     nonisolated
     public func box<Box: AudioBoxProperties & IDConstructibleAudioObject>(
         forUID uid: Box.UID
@@ -120,7 +121,7 @@ extension AudioSystemProperties {
         guard id != kAudioObjectUnknown else { return nil }
         return Box(id: id)
     }
-    
+
     nonisolated
     public var clocks: [AudioClock] {
         get throws(SwiftCoreAudioError) {
@@ -128,7 +129,7 @@ extension AudioSystemProperties {
             return ids.map(AudioClock.init(id:))
         }
     }
-    
+
     nonisolated
     public func clock<Clock: AudioClockProperties & IDConstructibleAudioObject>(
         forUID uid: Clock.UID
@@ -138,23 +139,23 @@ extension AudioSystemProperties {
         guard id != kAudioObjectUnknown else { return nil }
         return Clock(id: id)
     }
-    
+
     nonisolated
     public var isProcessMain: Bool {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: SystemProperty.isProcessMain)
         }
     }
-    
+
     nonisolated
     public var isInitingOrExiting: Bool {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: SystemProperty.isInitingOrExiting)
         }
     }
-    
+
     // Note: `userIDChanged` is write-only, read is unused
-    
+
     nonisolated
     public func isProcessMuted(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> Bool {
         switch direction {
@@ -169,30 +170,30 @@ extension AudioSystemProperties {
             try getPropertyValue(property: SystemProperty.isSleepingAllowed)
         }
     }
-    
+
     nonisolated
     public var isUnloadingAllowed: Bool {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: SystemProperty.isUnloadingAllowed)
         }
     }
-    
+
     nonisolated
     public var isHogModeAllowed: Bool {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: SystemProperty.isHogModeAllowed)
         }
     }
-    
+
     nonisolated
     public var isUserSessionForProcessActiveOrHeadless: Bool {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: SystemProperty.isUserSessionForProcessActiveOrHeadless)
         }
     }
-    
+
     // Note: `serviceRestarted` is used only for notifications
-    
+
     nonisolated
     public var powerHint: AudioHardwarePowerHint {
         get throws(SwiftCoreAudioError) {
@@ -203,7 +204,7 @@ extension AudioSystemProperties {
             return hint
         }
     }
-    
+
     nonisolated
     public var processes: [AudioProcess] {
         get throws(SwiftCoreAudioError) {
@@ -211,7 +212,7 @@ extension AudioSystemProperties {
             return ids.map(AudioProcess.init(id:))
         }
     }
-    
+
     nonisolated
     public func process(forPID pid: PID) throws(SwiftCoreAudioError) -> AudioProcess? {
         let id = try getPropertyValue(property: SystemProperty.processForPID, qualifier: .int32(pid.rawValue))
@@ -224,7 +225,7 @@ extension AudioSystemProperties {
         guard id != kAudioObjectUnknown else { return nil }
         return AudioProcess(id: id)
     }
-    
+
     nonisolated
     public var taps: [AudioTap] {
         get throws(SwiftCoreAudioError) {
@@ -232,7 +233,7 @@ extension AudioSystemProperties {
             return ids.map(AudioTap.init(id:))
         }
     }
-    
+
     nonisolated
     public func tap<Tap: AudioTapProperties & IDConstructibleAudioObject>(
         forUID uid: Tap.UID

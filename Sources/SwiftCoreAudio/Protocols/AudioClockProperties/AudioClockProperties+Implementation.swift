@@ -1,6 +1,6 @@
 //
 //  AudioClockProperties+Implementation.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,7 +11,7 @@ import SwiftProcess
 
 extension AudioClockProperties {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     nonisolated
     public var deviceUID: UID {
         get throws(SwiftCoreAudioError) {
@@ -19,7 +19,7 @@ extension AudioClockProperties {
             return UID(rawValue: string)
         }
     }
-    
+
     nonisolated
     public var transportType: AudioDevice.TransportType {
         get throws(SwiftCoreAudioError) {
@@ -28,7 +28,7 @@ extension AudioClockProperties {
             return transportType
         }
     }
-    
+
     // TODO: refactor as new enum of known clock domains?
     nonisolated
     public var clockDomain: UInt32 {
@@ -36,28 +36,28 @@ extension AudioClockProperties {
             try getPropertyValue(property: ClockProperty.clockDomain)
         }
     }
-    
+
     nonisolated
     public var isAlive: Bool {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: ClockProperty.deviceIsAlive)
         }
     }
-    
+
     nonisolated
     public var isRunning: Bool {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: ClockProperty.deviceIsRunning)
         }
     }
-    
+
     nonisolated
     public var latency: UInt32 {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: ClockProperty.latency)
         }
     }
-    
+
     // TODO: refactor in a way that can constrain this to only audio controls and provide stronger type hints. Could implement controls as nested types in lieu of no class inheritance model.
     nonisolated
     public var controls: [any AudioObject] {
@@ -71,14 +71,14 @@ extension AudioClockProperties {
             return objects
         }
     }
-    
+
     nonisolated
     public var nominalSampleRate: Double {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: ClockProperty.nominalSampleRate)
         }
     }
-    
+
     nonisolated
     public var availableNominalSampleRates: [ClosedRange<Double>] {
         get throws(SwiftCoreAudioError) {

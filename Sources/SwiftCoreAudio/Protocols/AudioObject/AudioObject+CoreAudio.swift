@@ -1,10 +1,12 @@
 //
 //  AudioObject+CoreAudio.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if os(macOS) || targetEnvironment(macCatalyst)
+
+// swiftformat:disable opaqueGenericParameters
 
 import CoreAudio
 import Foundation
@@ -43,7 +45,7 @@ extension AudioObject {
             osStatusErrorMessage: osStatusErrorMessage
         )
     }
-    
+
     /// Queries an audio object to return the value data size for the given property.
     ///
     /// The size is reported as a `UInt32` value.
@@ -54,9 +56,9 @@ extension AudioObject {
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> UInt32 {
         let audioObjectID = id.rawValue
-        
+
         var address = address
-        
+
         var dataSize = UInt32()
         try qualifier.withPointerToValue { qualifierPtr in
             AudioObjectGetPropertyDataSize(
@@ -72,7 +74,7 @@ extension AudioObject {
             message: osStatusErrorMessage
                 ?? "Error getting size of property \(address) of audio object ID \(audioObjectID)."
         )
-        
+
         return dataSize
     }
 }
@@ -81,7 +83,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: - Generic
-    
+
     /// Queries the audio object to return the value for the given property.
     ///
     /// `Value` must be a value type. To get a reference (object) value, call
@@ -94,11 +96,11 @@ extension AudioObject {
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) {
         let audioObjectID = id.rawValue
-        
+
         var address = address
-        
+
         var size = UInt32(MemoryLayout<Value>.stride)
-        
+
         try qualifier.withPointerToValue { qualifierPtr in
             withUnsafeMutablePointer(to: &value) { valuePtr in
                 AudioObjectGetPropertyData(
@@ -117,7 +119,7 @@ extension AudioObject {
                 ?? "Error getting \(Value.self) value for property \(address) of audio object ID \(audioObjectID)."
         )
     }
-    
+
     /// Queries the audio object to return the array value for the given property.
     ///
     /// `Element` must be a value type. To get a reference (object) value, including arrays that
@@ -132,15 +134,15 @@ extension AudioObject {
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> [Element] {
         let audioObjectID = id.rawValue
-        
+
         var address = address
-        
+
         var size = try getPropertyDataSize(address: address, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
         let elementSize = MemoryLayout<Element>.stride
         let count = Int(size) / elementSize
         assert(count * elementSize == size) // check that there is no remainder
         var value = [Element](repeating: newElement, count: count)
-        
+
         try qualifier.withPointerToValue { qualifierPtr in
             value.withUnsafeMutableBufferPointer { valuePtr in
                 AudioObjectGetPropertyData(
@@ -158,13 +160,14 @@ extension AudioObject {
             message: osStatusErrorMessage
                 ?? "Error getting [\(Element.self)] value for property \(address) of audio object ID \(audioObjectID)."
         )
-        
+
         return value
     }
-    
+
     /// Sets a new value for the given property of the audio object.
     ///
-    /// `Value` must be a value type. To get a reference (object) value, call ``setPropertyObject(address:qualifier:object:osStatusErrorMessage:)`` instead.
+    /// `Value` must be a value type. To get a reference (object) value, call
+    /// ``setPropertyObject(address:qualifier:object:osStatusErrorMessage:)`` instead.
     @discardableResult
     nonisolated
     public func setPropertyValue<Value, Qualifier>(
@@ -174,11 +177,11 @@ extension AudioObject {
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> Value {
         let audioObjectID = id.rawValue
-        
+
         var address = address
-        
+
         let size = UInt32(MemoryLayout<Value>.stride)
-        
+
         try qualifier.withPointerToValue { qualifierPtr in
             withUnsafeBytes(of: value) { valuePtr in
                 AudioObjectSetPropertyData(
@@ -196,7 +199,7 @@ extension AudioObject {
             message: osStatusErrorMessage
                 ?? "Error setting \(Value.self) value for property \(address) of audio object ID \(audioObjectID)."
         )
-        
+
         return value
     }
 }
@@ -205,7 +208,7 @@ extension AudioObject {
 
 extension AudioObject {
     // MARK: - Generic
-    
+
     /// Queries an audio object to return the reference-type object for the given property.
     ///
     /// The underlying type should be a `CF*` object (ie: `CFArray`, `CFDictionary`).
@@ -224,7 +227,7 @@ extension AudioObject {
         }
         return value
     }
-    
+
     /// Queries an audio object to return the reference-type object for the given property if non-`nil`.
     ///
     /// The underlying type should be a `CF*` object (ie: `CFArray`, `CFDictionary`).
@@ -235,14 +238,14 @@ extension AudioObject {
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) -> Object? {
         let audioObjectID = id.rawValue
-        
+
         var address = address
-        
+
         // Pass an optional else the object will not get released by the CoreAudio call (TODO: ?)
         var value: Object? // TODO: not sure if any Core Audio methods give us nil objects
         // var size = try getPropertyDataSize(address: address, qualifier: qualifier, osStatusErrorMessage: osStatusErrorMessage)
         var size = UInt32(MemoryLayout<Object>.stride)
-        
+
         try qualifier.withPointerToValue { qualifierPtr in
             withUnsafeMutablePointer(to: &value) { valuePtr in
                 AudioObjectGetPropertyData(
@@ -260,10 +263,10 @@ extension AudioObject {
             message: osStatusErrorMessage
                 ?? "Error getting \(Object.self) value for property \(address) of audio object ID \(audioObjectID)."
         )
-        
+
         return value
     }
-    
+
     /// Sets a new reference-type object for the given property of the audio object.
     ///
     /// The underlying type should be a `CF*` object (ie: `CFArray`, `CFDictionary`).
@@ -275,12 +278,12 @@ extension AudioObject {
         osStatusErrorMessage: String? = nil
     ) throws(SwiftCoreAudioError) {
         let audioObjectID = id.rawValue
-        
+
         var address = address
-        
+
         let size = UInt32(MemoryLayout<Object>.stride)
         var value = object
-        
+
         try qualifier.withPointerToValue { qualifierPtr in
             withUnsafeMutablePointer(to: &value) { valuePtr in
                 AudioObjectSetPropertyData(

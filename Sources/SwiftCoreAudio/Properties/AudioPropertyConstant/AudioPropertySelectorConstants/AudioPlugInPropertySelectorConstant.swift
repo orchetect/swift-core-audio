@@ -1,6 +1,6 @@
 //
 //  AudioPlugInPropertySelectorConstant.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ import CoreAudio
 /// `AudioObjectPropertySelector` values provided by the `AudioPlugIn` class.
 public enum AudioPlugInPropertySelectorConstant {
     // MARK: CoreAudio/AudioHardwareBase.h
-    
+
     /// Bundle ID
     ///
     /// A `CFString` that contains the bundle identifier for the `AudioPlugIn`.
@@ -24,7 +24,7 @@ public enum AudioPlugInPropertySelectorConstant {
     ///
     /// > Constant: `kAudioPlugInPropertyBundleID`
     case bundleID
-    
+
     /// Device List
     ///
     /// An array of `AudioObjectID`s that represent all the `AudioDevice`s currently
@@ -34,7 +34,7 @@ public enum AudioPlugInPropertySelectorConstant {
     ///
     /// > Constant: `kAudioPlugInPropertyDeviceList`
     case deviceList
-    
+
     /// Translate UID to Device
     ///
     /// This property fetches the `AudioObjectID` that corresponds to the `AudioDevice`
@@ -51,7 +51,7 @@ public enum AudioPlugInPropertySelectorConstant {
     /// > Constant: `kAudioPlugInPropertyTranslateUIDToDevice`, which is identical to
     /// > `kAudioHardwarePropertyTranslateUIDToDevice`.
     case translateUIDToDevice
-    
+
     /// Box List
     ///
     /// An array of `AudioObjectID`s that represent all the `AudioBox` objects currently provided
@@ -61,7 +61,7 @@ public enum AudioPlugInPropertySelectorConstant {
     ///
     /// > Constant: `kAudioPlugInPropertyBoxList`
     case boxList
-    
+
     /// Translate UID to Box
     ///
     /// This property fetches the `AudioObjectID` that corresponds to the `AudioBox`
@@ -78,7 +78,7 @@ public enum AudioPlugInPropertySelectorConstant {
     /// > Constant: `kAudioPlugInPropertyTranslateUIDToBox`, which is identical to
     /// > `kAudioHardwarePropertyTranslateUIDToBox`.
     case translateUIDToBox
-    
+
     /// Clock Device List
     ///
     /// An array of `AudioObjectID`s that represent all the `AudioClockDevice` objects currently
@@ -88,7 +88,7 @@ public enum AudioPlugInPropertySelectorConstant {
     ///
     /// > Constant: `kAudioPlugInPropertyClockDeviceList`
     case clockDeviceList
-    
+
     /// Translate UID to Clock Device
     ///
     /// This property fetches the `AudioObjectID` that corresponds to the `AudioClockDevice`
@@ -105,9 +105,9 @@ public enum AudioPlugInPropertySelectorConstant {
     /// > Constant: `kAudioPlugInPropertyTranslateUIDToClockDevice`, which is identical to
     /// > `kAudioHardwarePropertyTranslateUIDToClockDevice`.
     case translateUIDToClockDevice
-    
+
     // MARK: CoreAudio/AudioHardware.h
-    
+
     /// Create Aggregate Device
     ///
     /// This property is used to tell a plug-in to create a new `AudioAggregateDevice`.
@@ -125,7 +125,7 @@ public enum AudioPlugInPropertySelectorConstant {
     ///
     /// > Constant: `kAudioPlugInCreateAggregateDevice`
     case createAggregateDevice
-    
+
     /// Destroy Aggregate Device
     ///
     /// This property is used to tell a plug-in to destroy a `AudioAggregateDevice`.
@@ -178,11 +178,12 @@ extension AudioPlugInPropertySelectorConstant: RawRepresentable {
         }
         self = match
     }
-    
+
     nonisolated
     public var rawValue: FourCharCode { // a.k.a. UInt32
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .bundleID: kAudioPlugInPropertyBundleID // "piid"
         case .deviceList: kAudioPlugInPropertyDeviceList // "dev#"
         case .translateUIDToDevice: kAudioPlugInPropertyTranslateUIDToDevice // "uidd"
@@ -190,6 +191,7 @@ extension AudioPlugInPropertySelectorConstant: RawRepresentable {
         case .translateUIDToBox: kAudioPlugInPropertyTranslateUIDToBox // "uidb"
         case .clockDeviceList: kAudioPlugInPropertyClockDeviceList // "clk#"
         case .translateUIDToClockDevice: kAudioPlugInPropertyTranslateUIDToClockDevice // "uidc"
+
         // MARK: CoreAudio/AudioHardware.h
         case .createAggregateDevice: kAudioPlugInCreateAggregateDevice // "cagg"
         case .destroyAggregateDevice: kAudioPlugInDestroyAggregateDevice // "dagg"
@@ -202,6 +204,7 @@ extension AudioPlugInPropertySelectorConstant: CustomStringConvertible {
     public var description: String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
+
         case .bundleID: "Bundle ID"
         case .deviceList: "Device List"
         case .translateUIDToDevice: "Translate UID to Device"
@@ -209,6 +212,7 @@ extension AudioPlugInPropertySelectorConstant: CustomStringConvertible {
         case .translateUIDToBox: "Translate UID to Box"
         case .clockDeviceList: "Clock Device List"
         case .translateUIDToClockDevice: "Translate UID to Clock Device"
+
         // MARK: CoreAudio/AudioHardware.h
         case .createAggregateDevice: "Create Aggregate Device"
         case .destroyAggregateDevice: "Destroy Aggregate Device"

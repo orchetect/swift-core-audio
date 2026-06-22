@@ -1,6 +1,6 @@
 //
 //  AudioObjectPropertyAddress+Description.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -16,19 +16,19 @@ extension AudioObjectPropertyAddress: @retroactive CustomStringConvertible {
         } else {
             "\(mSelector)"
         }
-        
+
         let scope = if let s = String(fourCharCode: mScope) {
             "\"\(s)\""
         } else {
             "\(mScope)"
         }
-        
+
         let element = if let s = String(fourCharCode: mElement) {
             "\"\(s)\""
         } else {
             "\(mElement)"
         }
-        
+
         return "Address selector: \(selector), scope: \(scope), element: \(element)"
     }
 }
@@ -41,19 +41,19 @@ extension AudioObjectPropertyAddress: @retroactive CustomDebugStringConvertible 
         } else {
             "\(mSelector)"
         }
-        
+
         let scope = if let s = String(fourCharCode: mScope) {
             "\"\(s)\" (\(mScope))"
         } else {
             "\(mScope)"
         }
-        
+
         let element = if let s = String(fourCharCode: mElement) {
             "\"\(s)\" (\(mElement))"
         } else {
             "\(mElement)"
         }
-        
+
         return "AudioObjectPropertyAddress(selector: \(selector), scope: \(scope), element: \(element))"
     }
 }

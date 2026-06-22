@@ -1,6 +1,6 @@
 //
 //  AudioObjectSnapshot SystemPropertyKey.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -33,6 +33,7 @@ extension AudioObjectSnapshot.SystemPropertyKey: AudioObjectSnapshot.PropertyKey
 
 extension AudioObjectSnapshot.SystemPropertyKey {
     public func getValue(of object: some AudioSystemProperties) -> String? {
+        // swiftformat:disable hoistTry
         switch self {
         case .defaultInputDevice:
             withErrorCapture(key: self, try object.defaultInputDevice, transform: \.id.rawValue.description)
@@ -62,6 +63,7 @@ extension AudioObjectSnapshot.SystemPropertyKey {
             // TODO: add once implemented
             "Not yet implemented."
         }
+        // swiftformat:enable hoistTry
     }
 }
 

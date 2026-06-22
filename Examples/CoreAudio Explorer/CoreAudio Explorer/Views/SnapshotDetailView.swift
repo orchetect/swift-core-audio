@@ -1,17 +1,17 @@
 //
 //  SnapshotDetailView.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
-import SwiftUI
 import SwiftCoreAudio
+import SwiftUI
 
 struct SnapshotDetailView: View {
     let snapshots: [AudioObjectSnapshot]
     let isMainSnapshotEmpty: Bool
     @Binding var searchText: String
-    
+
     var body: some View {
         if snapshots.isEmpty {
             if isMainSnapshotEmpty {

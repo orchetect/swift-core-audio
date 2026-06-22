@@ -1,6 +1,6 @@
 //
 //  Utilities.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -22,12 +22,14 @@ extension String {
     init?(fourCharCode value: FourCharCode) {
         let b0 = UInt8((value >> 24) & 0xFF)
         let b1 = UInt8((value >> 16) & 0xFF)
-        let b2 = UInt8((value >>  8) & 0xFF)
-        let b3 = UInt8((value >>  0) & 0xFF)
-        
-        func isPrintable(_ byte: UInt8) -> Bool { (0x20 ... 0x7E).contains(byte) }
+        let b2 = UInt8((value >> 8) & 0xFF)
+        let b3 = UInt8((value >> 0) & 0xFF)
+
+        func isPrintable(_ byte: UInt8) -> Bool {
+            (0x20 ... 0x7E).contains(byte)
+        }
         guard [b0, b1, b2, b3].allSatisfy(isPrintable(_:)) else { return nil }
-        
+
         let chars = [b0, b1, b2, b3].map(UnicodeScalar.init).map(Character.init)
         let string = String(chars)
         self = string

@@ -1,6 +1,6 @@
 //
 //  OSStatus+AudioOSStatusError.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -25,7 +25,7 @@ extension OSStatus /* a.k.a. Int32 */ {
         }
         throw error
     }
-    
+
     /// Construct a new ``AudioOSStatusError`` instance from a raw `OSStatus` value returned by a Core Audio
     /// or Audio Toolkit method.
     /// This initializer only returns `nil` if the value equals `noErr` (`0`).

@@ -1,6 +1,6 @@
 //
 //  AudioObject+Listeners.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -22,9 +22,9 @@ extension AudioObject {
         block: @escaping @Sendable () -> Void
     ) throws(SwiftCoreAudioError) -> AudioObjectPropertyListenerRef {
         let audioObjectID = id.rawValue
-        
+
         var address = property.address
-        
+
         let block: AudioObjectPropertyListenerBlock = { count, propertyAddressArrayPtr in
             guard count > 0 else { return }
 
@@ -45,7 +45,7 @@ extension AudioObject {
         )
         .audioOSStatusError()?
         .throwSwiftCoreAudioError(message: "Error adding Core Audio object listener for property \(property).")
-        
+
         let ref = AudioObjectPropertyListenerRef(
             id: audioObjectID,
             address: address,

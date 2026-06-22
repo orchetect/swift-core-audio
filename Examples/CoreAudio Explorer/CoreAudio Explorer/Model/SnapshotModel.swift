@@ -1,25 +1,26 @@
 //
 //  SnapshotModel.swift
-//  Swift Core Audio • https://github.com/orchetect/swift-core-audio
+//  SwiftCoreAudio • https://github.com/orchetect/swift-core-audio
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
-import SwiftUI
 import SwiftCoreAudio
+import SwiftUI
 
-@Observable final class SnapshotModel {
+@Observable
+final class SnapshotModel {
     @MainActor
     var snapshot: AudioObjectSnapshot?
-    
+
     @MainActor
     var selectedIDs: Set<AudioObjectSnapshot.ID> = []
-    
+
     @MainActor
     var sidebarSearchText: String = ""
-    
+
     @MainActor
     var propertiesSearchText: String = ""
-    
+
     nonisolated
     init() { }
 }
@@ -36,7 +37,7 @@ extension SnapshotModel {
             await reset()
         }
     }
-    
+
     @concurrent
     func reset() async {
         await MainActor.run {
@@ -69,17 +70,17 @@ extension SnapshotModel {
                 .first(where: { $0.objectID == objectID })
         }
     }
-    
+
     func name(for objectID: Int) -> String? {
         let snapshot = snapshot(for: objectID)
         return name(for: snapshot)
     }
-    
+
     func name(for snapshot: AudioObjectSnapshot?) -> String? {
         if let name = snapshot?.properties[.object(.name)], !name.isEmpty {
             return name
         }
-        
+
         // use preferable substitutions for specific classes where appropriate
         guard let classID = classID(for: snapshot) else { return nil }
         let proposedString: String?
@@ -99,11 +100,11 @@ extension SnapshotModel {
         default:
             proposedString = nil
         }
-        
+
         // otherwise, fallback to name of class
         return proposedString ?? classID.name
     }
-    
+
     func nameForSelectedChildren() -> String? {
         switch selectedIDs.count {
         case 0:
@@ -121,12 +122,12 @@ extension SnapshotModel {
             }
         }
     }
-    
+
     func imageName(for snapshot: AudioObjectSnapshot?) -> String? {
         classID(for: snapshot)?
             .systemImageName
     }
-    
+
     func classID(for snapshot: AudioObjectSnapshot?) -> AudioObjectClassID? {
         guard let rawString = snapshot?.properties[.object(.classID)]
             ?? snapshot?.properties[.object(.baseClassID)]
