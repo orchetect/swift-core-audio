@@ -645,9 +645,10 @@ extension SerializedTests {
             #expect(try aggregate.activeSubtaps.isEmpty)
             #expect(try aggregate.tapUIDs.isEmpty) // just double check
         }
-        
+
+        #if !targetEnvironment(macCatalyst)
         @available(macOS 14.2, *)
-        @available(macCatalyst, unavailable)
+        @available(macCatalyst, unavailable) // doesn't prevent Swift Testing from running this on Mac Catalyst
         @Test
         func activeSubtaps_valid_present() throws {
             // find a device to tap
@@ -686,10 +687,8 @@ extension SerializedTests {
             tapDescription.isMono = false
             tapDescription.isExclusive = false
             tapDescription.deviceUID = deviceUID.rawValue
-            #if !targetEnvironment(macCatalyst)
             tapDescription.stream = 0
             tapDescription.processes = []
-            #endif
             let tap = try AudioSystem.shared.makeTap(using: tapDescription)
             defer { try? AudioSystem.shared.destroyTap(tap) } // cleanup when out of scope
             
@@ -724,6 +723,7 @@ extension SerializedTests {
             // print("driftCompensationQuality:", try? activeSubtap.driftCompensationQuality)
             // print("isDriftCompensationEnabled:", try? activeSubtap.isDriftCompensationEnabled)
         }
+        #endif
     }
 }
 

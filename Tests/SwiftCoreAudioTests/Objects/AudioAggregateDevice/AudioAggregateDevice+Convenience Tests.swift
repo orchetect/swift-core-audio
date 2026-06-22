@@ -594,8 +594,9 @@ extension SerializedTests {
             }
         }
 
+        #if !targetEnvironment(macCatalyst)
         @available(macOS 14.2, *)
-        @available(macCatalyst, unavailable)
+        @available(macCatalyst, unavailable) // doesn't prevent Swift Testing from running this on Mac Catalyst
         @Test
         func taps_uidLookupErrorHandler_valid_existentTaps() async throws {
             // find a device to tap
@@ -629,10 +630,8 @@ extension SerializedTests {
             tapDescription.isMono = false
             tapDescription.isExclusive = false
             tapDescription.deviceUID = nil
-            #if !targetEnvironment(macCatalyst)
             tapDescription.stream = 0
             tapDescription.processes = []
-            #endif
             let tap = try AudioSystem.shared.makeTap(using: tapDescription)
             defer { try? AudioSystem.shared.destroyTap(tap) } // cleanup when out of scope
 
@@ -664,6 +663,7 @@ extension SerializedTests {
             try #require(taps.count == 1)
             #expect(taps.first?.id.rawValue == tap.id.rawValue)
         }
+        #endif
 
         @Test
         func taps_uidLookupErrorHandler_valid_nonExistentTaps() async throws {
@@ -712,8 +712,9 @@ extension SerializedTests {
             }
         }
 
+        #if !targetEnvironment(macCatalyst)
         @available(macOS 14.2, *)
-        @available(macCatalyst, unavailable)
+        @available(macCatalyst, unavailable) // doesn't prevent Swift Testing from running this on Mac Catalyst
         @Test
         func setTaps_tapLookupErrorHandler_valid_existentTaps() async throws {
             // find a device to tap
@@ -747,10 +748,8 @@ extension SerializedTests {
             tapDescription.isMono = false
             tapDescription.isExclusive = false
             tapDescription.deviceUID = nil
-            #if !targetEnvironment(macCatalyst)
             tapDescription.stream = 0
             tapDescription.processes = []
-            #endif
             let tap = try AudioSystem.shared.makeTap(using: tapDescription)
             defer { try? AudioSystem.shared.destroyTap(tap) } // cleanup when out of scope
 
@@ -783,6 +782,7 @@ extension SerializedTests {
             try #require(tapUIDs.count == 1)
             #expect(tapUIDs.first?.rawValue == tapUID.rawValue)
         }
+        #endif
 
         @Test
         func setTaps_tapLookupErrorHandler_valid_nonExistentTaps() async throws {
@@ -832,8 +832,9 @@ extension SerializedTests {
             }
         }
 
+        #if !targetEnvironment(macCatalyst)
         @available(macOS 14.2, *)
-        @available(macCatalyst, unavailable)
+        @available(macCatalyst, unavailable) // doesn't prevent Swift Testing from running this on Mac Catalyst
         @Test
         func addTaps_tapLookupErrorHandler_valid_existentTaps() async throws {
             // find a device to tap
@@ -867,10 +868,8 @@ extension SerializedTests {
             tapDescription.isMono = false
             tapDescription.isExclusive = false
             tapDescription.deviceUID = nil
-            #if !targetEnvironment(macCatalyst)
             tapDescription.stream = 0
             tapDescription.processes = []
-            #endif
             let tap = try AudioSystem.shared.makeTap(using: tapDescription)
             defer { try? AudioSystem.shared.destroyTap(tap) } // cleanup when out of scope
 
@@ -904,6 +903,7 @@ extension SerializedTests {
             #expect(tapUIDs[0] == AudioTap.UID("Dummy_UID"))
             #expect(tapUIDs[1] == tapUID)
         }
+        #endif
 
         @Test
         func addTaps_tapLookupErrorHandler_valid_nonExistentTaps() async throws {
