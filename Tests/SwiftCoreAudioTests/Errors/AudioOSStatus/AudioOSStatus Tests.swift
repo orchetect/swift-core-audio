@@ -45,4 +45,22 @@ struct AudioOSStatus_Tests {
 
         #expect("\(AudioOSStatus.badObject)" == "The audio object does not exist. (kAudioHardwareBadObjectError)")
     }
+
+    @Test
+    func codable() throws {
+        for status in AudioOSStatus.allCases {
+            // encode
+            let encoder = JSONEncoder()
+            let encoded = try encoder.encode(status)
+
+            // analyze encoded data to ensure it encodes as a single value
+            let decodedString = try #require(String(data: encoded, encoding: .utf8))
+            #expect(decodedString == "\(status.rawValue)")
+
+            // decode
+            let decoder = JSONDecoder()
+            let decoded = try decoder.decode(AudioOSStatus.self, from: encoded)
+            #expect(decoded == status, "\(status.description) failed.")
+        }
+    }
 }
