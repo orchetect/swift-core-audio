@@ -67,10 +67,17 @@ extension AudioDeviceProperties where Self: AudioObjectProperties {
         cachedModelName: String? = nil
     ) -> Image {
         if isDriverIconAllowed,
-           let iconURL = try? icon,
-           let nsImage = NSImage(contentsOf: iconURL)
+           let iconURL = try? icon
         {
-            return Image(nsImage: nsImage)
+            #if os(macOS)
+            if let nsImage = NSImage(contentsOf: iconURL) {
+                return Image(nsImage: nsImage)
+            }
+            #else
+            if let uiImage = UIImage(contentsOfFile: iconURL.path) {
+                return Image(uiImage: uiImage)
+            }
+            #endif
         }
 
         func defaultImage() -> Image {
