@@ -27,7 +27,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func channelCount_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole contains 2 input channels (stereo) and 2 output channels (stereo)
@@ -45,7 +45,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func channelCounts_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.channelCounts == (inputs: 2, outputs: 2))
@@ -73,7 +73,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func channelName_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
 
@@ -106,7 +106,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func streams_for_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole contains 1 input stream and 1 output stream
@@ -127,7 +127,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func hasStreams_for_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole contains 1 input stream and 1 output stream
@@ -143,7 +143,7 @@ extension SerializedTests {
             #expect(device.isPresent == false)
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func isPresent_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(device.isPresent == true)

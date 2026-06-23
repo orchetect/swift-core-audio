@@ -24,7 +24,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func configurationApplication_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // at the time of writing this test, BlackHole did not contain a config app,
@@ -42,7 +42,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func deviceUID_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.deviceUID == .blackHole2Ch)
@@ -58,7 +58,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func modelUID_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.modelUID == "BlackHole2ch_ModelUID")
@@ -74,7 +74,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func transportType_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.transportType == .virtual)
@@ -90,7 +90,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func relatedDevices_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.relatedDevices == [device])
@@ -110,7 +110,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func isDeviceAlive_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.isDeviceAlive == true)
@@ -126,7 +126,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func isDeviceRunning_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // it is hard to know if BlackHole is in use, so just test that the call doesn't throw
@@ -146,7 +146,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func isSettableAsDefaultDevice_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole contains both inputs and outputs
@@ -167,7 +167,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func latency_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole has zero latency
@@ -185,7 +185,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func streams_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.streams.count == 2)
@@ -201,7 +201,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func controls_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // we can't know what controls BlackHole has, as it could change in future versions
@@ -222,7 +222,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func safetyOffset_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole has zero safety offset
@@ -240,7 +240,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func nominalSampleRate_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             let sampleRate = try device.nominalSampleRate
@@ -260,7 +260,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func availableNominalSampleRates_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             let sampleRates = try device.availableNominalSampleRates
@@ -283,7 +283,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func icon_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole has an icon, but we can't assume what its file path may be, so
@@ -301,7 +301,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func isHidden_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try !device.isHidden)
@@ -320,7 +320,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func preferredStereoChannels_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole has zero safety offset
@@ -344,7 +344,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func preferredChannelLayout_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole does not seem to have a preferred channel layout value
@@ -361,7 +361,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func plugInLoadStatus_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.plugInLoadStatus == nil)
@@ -377,7 +377,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func isDeviceRunningSomewhere_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // it is hard to know if BlackHole is in use, so just test that the call doesn't throw
@@ -394,7 +394,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func hogModePID_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // it is hard to know if BlackHole is being hogged, so just test that the call doesn't throw
@@ -411,7 +411,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func bufferFrameSize_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // it is hard to know BlackHole's buffer size, so just test that the call doesn't throw
@@ -431,7 +431,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func bufferFrameSizeRange_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // it is hard to know BlackHole's buffer size range, so just test that the call doesn't throw
@@ -451,7 +451,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func ioCycleUsage_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // this value varies between 0.0 ... 1.0 at runtime
@@ -479,7 +479,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func actualSampleRate_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             let sampleRate = try device.actualSampleRate
@@ -499,7 +499,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func clockDeviceUID_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole uses an internal clock, so this will return `nil`
@@ -519,7 +519,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func isCurrentProcessMuted_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole contains both inputs and outputs

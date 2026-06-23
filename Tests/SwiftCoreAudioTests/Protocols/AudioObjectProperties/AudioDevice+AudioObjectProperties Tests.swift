@@ -24,7 +24,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func baseClassID_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.baseClassID == .object) // device always has object base class
@@ -40,7 +40,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func classID_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.classID == .device)
@@ -56,7 +56,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func owner_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             let owner = try device.owner
@@ -74,7 +74,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func name_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.name == "BlackHole 2ch")
@@ -90,7 +90,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func modelName_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole does not set a model name
@@ -107,7 +107,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func manufacturer_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.manufacturer == "Existential Audio Inc.")
@@ -123,7 +123,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func ownedObjects_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.ownedObjects.isEmpty)
@@ -139,7 +139,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func isIdentifying_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try !device.isIdentifying)
@@ -155,7 +155,7 @@ extension SerializedTests {
             }
         }
 
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func serialNumber_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole does not set a serial number
@@ -173,7 +173,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func firmwareVersion_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             // BlackHole does not set firmware version for its device object, however
@@ -192,7 +192,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func creator_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
             #expect(try device.creator == BundleID("com.apple.audio.CoreAudio"))

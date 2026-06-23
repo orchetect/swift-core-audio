@@ -24,7 +24,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func boxUID_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
             #expect(try box.boxUID == .blackHole2Ch)
@@ -41,7 +41,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func transportType_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
             #expect(try box.transportType == .virtual)
@@ -58,7 +58,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func hasAudio_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
             #expect(try box.hasAudio == true)
@@ -75,7 +75,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func hasVideo_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
             #expect(try box.hasVideo == false)
@@ -92,7 +92,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func hasMIDI_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
             #expect(try box.hasMIDI == false)
@@ -109,7 +109,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func isProtected_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
             #expect(try box.isProtected == false)
@@ -126,7 +126,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func isEnabled_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
             #expect(try box.isEnabled == true)
@@ -146,7 +146,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func setEnabled_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
             try box.setIsEnabled(true)
@@ -163,7 +163,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func devices_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
             let devices = try box.devices
@@ -182,7 +182,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func clocks_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
             let clocks = try box.clocks

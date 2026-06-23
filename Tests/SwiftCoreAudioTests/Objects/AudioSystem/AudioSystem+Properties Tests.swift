@@ -43,7 +43,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func audioBoxID_valid() throws {
             let maybeBox = try AudioSystem.shared.box(forUID: .blackHole2Ch)
             let box = try #require(maybeBox)
@@ -87,7 +87,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func device_forUID_anyAudioDevice_valid() throws {
             let maybeDevice: AnyAudioDevice? = try AudioSystem.shared.device(forUID: AnyAudioDevice.UID.blackHole2Ch)
             let device = try #require(maybeDevice)
@@ -104,7 +104,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func device_forUID_audioDevice_valid() throws {
             let maybeDevice: AudioDevice? = try AudioSystem.shared.device(forUID: AudioDevice.UID.blackHole2Ch)
             let device = try #require(maybeDevice)
@@ -245,7 +245,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDevicePresent(.blackHole2Ch))
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
         func box_forUID_audioDevice_valid() throws {
             let maybeBox = try AudioSystem.shared.box(forUID: .blackHole2Ch)
             let box = try #require(maybeBox)
