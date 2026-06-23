@@ -491,7 +491,7 @@ extension AudioAggregateDeviceProperties {
     nonisolated
     public func setTaps<Tap: AudioTapProperties>(
         _ taps: some Sequence<Tap>,
-        tapLookupErrorHandler: ((_ device: Tap, _ error: SwiftCoreAudioError) -> Void)? = nil
+        tapLookupErrorHandler: ((_ tap: Tap, _ error: SwiftCoreAudioError) -> Void)? = nil
     ) throws(SwiftCoreAudioError) {
         var uids: [Tap.UID] = []
         for tap in taps {
@@ -517,7 +517,7 @@ extension AudioAggregateDeviceProperties {
     nonisolated
     public func setTaps(
         _ taps: [Never],
-        tapLookupErrorHandler: ((_ device: Never, _ error: SwiftCoreAudioError) -> Void)? = nil
+        tapLookupErrorHandler: ((_ tap: Never, _ error: SwiftCoreAudioError) -> Void)? = nil
     ) throws(SwiftCoreAudioError) {
         try setTaps([] as [AudioTap], tapLookupErrorHandler: nil)
     }
@@ -534,7 +534,7 @@ extension AudioAggregateDeviceProperties {
     nonisolated
     public func addTaps<Tap: AudioTapProperties>(
         _ taps: some Sequence<Tap>,
-        tapLookupErrorHandler: ((_ device: Tap, _ error: SwiftCoreAudioError) -> Void)? = nil
+        tapLookupErrorHandler: ((_ tap: Tap, _ error: SwiftCoreAudioError) -> Void)? = nil
     ) throws(SwiftCoreAudioError) {
         var uids: [Tap.UID] = []
         for tap in taps {
@@ -561,7 +561,7 @@ extension AudioAggregateDeviceProperties {
     public func removeTaps<Tap: AudioTapProperties>(
         _ taps: some Sequence<Tap>,
         destroyTapsIfNeeded: Bool = false,
-        tapLookupErrorHandler: ((_ device: Tap, _ error: SwiftCoreAudioError) -> Void)? = nil
+        tapLookupErrorHandler: ((_ tap: Tap, _ error: SwiftCoreAudioError) -> Void)? = nil
     ) throws(SwiftCoreAudioError) {
         var uids: [Tap.UID] = []
         for tap in taps {
