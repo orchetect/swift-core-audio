@@ -439,6 +439,8 @@ extension AudioFormat: Hashable { }
 
 extension AudioFormat: CaseIterable { }
 
+extension AudioFormat: Codable { }
+
 extension AudioFormat: Sendable { }
 
 // MARK: - Inits
