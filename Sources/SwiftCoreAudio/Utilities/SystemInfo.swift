@@ -7,7 +7,6 @@
 import Darwin
 import Foundation
 
-nonisolated
 public enum SystemInfo {
     /// Returns the model name of the local Mac computer.
     /// Computes lazily on first access, then stores the value for subsequent accesses.
