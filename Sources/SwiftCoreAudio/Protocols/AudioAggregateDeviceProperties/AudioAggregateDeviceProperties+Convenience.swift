@@ -428,7 +428,7 @@ extension AudioAggregateDeviceProperties {
 
     /// Remove stale subdevices from the aggregate that no longer exist in the system.
     nonisolated
-    public func removeStaleDevices() throws {
+    public func removeStaleDevices() throws(SwiftCoreAudioError) {
         let subdeviceUIDs = try subdeviceUIDs
 
         var staleSubdevices: [AudioSubDevice.UID] = []
@@ -634,7 +634,7 @@ extension AudioAggregateDeviceProperties {
 
     /// Remove stale subtaps from the aggregate that no longer exist in the system.
     nonisolated
-    public func removeStaleTaps(destroyTapsIfNeeded: Bool = false) throws {
+    public func removeStaleTaps(destroyTapsIfNeeded: Bool = false) throws(SwiftCoreAudioError) {
         let tapUIDs = try tapUIDs
 
         var staleTapUIDs: [AudioTap.UID] = []

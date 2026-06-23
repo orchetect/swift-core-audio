@@ -39,7 +39,7 @@ public final class AudioObjectPropertyListenerRef: Sendable {
         try? removeListener()
     }
 
-    func removeListener() throws {
+    func removeListener() throws(SwiftCoreAudioError) {
         var address = address
         try AudioObjectRemovePropertyListenerBlock(
             id,
