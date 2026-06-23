@@ -28,6 +28,40 @@ extension AudioStream.Direction: Hashable { }
 
 extension AudioStream.Direction: CaseIterable { }
 
+extension AudioStream.Direction: Codable {
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let value = try container.decode(String.self)
+        guard let decoded = Self(encodedValue: value) else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(
+                    codingPath: decoder.codingPath,
+                    debugDescription: "Unrecognized value: \(value)"
+                )
+            )
+        }
+        self = decoded
+    }
+
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(encodedValue)
+    }
+
+    init?(encodedValue: String) {
+        guard let match = Self.allCases.first(where: { $0.encodedValue == encodedValue.lowercased() })
+        else { return nil }
+        self = match
+    }
+
+    var encodedValue: String {
+        switch self {
+        case .input: "input"
+        case .output: "output"
+        }
+    }
+}
+
 extension AudioStream.Direction: Sendable { }
 
 // MARK: - Inits
