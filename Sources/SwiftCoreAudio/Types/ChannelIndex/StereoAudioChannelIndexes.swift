@@ -30,6 +30,8 @@ extension StereoAudioChannelIndexes: Hashable { }
 
 extension StereoAudioChannelIndexes: Sendable { }
 
+extension StereoAudioChannelIndexes: Codable { }
+
 extension StereoAudioChannelIndexes: CustomStringConvertible {
     public var description: String {
         "\(right.index), \(left.index)"
