@@ -142,7 +142,7 @@ extension AudioDevice {
         // MARK: Unknowns - Discovered During Debugging and need to find the source of their constants
 
         /// Used by Apple "TimeSync Clock"
-        case _atac
+        case atac
     }
 }
 
@@ -206,7 +206,7 @@ extension AudioDevice.TransportType: RawRepresentable {
 
         // MARK: CoreAudio/AudioHardwareDeprecated.h
         case .autoAggregate: kAudioDeviceTransportTypeAutoAggregate
-        case ._atac: 0x6174_6163 // int 1635017059, "atac"
+        case .atac: 0x6174_6163 // int 1635017059, "atac"
         }
     }
 }
@@ -236,7 +236,7 @@ extension AudioDevice.TransportType: CustomStringConvertible {
 
         // MARK: CoreAudio/AudioHardwareDeprecated.h
         case .autoAggregate: "Auto-Aggregate"
-        case ._atac: "'atac'"
+        case .atac: "'atac'"
         }
     }
 }
