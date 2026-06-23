@@ -328,10 +328,23 @@ extension SerializedTests {
             let maybeOutputChannels = try device.preferredStereoChannels(for: .output)
             let inputChannels = try #require(maybeInputChannels)
             let outputChannels = try #require(maybeOutputChannels)
+
             // it is possible that the user may have changed these channel assignments
-            // in Audio MIDI Setup from their default (1 & 2), but it's extremely unlikely
-            #expect(inputChannels == (1, 2))
-            #expect(outputChannels == (1, 2))
+            // in Audio MIDI Setup from their default (numbers 1 & 2), but it's extremely unlikely
+
+            // input channel numbers
+            #expect(inputChannels.left.number == 1) // 1-based channel number
+            #expect(inputChannels.right.number == 2) // 1-based channel number
+            // input channel indexes
+            #expect(inputChannels.left.index == 1 - 1) // 0-based channel number
+            #expect(inputChannels.right.index == 2 - 1) // 0-based channel number
+
+            // output channel numbers
+            #expect(outputChannels.left.number == 1) // 1-based channel number
+            #expect(outputChannels.right.number == 2) // 1-based channel number
+            // output channel indexes
+            #expect(outputChannels.left.index == 1 - 1) // 0-based channel number
+            #expect(outputChannels.right.index == 2 - 1) // 0-based channel number
         }
 
         // MARK: preferredChannelLayout
