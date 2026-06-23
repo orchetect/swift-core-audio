@@ -11,7 +11,7 @@ import CoreAudio
 /// Audio objects that are constructible from a numeric audio object identifier.
 ///
 /// All constructible object types in Swift Core Audio conform to this type.
-public protocol IDConstructibleAudioObject: AudioObject {
+public protocol IDConstructibleAudioObject: AudioObject, Codable {
     /// Construct from a strongly-typed audio object identifier.
     nonisolated
     init(id: ID)
@@ -26,6 +26,29 @@ extension IDConstructibleAudioObject {
     nonisolated
     init(id: AudioObjectID) {
         self.init(id: ID(id))
+    }
+}
+
+// MARK: - Codable Implementation
+
+extension IDConstructibleAudioObject {
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let value = try container.decode(Int.self)
+        guard let uInt32Value = UInt32(exactly: value) else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(
+                    codingPath: decoder.codingPath,
+                    debugDescription: "Invalid value. Value must fit in UInt32."
+                )
+            )
+        }
+        self.init(id: ID(uInt32Value))
+    }
+
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(Int(id.rawValue))
     }
 }
 
