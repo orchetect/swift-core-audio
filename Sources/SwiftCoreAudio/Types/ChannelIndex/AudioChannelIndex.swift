@@ -46,6 +46,8 @@ extension AudioChannelIndex: RawRepresentable {
     }
 }
 
+extension AudioChannelIndex: Codable { }
+
 extension AudioChannelIndex: Sendable { }
 
 extension AudioChannelIndex: CustomStringConvertible {
