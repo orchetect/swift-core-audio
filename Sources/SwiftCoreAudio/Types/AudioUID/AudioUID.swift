@@ -26,18 +26,7 @@ extension AudioUID: Equatable { }
 
 extension AudioUID: Hashable { }
 
-extension AudioUID: Codable {
-    public init(from decoder: any Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        let string = try container.decode(String.self)
-        self.init(string)
-    }
-
-    public func encode(to encoder: any Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(rawValue)
-    }
-}
+extension AudioUID: Codable { }
 
 extension AudioUID: Sendable { }
 
