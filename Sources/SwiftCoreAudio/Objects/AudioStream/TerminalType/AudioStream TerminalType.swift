@@ -159,6 +159,8 @@ extension AudioStream.TerminalType: Hashable { }
 
 extension AudioStream.TerminalType: CaseIterable { }
 
+extension AudioStream.TerminalType: Codable { }
+
 extension AudioStream.TerminalType: Sendable { }
 
 extension AudioStream.TerminalType: RawRepresentable {
