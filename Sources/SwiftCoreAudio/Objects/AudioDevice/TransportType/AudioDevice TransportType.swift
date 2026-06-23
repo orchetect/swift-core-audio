@@ -152,6 +152,8 @@ extension AudioDevice.TransportType: Hashable { }
 
 extension AudioDevice.TransportType: CaseIterable { }
 
+extension AudioDevice.TransportType: Codable { }
+
 extension AudioDevice.TransportType: Sendable { }
 
 // MARK: - Inits
