@@ -28,6 +28,9 @@ public enum SwiftCoreAudioError {
     /// Failed to lookup aggregate audio device composition.
     case failedToLookupAggregateComposition(message: String? = nil)
 
+    /// Object does not exist.
+    case objectDoesNotExist
+
     /// Object has no owner.
     case objectHasNoOwner
 
@@ -82,6 +85,9 @@ extension SwiftCoreAudioError: LocalizedError {
         case let .failedToLookupAggregateComposition(message: message):
             "Failed to lookup aggregate audio device composition. \(message ?? "")"
                 .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        case .objectDoesNotExist:
+            "Object does not exist."
 
         case .objectHasNoOwner:
             "Object has no owner."
