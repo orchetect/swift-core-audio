@@ -198,6 +198,8 @@ extension AudioObjectClassID: Hashable { }
 
 extension AudioObjectClassID: CaseIterable { }
 
+extension AudioObjectClassID: Codable { }
+
 extension AudioObjectClassID: Sendable { }
 
 // MARK: - Inits
