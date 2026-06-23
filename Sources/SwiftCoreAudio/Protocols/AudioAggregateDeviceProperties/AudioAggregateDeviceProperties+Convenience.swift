@@ -340,6 +340,9 @@ extension AudioAggregateDeviceProperties {
         _ devices: some Sequence<Device>,
         deviceLookupErrorHandler: ((_ device: Device, _ error: SwiftCoreAudioError) -> Void)? = nil
     ) throws(SwiftCoreAudioError) {
+        let devices = Array(devices)
+        guard !devices.isEmpty else { return }
+        
         var uids: [AudioSubDevice.UID] = try subdeviceUIDs
 
         for device in devices {
@@ -367,6 +370,9 @@ extension AudioAggregateDeviceProperties {
         _ devices: some Sequence<Device>,
         deviceLookupErrorHandler: ((_ device: Device, _ error: SwiftCoreAudioError) -> Void)? = nil
     ) throws(SwiftCoreAudioError) {
+        let devices = Array(devices)
+        guard !devices.isEmpty else { return }
+
         var uids: [AudioSubDevice.UID] = try subdeviceUIDs
 
         for device in devices {
@@ -389,6 +395,9 @@ extension AudioAggregateDeviceProperties {
     public func addSubdevices<Device: AudioDeviceProperties>(
         withUIDs uids: some Sequence<Device.UID>
     ) throws(SwiftCoreAudioError) {
+        let uids = Array(uids)
+        guard !uids.isEmpty else { return }
+
         var subdeviceUIDs = try subdeviceUIDs
 
         // add new subdevices, disallowing duplicates
@@ -408,6 +417,9 @@ extension AudioAggregateDeviceProperties {
     public func removeSubdevices<Device: AudioDeviceProperties>(
         withUIDs uids: some Sequence<Device.UID>
     ) throws(SwiftCoreAudioError) {
+        let uids = Array(uids)
+        guard !uids.isEmpty else { return }
+
         var subdeviceUIDs = try subdeviceUIDs
 
         subdeviceUIDs.removeAll { existingUID in
@@ -536,6 +548,9 @@ extension AudioAggregateDeviceProperties {
         _ taps: some Sequence<Tap>,
         tapLookupErrorHandler: ((_ tap: Tap, _ error: SwiftCoreAudioError) -> Void)? = nil
     ) throws(SwiftCoreAudioError) {
+        let taps = Array(taps)
+        guard !taps.isEmpty else { return }
+
         var uids: [Tap.UID] = []
         for tap in taps {
             do throws(SwiftCoreAudioError) {
@@ -563,6 +578,9 @@ extension AudioAggregateDeviceProperties {
         destroyTapsIfNeeded: Bool = false,
         tapLookupErrorHandler: ((_ tap: Tap, _ error: SwiftCoreAudioError) -> Void)? = nil
     ) throws(SwiftCoreAudioError) {
+        let taps = Array(taps)
+        guard !taps.isEmpty else { return }
+        
         var uids: [Tap.UID] = []
         for tap in taps {
             do throws(SwiftCoreAudioError) {
@@ -583,6 +601,9 @@ extension AudioAggregateDeviceProperties {
     public func addTaps<Tap: AudioTapProperties>(
         withUIDs uids: some Sequence<Tap.UID>
     ) throws(SwiftCoreAudioError) {
+        let uids = Array(uids)
+        guard !uids.isEmpty else { return }
+
         var tapUIDs = try tapUIDs
 
         for someUID in uids {
@@ -603,6 +624,9 @@ extension AudioAggregateDeviceProperties {
         withUIDs uids: some Sequence<Tap.UID>,
         destroyTapsIfNeeded: Bool = false
     ) throws(SwiftCoreAudioError) {
+        let uids = Array(uids)
+        guard !uids.isEmpty else { return }
+
         var tapUIDs = try tapUIDs
 
         tapUIDs.removeAll { existingUID in
