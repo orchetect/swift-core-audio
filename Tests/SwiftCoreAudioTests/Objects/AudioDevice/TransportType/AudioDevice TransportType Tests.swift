@@ -29,6 +29,24 @@ struct AudioDevice_TransportType_Tests {
     func initInvalidValue() {
         #expect(AudioDevice.TransportType(rawValue: 123_456) == nil) // bogus number
     }
+
+    @Test
+    func codable() throws {
+        for transportType in AudioDevice.TransportType.allCases {
+            // encode
+            let encoder = JSONEncoder()
+            let encoded = try encoder.encode(transportType)
+
+            // analyze encoded data to ensure it encodes as a single value
+            let decodedString = try #require(String(data: encoded, encoding: .utf8))
+            #expect(decodedString == "\(transportType.rawValue)")
+
+            // decode
+            let decoder = JSONDecoder()
+            let decoded = try decoder.decode(AudioDevice.TransportType.self, from: encoded)
+            #expect(decoded == transportType, "\(transportType.description) failed.")
+        }
+    }
 }
 
 #endif
