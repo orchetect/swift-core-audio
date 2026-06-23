@@ -279,6 +279,8 @@ public enum AudioDevicePropertySelectorConstant {
     /// device. The value of this property can be different for input and output and
     /// there are no restrictions on the channel numbers that can be used.
     ///
+    /// Channel numbers are 1-based user-facing numbers (not 0-based indexes).
+    ///
     /// > File: CoreAudio/AudioHardwareBase.h
     ///
     /// > Constant: `kAudioDevicePropertyPreferredChannelsForStereo`

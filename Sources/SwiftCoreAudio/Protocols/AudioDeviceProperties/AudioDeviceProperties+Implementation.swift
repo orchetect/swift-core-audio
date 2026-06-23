@@ -156,13 +156,14 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func preferredStereoChannels(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> (left: Int, right: Int)? {
+    public func preferredStereoChannels(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> StereoAudioChannelIndexes? {
+        // Core Audio returns 1-based number series
         guard let (left, right) = try withRecovery(
             getPropertyValue(property: DeviceProperty.preferredStereoChannels(for: direction)),
             unknownPropertyDefault: nil
         ) else { return nil }
 
-        return (left: Int(left), right: Int(right))
+        return StereoAudioChannelIndexes(leftNumber: left, rightNumber: right)
     }
 
     nonisolated

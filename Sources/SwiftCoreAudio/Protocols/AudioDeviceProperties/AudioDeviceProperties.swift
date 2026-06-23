@@ -116,15 +116,17 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     nonisolated
     var isHidden: Bool { get throws(SwiftCoreAudioError) }
 
-    /// The input or output channel numbers (1-based) to use for stereo IO on the device.
-    /// There are no restrictions on the channel numbers that can be used.
+    /// Returns the preferred stereo (left & right) channel indexes for input or output IO of the device.
     ///
-    /// Channel numbers are 1:1 with user-facing channel numbers (starting from channel 1, then 2,
-    /// etc...), not to be confused with channel index (zero-based).
+    /// > Note:
+    /// >
+    /// > Channel numbers are presented to the end-user as a 1-based number series (not 0-based indexes).
+    /// > SwiftCoreAudio returns a ``StereoAudioChannelIndexes`` instance that provides both a channel index
+    /// > a channel number property for each channel to avoid ambiguity.
     ///
     /// Returns `nil` if the device does not contain any channels for the given direction.
     nonisolated
-    func preferredStereoChannels(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> (left: Int, right: Int)?
+    func preferredStereoChannels(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> StereoAudioChannelIndexes?
 
     // TODO: replace `AudioChannelLayout` with new strongly-typed struct
     /// An `AudioChannelLayout` that indicates how each channel of the device should be used.

@@ -125,11 +125,11 @@ extension AudioObjectSnapshot.DevicePropertyKey {
             withErrorCapture(key: self, try object.isHidden, transform: \.description)
         case .preferredStereoChannelsForInput:
             withErrorCapture(key: self, try object.preferredStereoChannels(for: .input), transform: {
-                "\($0.left), \($0.right)"
+                "\($0.left.number), \($0.right.number)"
             })
         case .preferredStereoChannelsForOutput:
             withErrorCapture(key: self, try object.preferredStereoChannels(for: .output), transform: {
-                "\($0.left), \($0.right)"
+                "\($0.left.number), \($0.right.number)"
             })
         case .preferredChannelLayout:
             withErrorCapture(key: self, try object.preferredChannelLayout, transform: { v -> String in String(describing: v) })
