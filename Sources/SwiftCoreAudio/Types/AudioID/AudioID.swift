@@ -6,6 +6,8 @@
 
 #if os(macOS) || targetEnvironment(macCatalyst)
 
+import Foundation
+
 /// Lightweight wrapper for an ephemeral numerical identifier used to refer to an audio object.
 ///
 /// The raw value represents a CoreAudio `AudioObjectID`.
@@ -30,6 +32,27 @@ public struct AudioID<Object: AudioObject> {
 extension AudioID: Equatable { }
 
 extension AudioID: Hashable { }
+
+extension AudioID: Codable {
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let value = try container.decode(Int.self)
+        guard let uInt32Value = UInt32(exactly: value) else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(
+                    codingPath: decoder.codingPath,
+                    debugDescription: "Invalid value. Value must fit in UInt32."
+                )
+            )
+        }
+        self.init(uInt32Value)
+    }
+
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(Int(rawValue))
+    }
+}
 
 extension AudioID: Sendable { }
 
