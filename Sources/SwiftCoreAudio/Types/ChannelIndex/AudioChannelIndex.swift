@@ -30,6 +30,22 @@ extension AudioChannelIndex: Equatable { }
 
 extension AudioChannelIndex: Hashable { }
 
+extension AudioChannelIndex: RawRepresentable {
+    /// RawRepresentable proxy initializer from 0-based index.
+    /// This initializer is the same as calling ``init(index:)`` except that this returns `nil` if the
+    /// index is out-of-bounds (`< 0`).
+    public init?(rawValue: Int) {
+        guard rawValue >= 0 else { return nil }
+        self.init(index: rawValue)
+    }
+
+    /// RawRepresentable proxy to get/set 0-based ``index``.
+    public var rawValue: Int {
+        get { index }
+        set { index = newValue }
+    }
+}
+
 extension AudioChannelIndex: Sendable { }
 
 extension AudioChannelIndex: CustomStringConvertible {
