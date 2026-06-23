@@ -841,6 +841,8 @@ extension AudioOSStatus: Hashable { }
 
 extension AudioOSStatus: CaseIterable { }
 
+extension AudioOSStatus: Codable { }
+
 extension AudioOSStatus: Sendable { }
 
 extension AudioOSStatus: RawRepresentable {
