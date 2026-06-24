@@ -189,6 +189,20 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
     }
 }
 
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Never {
+    nonisolated
+    public static var processorOverload: Self {
+        AudioProperty(selectorConstant: .processorOverload, scope: defaultScope, element: element)
+    }
+}
+
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Never {
+    nonisolated
+    public static var ioStoppedAbnormally: Self {
+        AudioProperty(selectorConstant: .ioStoppedAbnormally, scope: defaultScope, element: element)
+    }
+}
+
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == pid_t {
     nonisolated
     public static var hogModePID: Self {
