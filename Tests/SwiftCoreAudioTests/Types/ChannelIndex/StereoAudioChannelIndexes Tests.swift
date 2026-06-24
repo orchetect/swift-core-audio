@@ -19,7 +19,10 @@ import SwiftCoreAudio
         
         // analyze encoded data to ensure it encodes as a dictionary
         let decodedString = try #require(String(data: encoded, encoding: .utf8))
-        #expect(decodedString == #"{"left":1,"right":2}"#)
+        #expect(
+            decodedString == #"{"left":1,"right":2}"#
+                || decodedString == #"{"right":2,"left":1}"#
+        )
 
         // decode
         let decoder = JSONDecoder()

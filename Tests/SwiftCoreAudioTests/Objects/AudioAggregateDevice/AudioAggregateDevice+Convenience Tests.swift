@@ -843,10 +843,17 @@ extension SerializedTests {
         // MARK: addTaps(_:tapLookupErrorHandler:)
 
         @Test
-        func addTaps_tapLookupErrorHandler_invalid() throws {
+        func addTaps_tapLookupErrorHandler_invalid() async throws {
             let aggregate = AudioAggregateDevice(id: .randomUnused)
-            #expect(throws: SwiftCoreAudioError.self) {
-                _ = try aggregate.addTaps([AudioTap(id: .randomUnused)], tapLookupErrorHandler: nil)
+
+            let randomTap = AudioTap(id: .randomUnused)
+
+            // `addTaps` itself does not throw an error, but the error handler is called.
+            try await confirmation(expectedCount: 1) { confirmation in
+                try aggregate.addTaps([randomTap]) { tap, error in
+                    confirmation()
+                    #expect(tap == randomTap)
+                }
             }
         }
 
