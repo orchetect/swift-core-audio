@@ -38,6 +38,7 @@ extension AudioSystemProperties {
     /// - Returns: If successful, returns an ``AudioAggregateDevice`` instance representing the newly
     ///   created aggregate.
     /// - Throws: Throws an error if an aggregate device with the same UID already exists.
+    @discardableResult
     nonisolated
     public func makeAggregateDevice(
         composition: AudioAggregateDevice.Composition,
@@ -58,6 +59,7 @@ extension AudioSystemProperties {
     ///     aggregate before returning.
     /// - Returns: If successful, returns an ``AudioAggregateDevice`` instance representing the newly
     ///   created aggregate, or the existing aggregate if one was updated.
+    @discardableResult
     nonisolated
     public func makeOrUpdateAggregateDevice(
         composition: AudioAggregateDevice.Composition,
@@ -91,6 +93,7 @@ extension AudioSystemProperties {
     /// - Returns: If successful, returns an ``AudioAggregateDevice`` instance representing the newly
     ///   created aggregate.
     /// - Throws: Throws an error if an aggregate device with the same UID already exists.
+    @discardableResult
     nonisolated
     public func makeAggregateDevice(
         composition: CFDictionary,
@@ -188,6 +191,7 @@ extension AudioSystemProperties {
     /// - Returns: If successful, returns an ``AudioAggregateDevice`` instance representing the newly
     ///   created aggregate.
     /// - Throws: Throws an error if an aggregate device with the same UID already exists.
+    @discardableResult
     nonisolated
     public func makeAggregateDevice<Clock: AudioClockProperties, MainDevice: AudioDeviceProperties>(
         withUID uid: AudioAggregateDevice.UID,
@@ -235,7 +239,7 @@ extension AudioSystemProperties {
     /// - Returns: If successful, returns an ``AudioAggregateDevice`` instance representing the newly
     ///   created aggregate.
     /// - Throws: Throws an error if an aggregate device with the same UID already exists.
-    @_disfavoredOverload
+    @_disfavoredOverload @discardableResult
     nonisolated
     public func makeAggregateDevice<
         Device: AudioDeviceProperties,
@@ -298,6 +302,7 @@ extension AudioSystemProperties {
     /// - Returns: If successful, returns an ``AudioAggregateDevice`` instance representing the newly
     ///   created aggregate, or the existing aggregate if one was updated.
     /// - Throws: Throws an error if an aggregate device with the same UID already exists.
+    @discardableResult
     nonisolated
     public func makeOrUpdateAggregateDevice<Clock: AudioClockProperties, MainDevice: AudioDeviceProperties>(
         withUID uid: AudioAggregateDevice.UID,
@@ -365,7 +370,7 @@ extension AudioSystemProperties {
     /// - Returns: If successful, returns an ``AudioAggregateDevice`` instance representing the newly
     ///   created aggregate, or the existing aggregate if one was updated.
     /// - Throws: Throws an error if an aggregate device with the same UID already exists.
-    @_disfavoredOverload
+    @_disfavoredOverload @discardableResult
     nonisolated
     public func makeOrUpdateAggregateDevice<
         Device: AudioDeviceProperties,

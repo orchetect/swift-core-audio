@@ -55,6 +55,7 @@ public protocol AudioPlugInProperties where Self: AudioObject {
     ///     aggregate before returning.
     /// - Returns: If successful, returns an ``AudioAggregateDevice`` instance representing the newly
     ///   created aggregate.
+    @discardableResult
     nonisolated
     func makeAggregateDevice(
         composition: AudioAggregateDevice.Composition,
@@ -69,6 +70,7 @@ public protocol AudioPlugInProperties where Self: AudioObject {
     ///     aggregate before returning.
     /// - Returns: If successful, returns an ``AudioAggregateDevice`` instance representing the newly
     ///   created aggregate.
+    @discardableResult
     nonisolated
     func makeAggregateDevice(
         composition: CFDictionary,

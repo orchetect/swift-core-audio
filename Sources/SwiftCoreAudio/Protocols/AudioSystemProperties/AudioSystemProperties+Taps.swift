@@ -15,6 +15,7 @@ extension AudioSystemProperties {
     /// Creates an audio tap and returns a new ``AudioTap`` instance if successful.
     @available(macOS 14.2, *)
     @available(macCatalyst, unavailable)
+    @discardableResult
     nonisolated
     public func makeTap(using tapDescription: CATapDescription) throws(SwiftCoreAudioError) -> AudioTap {
         var tapID: AudioObjectID = kAudioObjectUnknown

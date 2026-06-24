@@ -91,6 +91,7 @@ extension AudioPlugInProperties {
 extension AudioPlugInProperties {
     // TODO: needs testing
     /// - Throws: Throws an error if an aggregate device with the same UID already exists.
+    @discardableResult
     nonisolated
     public func makeAggregateDevice(
         composition: AudioAggregateDevice.Composition,
@@ -102,6 +103,7 @@ extension AudioPlugInProperties {
 
     // TODO: needs testing
     /// - Throws: Throws an error if an aggregate device with the same UID already exists.
+    @discardableResult
     nonisolated
     public func makeAggregateDevice(
         composition: CFDictionary,
