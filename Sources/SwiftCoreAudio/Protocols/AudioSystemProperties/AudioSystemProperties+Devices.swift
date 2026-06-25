@@ -13,11 +13,17 @@ import SwiftProcess
 
 extension AudioSystemProperties {
     /// Returns an array of devices currently available to the system matching the given UIDs.
+    ///
+    /// - Parameters:
+    ///   - uids: Audio device UIDs to look up.
+    ///   - uidLookupErrorHandler: Optionally supply an error handler that will be called for any UIDs that fail lookup.
+    ///     If this closure is `nil`, failures are silently ignored but will still be logged.
     nonisolated
     public func devices<Device: AudioDeviceProperties & UIDConstructibleAudioObject>(
-        forUIDs uids: some Collection<Device.UID>
-    ) throws(SwiftCoreAudioError) -> [Device] {
-        try objects(forUIDs: uids)
+        forUIDs uids: some Collection<Device.UID>,
+        uidLookupErrorHandler: ((_ uid: Device.UID, _ error: SwiftCoreAudioError) -> ())? = nil
+    ) -> [Device] {
+        objects(forUIDs: uids, uidLookupErrorHandler: uidLookupErrorHandler)
     }
 
     /// Returns an array of devices currently available to the system that have at least one stream for the
