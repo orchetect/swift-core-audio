@@ -642,7 +642,11 @@ extension AudioAggregateDeviceProperties {
             for someUID in uids {
                 let uid = AudioTap.UID(rawValue: someUID.rawValue)
                 guard let tap = try? AudioTap(uid: uid) else { continue }
-                try? AudioSystem.shared.destroyTap(tap)
+                do throws(SwiftCoreAudioError) {
+                    try AudioSystem.shared.destroyTap(tap)
+                } catch {
+                    Logging.log(.error, "Error destroying tap with UID \(uid) while removing taps from aggregate with ID \(self.id): \(error)")
+                }
             }
         }
         #endif
