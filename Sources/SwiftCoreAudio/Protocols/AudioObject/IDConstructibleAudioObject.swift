@@ -25,6 +25,7 @@ extension IDConstructibleAudioObject {
     @_disfavoredOverload
     nonisolated
     init(id: AudioObjectID) {
+        assert(id != kAudioObjectUnknown)
         self.init(id: ID(id))
     }
 }
