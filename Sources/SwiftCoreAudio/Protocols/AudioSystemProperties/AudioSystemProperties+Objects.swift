@@ -99,13 +99,24 @@ extension AudioSystemProperties {
     }
 
     /// Returns an array of strongly-typed objects currently available to the system matching the given UIDs.
+    ///
+    /// - Parameters:
+    ///   - uids: Audio object UIDs to look up.
+    ///   - uidLookupErrorHandler: Optionally supply an error handler that will be called for any UIDs that fail lookup.
+    ///     If this closure is `nil`, failures are silently ignored but will still be logged.
     nonisolated
     public func objects<Object: AudioObject & UIDConstructibleAudioObject>(
-        forUIDs uids: some Collection<AudioUID<Object>> // a.k.a. `some Collection<Object.UID>`
-    ) throws(SwiftCoreAudioError) -> [Object] {
+        forUIDs uids: some Collection<AudioUID<Object>>, // a.k.a. `some Collection<Object.UID>`
+        uidLookupErrorHandler: ((_ uid: Object.UID, _ error: SwiftCoreAudioError) -> ())? = nil
+    ) -> [Object] {
         var objects: [Object] = []
         for uid in uids {
-            if let device = try Object(uid: uid) { objects.append(device) }
+            do throws(SwiftCoreAudioError) {
+                if let device = try Object(uid: uid) { objects.append(device) }
+            } catch {
+                Logging.log(.error, "Error resolving UID for \(Object.self) to object ID: \(error)")
+                uidLookupErrorHandler?(uid, error)
+            }
         }
         return objects
     }
