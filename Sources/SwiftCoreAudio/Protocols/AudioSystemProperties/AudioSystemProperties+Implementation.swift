@@ -16,8 +16,7 @@ extension AudioSystemProperties {
     public var devices: [AnyAudioDevice] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: SystemProperty.devices)
-            var anyDevices: [AnyAudioDevice] = ids.map(AnyAudioDevice.init(id:))
-            return anyDevices
+            return ids.map(AnyAudioDevice.init(id:))
         }
     }
 

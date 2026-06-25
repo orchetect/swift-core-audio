@@ -78,13 +78,7 @@ extension AudioBoxProperties {
                 getPropertyValue(property: BoxProperty.deviceList),
                 unknownPropertyDefault: []
             )
-
-            var anyDevices: [AnyAudioDevice] = []
-            for id in ids {
-                let anyDevice = AnyAudioDevice(id: id)
-                anyDevices.append(anyDevice)
-            }
-            return anyDevices
+            return ids.map(AnyAudioDevice.init(id:))
         }
     }
 
