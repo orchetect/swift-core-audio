@@ -29,13 +29,7 @@ extension AudioPlugInProperties {
     public var devices: [AnyAudioDevice] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: PlugInProperty.deviceList)
-
-            var anyDevices: [AnyAudioDevice] = []
-            for id in ids {
-                let anyDevice = AnyAudioDevice(id: id)
-                anyDevices.append(anyDevice)
-            }
-            return anyDevices
+            return ids.map(AnyAudioDevice.init(id:))
         }
     }
 

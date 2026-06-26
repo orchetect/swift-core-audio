@@ -37,26 +37,14 @@ extension AudioProcessProperties {
     public var devices: [AnyAudioDevice] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: ProcessProperty.devices(for: nil))
-
-            var anyDevices: [AnyAudioDevice] = []
-            for id in ids {
-                let anyDevice = AnyAudioDevice(id: id)
-                anyDevices.append(anyDevice)
-            }
-            return anyDevices
+            return ids.map(AnyAudioDevice.init(id:))
         }
     }
 
     nonisolated
     public func devices(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> [AnyAudioDevice] {
         let ids = try getPropertyValue(property: ProcessProperty.devices(for: direction))
-
-        var anyDevices: [AnyAudioDevice] = []
-        for id in ids {
-            let anyDevice = AnyAudioDevice(id: id)
-            anyDevices.append(anyDevice)
-        }
-        return anyDevices
+        return ids.map(AnyAudioDevice.init(id:))
     }
 
     nonisolated
