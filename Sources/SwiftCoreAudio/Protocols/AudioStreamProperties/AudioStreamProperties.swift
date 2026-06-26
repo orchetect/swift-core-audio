@@ -87,8 +87,16 @@ public protocol AudioStreamProperties where Self: AudioObject {
     /// device performs its IO transactions.
     ///
     /// The underlying type is an array of Core Audio `AudioStreamRangedDescription`.
+    ///
+    /// - Parameters:
+    ///   - formatParseErrorHandler: Optionally supply an error handler that will be called for any format
+    ///     that fail lookup.
+    /// - Throws: Throws an error if format enumeration fails. Individual failures on a per-format basis are
+    ///   passed to the `formatParseErrorHandler` closure and do not cause this method itself to throw.
     nonisolated
-    var availablePhysicalFormats: [AudioStream.RangedDescription] { get throws(SwiftCoreAudioError) }
+    func availablePhysicalFormats(
+        formatParseErrorHandler: ((_ rangedDescription: AudioStreamRangedDescription, _ error: SwiftCoreAudioError) -> Void)?
+    ) throws(SwiftCoreAudioError) -> [AudioStream.RangedDescription]
 }
 
 #endif

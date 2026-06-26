@@ -87,16 +87,20 @@ extension AudioStreamProperties {
     }
 
     nonisolated
-    public var availablePhysicalFormats: [AudioStream.RangedDescription] {
-        get throws(SwiftCoreAudioError) {
-            let coreAudioDescs = try getPropertyValue(property: StreamProperty.availablePhysicalFormats)
-            var descs: [AudioStream.RangedDescription] = []
-            for coreAudioDesc in coreAudioDescs {
+    public func availablePhysicalFormats(
+        formatParseErrorHandler: ((_ rangedDescription: AudioStreamRangedDescription, _ error: SwiftCoreAudioError) -> Void)? = nil
+    ) throws(SwiftCoreAudioError) -> [AudioStream.RangedDescription] {
+        let coreAudioDescs = try getPropertyValue(property: StreamProperty.availablePhysicalFormats)
+        var descs: [AudioStream.RangedDescription] = []
+        for coreAudioDesc in coreAudioDescs {
+            do {
                 let desc = try AudioStream.RangedDescription(from: coreAudioDesc)
                 descs.append(desc)
+            } catch {
+                Logging.log(.error, "Error parsing Core Audio AudioStreamRangedDescription while getting available physical formats for audio stream with ID \(id): \(error)")
             }
-            return descs
         }
+        return descs
     }
 }
 
