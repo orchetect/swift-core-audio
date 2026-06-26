@@ -244,7 +244,7 @@ extension AudioAggregateDeviceProperties {
 extension AudioAggregateDeviceProperties {
     // MARK: List
 
-    /// Returns all the subdevices by resolving to their IDs, active or inactive, contained in the aggregate.
+    /// Returns all the subdevices contained in the aggregate, active or inactive, by resolving to their IDs.
     ///
     /// The order of the items in the array is significant and is used to determine the order of the
     /// streams of the aggregate.
@@ -278,7 +278,7 @@ extension AudioAggregateDeviceProperties {
 
     // MARK: Set by Objects
 
-    /// Sets the subdevices by resolving to their UIDs, active or inactive, contained in the aggregate.
+    /// Sets the subdevices contained in the aggregate, active or inactive, by resolving to their UIDs.
     ///
     /// The order of the items in the array is significant and is used to determine the order of the
     /// streams of the aggregate.
@@ -307,7 +307,7 @@ extension AudioAggregateDeviceProperties {
     }
 
     // type-free version of above function allowing empty array use (`[]`) without type ambiguity
-    /// Sets the subdevices by resolving to their UIDs, active or inactive, contained in the aggregate.
+    /// Sets the subdevices contained in the aggregate, active or inactive, by resolving to their UIDs.
     ///
     /// The order of the items in the array is significant and is used to determine the order of the
     /// streams of the aggregate.
