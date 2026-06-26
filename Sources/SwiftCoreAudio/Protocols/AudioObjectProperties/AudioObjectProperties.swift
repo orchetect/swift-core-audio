@@ -49,7 +49,7 @@ public protocol AudioObjectProperties where Self: AudioObject {
     /// An array of `any AudioObject` that represent all the objects owned by this object.
     /// To filter by a specific concrete object type, call ``ownedObjects(ofType:)`` instead.
     nonisolated
-    var ownedObjects: [any AudioObject] { get throws(SwiftCoreAudioError) }
+    var ownedObjects: [AnyAudioObject] { get throws(SwiftCoreAudioError) }
 
     /// An array of strongly-typed concrete `AudioObject` objects that represent all the objects
     /// owned by this object.

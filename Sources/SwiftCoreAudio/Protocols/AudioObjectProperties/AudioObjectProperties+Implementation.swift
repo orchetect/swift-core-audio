@@ -95,15 +95,10 @@ extension AudioObjectProperties {
     // `elementNumberName` is implemented directly on object subclasses for properties that use it
 
     nonisolated
-    public var ownedObjects: [any AudioObject] {
+    public var ownedObjects: [AnyAudioObject] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: ObjectProperty.ownedObjects, qualifier: .init(initialValue: []))
-            var objects: [any AudioObject] = []
-            for id in ids {
-                let object = try AudioSystem.shared.object(forID: id)
-                objects.append(object)
-            }
-            return objects
+            return ids.map(AnyAudioObject.init(id:))
         }
     }
 
