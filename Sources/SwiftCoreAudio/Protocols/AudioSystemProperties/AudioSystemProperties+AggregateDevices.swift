@@ -21,6 +21,21 @@ extension AudioSystemProperties {
             try devices.audioAggregateDevices
         }
     }
+
+    /// Returns an array of UIDs for aggregate devices currently available to the system by looking up their UIDs.
+    ///
+    /// - Parameters:
+    ///   - uidLookupErrorHandler: Optionally supply an error handler that will be called for any UIDs that fail lookup.
+    ///     If this closure is `nil`, failures are silently ignored but will still be logged.
+    /// - Throws: Throws an error if device enumeration fails. Individual failures on a per-device basis are
+    ///   passed to the `streamLookupErrorHandler` closure and do not cause this method itself to throw.
+    nonisolated
+    public func aggregateUIDs(
+        uidLookupErrorHandler: ((_ device: AudioAggregateDevice, _ error: SwiftCoreAudioError) -> ())? = nil
+    ) throws(SwiftCoreAudioError) -> [AudioAggregateDevice.UID] {
+        let devices = try aggregates
+        return devices.uids(uidLookupErrorHandler: uidLookupErrorHandler)
+    }
 }
 
 // MARK: - Aggregate Device Lifecycle
