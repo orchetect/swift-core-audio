@@ -55,7 +55,8 @@ public protocol AudioObjectProperties where Self: AudioObject {
     /// owned by this object.
     nonisolated
     func ownedObjects<T: AudioObjectType>(
-        ofType objectType: T
+        ofType objectType: T,
+        objectTypeLookupErrorHandler: ((_ id: AnyAudioObject.ID, _ error: SwiftCoreAudioError) -> Void)?
     ) throws(SwiftCoreAudioError) -> [T.Object]
     where T.Object: IDConstructibleAudioObject
 

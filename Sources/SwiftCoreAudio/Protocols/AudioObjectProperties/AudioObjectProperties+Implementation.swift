@@ -104,7 +104,8 @@ extension AudioObjectProperties {
 
     nonisolated
     public func ownedObjects<T: AudioObjectType>(
-        ofType objectType: T
+        ofType objectType: T,
+        objectTypeLookupErrorHandler: ((_ id: AnyAudioObject.ID, _ error: SwiftCoreAudioError) -> Void)? = nil
     ) throws(SwiftCoreAudioError) -> [T.Object]
     where T.Object: IDConstructibleAudioObject {
         let ids = try getPropertyValue(
@@ -113,8 +114,13 @@ extension AudioObjectProperties {
         )
         var objects: [T.Object] = []
         for id in ids {
-            let object = try AudioSystem.shared.object(forID: id, ofType: objectType)
-            objects.append(object)
+            do throws(SwiftCoreAudioError) {
+                let object = try AudioSystem.shared.object(forID: id, ofType: objectType)
+                objects.append(object)
+            } catch {
+                Logging.log(.error, "Object type lookup failed for object with ID \(id) while enumerating owned objects of object with ID \(self.id).")
+                objectTypeLookupErrorHandler?(AnyAudioObject.ID(id), error)
+            }
         }
         return objects
     }
