@@ -119,11 +119,28 @@ extension AudioDeviceProperties {
 // MARK: - Streams
 
 extension AudioDeviceProperties {
+    /// Returns all streams for the audio direction.
+    ///
+    /// - Parameters:
+    ///   - direction: Input or output audio stream direction.
+    ///   - streamLookupErrorHandler: Optionally supply an error handler that will be called for any stream
+    ///     directions that fail lookup.
+    ///     If this closure is `nil`, failures are silently ignored but will still be logged.
+    /// - Throws: Throws an error if stream enumeration fails. Individual failures on a per-stream basis are
+    ///   passed to the `directionLookupErrorHandler` closure and do not cause this method itself to throw.
     nonisolated
-    public func streams(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> [AudioStream] {
+    public func streams(
+        for direction: AudioStream.Direction,
+        directionLookupErrorHandler: ((_ stream: AudioStream, _ error: SwiftCoreAudioError) -> ())? = nil
+    ) throws(SwiftCoreAudioError) -> [AudioStream] {
         var filteredStreams: [AudioStream] = []
         for stream in try streams {
-            if try stream.direction == direction { filteredStreams.append(stream) }
+            do throws(SwiftCoreAudioError) {
+                if try stream.direction == direction { filteredStreams.append(stream) }
+            } catch {
+                Logging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
+                directionLookupErrorHandler?(stream, error)
+            }
         }
         return filteredStreams
     }
