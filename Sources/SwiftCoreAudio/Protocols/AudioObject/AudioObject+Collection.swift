@@ -11,6 +11,18 @@ import CoreAudio
 // MARK: - Map
 
 extension Sequence where Element: AudioObject {
+    /// Returns the object IDs of the audio objects in the sequence.
+    nonisolated
+    public var ids: [Element.ID] {
+        map(\.id)
+    }
+
+    /// Returns the object IDs of the audio objects in the sequence, type-erased as `AnyAudioObject.ID` instances.
+    nonisolated
+    public var idsAsAnyAudioObjectIDs: [AnyAudioObject.ID] {
+        map(\.id.asAnyAudioObjectID)
+    }
+
     /// Internal:
     /// Returns the raw Core Audio object IDs of the objects in the sequence.
     nonisolated
