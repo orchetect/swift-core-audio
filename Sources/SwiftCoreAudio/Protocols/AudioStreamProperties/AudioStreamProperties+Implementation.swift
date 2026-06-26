@@ -61,16 +61,20 @@ extension AudioStreamProperties {
     }
 
     nonisolated
-    public var availableVirtualFormats: [AudioStream.RangedDescription] {
-        get throws(SwiftCoreAudioError) {
-            let coreAudioDescs = try getPropertyValue(property: StreamProperty.availableVirtualFormats)
-            var descs: [AudioStream.RangedDescription] = []
-            for coreAudioDesc in coreAudioDescs {
+    public func availableVirtualFormats(
+        formatParseErrorHandler: ((_ rangedDescription: AudioStreamRangedDescription, _ error: SwiftCoreAudioError) -> Void)? = nil
+    ) throws(SwiftCoreAudioError) -> [AudioStream.RangedDescription] {
+        let coreAudioDescs = try getPropertyValue(property: StreamProperty.availableVirtualFormats)
+        var descs: [AudioStream.RangedDescription] = []
+        for coreAudioDesc in coreAudioDescs {
+            do {
                 let desc = try AudioStream.RangedDescription(from: coreAudioDesc)
                 descs.append(desc)
+            } catch {
+                Logging.log(.error, "Error parsing Core Audio AudioStreamRangedDescription while getting available virtual formats for audio stream with ID \(id): \(error)")
             }
-            return descs
         }
+        return descs
     }
 
     nonisolated
