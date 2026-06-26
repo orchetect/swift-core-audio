@@ -12,6 +12,21 @@ import SwiftProcess
 // MARK: - Object Enumeration
 
 extension AudioSystemProperties {
+    /// Returns an array of UIDs for devices currently available to the system by looking up their UIDs.
+    ///
+    /// - Parameters:
+    ///   - uidLookupErrorHandler: Optionally supply an error handler that will be called for any UIDs that fail lookup.
+    ///     If this closure is `nil`, failures are silently ignored but will still be logged.
+    /// - Throws: Throws an error if device enumeration fails. Individual failures on a per-device basis are
+    ///   passed to the `streamLookupErrorHandler` closure and do not cause this method itself to throw.
+    nonisolated
+    public func deviceUIDs(
+        uidLookupErrorHandler: ((_ device: AnyAudioDevice, _ error: SwiftCoreAudioError) -> ())? = nil
+    ) throws(SwiftCoreAudioError) -> [AnyAudioDevice.UID] {
+        let devices = try devices
+        return devices.uids(uidLookupErrorHandler: uidLookupErrorHandler)
+    }
+
     /// Returns an array of devices currently available to the system matching the given UIDs.
     ///
     /// - Parameters:
