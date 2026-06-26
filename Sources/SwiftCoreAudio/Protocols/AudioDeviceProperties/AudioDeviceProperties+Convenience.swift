@@ -58,16 +58,24 @@ extension AudioDeviceProperties {
 
     /// Returns the total channel count of channels for all streams for both directions.
     /// This method is more efficient than calling ``channelCount(for:)`` twice (for each direction).
+    ///
+    /// - Parameters:
+    ///   - streamLookupErrorHandler: Optionally supply an error handler that will be called for any streams
+    ///     that fail lookup.
+    ///     If this closure is `nil`, failures are silently ignored but will still be logged.
+    /// - Throws: Throws an error if stream enumeration fails. Individual failures on a per-device basis are
+    ///   passed to the `streamLookupErrorHandler` closure and do not cause this method itself to throw.
     nonisolated
-    public var channelCounts: (inputs: Int, outputs: Int) {
-        get throws(SwiftCoreAudioError) {
-            let audioStreams = try streams
-            var inputCount: Int = 0
-            var outputCount: Int = 0
+    public func channelCounts(
+        streamLookupErrorHandler: ((_ stream: AudioStream, _ error: SwiftCoreAudioError) -> ())? = nil
+    ) throws(SwiftCoreAudioError) -> (inputs: Int, outputs: Int) {
+        var inputCount: Int = 0
+        var outputCount: Int = 0
 
-            for audioStream in audioStreams {
-                let direction = try audioStream.direction
-                let channels = try audioStream.channelCount
+        for stream in try streams {
+            do throws(SwiftCoreAudioError) {
+                let direction = try stream.direction
+                let channels = try stream.channelCount
 
                 switch direction {
                 case .input:
@@ -75,10 +83,13 @@ extension AudioDeviceProperties {
                 case .output:
                     outputCount += channels
                 }
+            } catch {
+                Logging.log(.error, "Error looking up channel counts for audio stream with ID \(stream.id): \(error)")
+                streamLookupErrorHandler?(stream, error)
             }
-
-            return (inputs: inputCount, outputs: outputCount)
         }
+
+        return (inputs: inputCount, outputs: outputCount)
     }
 
     /// Returns the channel name if one is assigned for the given channel number (1-based).
