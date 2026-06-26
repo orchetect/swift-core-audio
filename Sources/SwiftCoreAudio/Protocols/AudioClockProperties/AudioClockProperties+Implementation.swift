@@ -58,18 +58,12 @@ extension AudioClockProperties {
         }
     }
 
-    // TODO: refactor in a way that can constrain this to only audio controls and provide stronger type hints. Could implement controls as nested types in lieu of no class inheritance model.
-    // TODO: convert to a non-throwing function that takes a lookup error handler to handle per-object errors.
+    // TODO: refactor in a way that can constrain this to only audio controls. Possibly a new `AnyAudioControl` enumeration like `AnyAudioDevice`.
     nonisolated
-    public var controls: [any AudioObject] {
+    public var controls: [AnyAudioObject] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: ClockProperty.controlList)
-            var objects: [any AudioObject] = []
-            for id in ids {
-                let object = try AudioSystem.shared.object(forID: id)
-                objects.append(object)
-            }
-            return objects
+            return ids.map(AnyAudioObject.init(id:))
         }
     }
 

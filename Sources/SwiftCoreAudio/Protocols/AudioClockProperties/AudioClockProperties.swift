@@ -49,14 +49,13 @@ public protocol AudioClockProperties where Self: AudioObject & UIDIdentifiableAu
     nonisolated
     var latency: UInt32 { get throws(SwiftCoreAudioError) }
 
-    // TODO: refactor in a way that can constrain this to only audio controls and provide stronger type hints.
-    // Could implement controls as nested types in lieu of no class inheritance model.
+    // TODO: refactor in a way that can constrain this to only audio controls. Possibly a new `AnyAudioControl` enumeration like `AnyAudioDevice`.
     /// Returns an array containing controls of the clock.
     ///
     /// Note that if a notification is received for this property, any cached object identifiers
     /// for the clock become invalid and need to be re-fetched.
     nonisolated
-    var controls: [any AudioObject] { get throws(SwiftCoreAudioError) }
+    var controls: [AnyAudioObject] { get throws(SwiftCoreAudioError) }
 
     /// Returns the current nominal sample rate of the clock.
     nonisolated
