@@ -18,7 +18,7 @@ extension AudioID {
     /// > Constant: `kAudioObjectUnknown`
     nonisolated
     public static var unknown: Self {
-        Self(0)
+        Self(kAudioObjectUnknown)
     }
 }
 
