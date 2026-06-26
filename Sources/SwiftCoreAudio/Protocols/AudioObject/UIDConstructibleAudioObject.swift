@@ -48,4 +48,31 @@ extension AudioUID where Object: UIDIdentifiableAudioObject & UIDConstructibleAu
     }
 }
 
+// MARK: - Convenience
+
+extension Sequence where Element: UIDIdentifiableAudioObject {
+    /// Returns an array of UIDs for devices currently available to the system by looking up their UIDs.
+    ///
+    /// - Parameters:
+    ///   - uidLookupErrorHandler: Optionally supply an error handler that will be called for any UIDs that fail lookup.
+    ///     If this closure is `nil`, failures are silently ignored but will still be logged.
+    nonisolated
+    public func uids(
+        uidLookupErrorHandler: ((_ object: Element, _ error: SwiftCoreAudioError) -> ())? = nil
+    ) -> [Element.UID] {
+        var uids: [Element.UID] = []
+        for object in self {
+            do throws(SwiftCoreAudioError) {
+                let uid = try object.uid
+                uids.append(uid)
+            } catch {
+                Logging.log(.error, "Error looking up UID for \(Element.self) with ID \(object.id): \(error)")
+                uidLookupErrorHandler?(object, error)
+            }
+        }
+
+        return uids
+    }
+}
+
 #endif
