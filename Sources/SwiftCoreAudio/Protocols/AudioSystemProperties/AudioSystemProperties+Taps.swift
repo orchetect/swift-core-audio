@@ -9,6 +9,25 @@
 import CoreAudio
 import SwiftProcess
 
+// MARK: - Audio Tap Enumeration
+
+extension AudioSystemProperties {
+    /// Returns an array of UIDs for devices currently available to the system by looking up their UIDs.
+    ///
+    /// - Parameters:
+    ///   - uidLookupErrorHandler: Optionally supply an error handler that will be called for any UIDs that fail lookup.
+    ///     If this closure is `nil`, failures are silently ignored but will still be logged.
+    /// - Throws: Throws an error if device enumeration fails. Individual failures on a per-device basis are
+    ///   passed to the `streamLookupErrorHandler` closure and do not cause this method itself to throw.
+    nonisolated
+    public func tapUIDs(
+        uidLookupErrorHandler: ((_ device: AudioTap, _ error: SwiftCoreAudioError) -> ())? = nil
+    ) throws(SwiftCoreAudioError) -> [AudioTap.UID] {
+        let taps = try taps
+        return taps.uids(uidLookupErrorHandler: uidLookupErrorHandler)
+    }
+}
+
 // MARK: - Audio Tap Lifecycle
 
 extension AudioSystemProperties {
