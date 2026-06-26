@@ -147,13 +147,26 @@ extension AudioDeviceProperties {
 
     /// Returns a boolean value indicating whether the device has at least one stream for the given
     /// direction.
+    ///
+    /// - Parameters:
+    ///   - direction: Input or output audio stream direction.
+    ///   - streamLookupErrorHandler: Optionally supply an error handler that will be called for any stream
+    ///     directions that fail lookup.
+    ///     If this closure is `nil`, failures are silently ignored but will still be logged.
+    /// - Throws: Throws an error if stream enumeration fails. Individual failures on a per-stream basis are
+    ///   passed to the `directionLookupErrorHandler` closure and do not cause this method itself to throw.
     nonisolated
-    public func hasStreams(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> Bool {
-        let audioStreams = try streams
-
-        // if any stream is the specified direction return true
-        for audioStream in audioStreams {
-            if try audioStream.direction == direction { return true }
+    public func hasStreams(
+        for direction: AudioStream.Direction,
+        directionLookupErrorHandler: ((_ stream: AudioStream, _ error: SwiftCoreAudioError) -> ())? = nil
+    ) throws(SwiftCoreAudioError) -> Bool {
+        for stream in try streams {
+            do throws(SwiftCoreAudioError) {
+                if try stream.direction == direction { return true }
+            } catch {
+                Logging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
+                directionLookupErrorHandler?(stream, error)
+            }
         }
 
         return false
