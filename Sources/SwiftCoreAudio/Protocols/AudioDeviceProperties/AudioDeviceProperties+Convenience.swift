@@ -29,13 +29,29 @@ extension AudioDeviceProperties {
 
 extension AudioDeviceProperties {
     /// Returns the total channel count of channels for all streams of the given direction.
+    ///
+    /// - Parameters:
+    ///   - direction: Input or output audio stream direction.
+    ///   - streamLookupErrorHandler: Optionally supply an error handler that will be called for any streams
+    ///     that fail lookup.
+    ///     If this closure is `nil`, failures are silently ignored but will still be logged.
+    /// - Throws: Throws an error if stream enumeration fails. Individual failures on a per-device basis are
+    ///   passed to the `streamLookupErrorHandler` closure and do not cause this method itself to throw.
     nonisolated
-    public func channelCount(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> Int {
-        let audioStreams = try streams(for: direction)
+    public func channelCount(
+        for direction: AudioStream.Direction,
+        streamLookupErrorHandler: ((_ stream: AudioStream, _ error: SwiftCoreAudioError) -> ())? = nil
+    ) throws(SwiftCoreAudioError) -> Int {
+        let audioStreams = try streams(for: direction, directionLookupErrorHandler: streamLookupErrorHandler)
         var count = 0
         for stream in audioStreams {
-            // this may be naïve but it seems to work
-            count += try Int(stream.virtualFormat.channelsPerFrame)
+            do throws(SwiftCoreAudioError) {
+                // this may be naïve but it seems to work
+                count += try Int(stream.channelCount)
+            } catch {
+                Logging.log(.error, "Error looking up channel count for \(direction) audio stream with ID \(stream.id): \(error)")
+                streamLookupErrorHandler?(stream, error)
+            }
         }
         return count
     }
