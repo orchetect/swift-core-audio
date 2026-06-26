@@ -16,8 +16,9 @@ extension SerializedTests {
         // MARK: - object_forID
 
         @Test
-        func object_forID_unknown() throws {
-            #expect(throws: SwiftCoreAudioError.self) {
+        func object_forID_unknown() async throws {
+            await #expect(processExitsWith: .failure) {
+                // in debug builds, this method asserts when 0 is passed
                 _ = try AudioSystem.shared.object(forID: 0) // 0 is always unknown
             }
         }
@@ -31,8 +32,9 @@ extension SerializedTests {
         // MARK: - object_forID_ofType
 
         @Test
-        func object_forID_ofType_unknown() throws {
-            #expect(throws: SwiftCoreAudioError.self) {
+        func object_forID_ofType_unknown() async throws {
+            await #expect(processExitsWith: .failure) {
+                // in debug builds, this method asserts when 0 is passed
                 _ = try AudioSystem.shared.object(forID: 0, ofType: .device) // 0 is always unknown
             }
         }

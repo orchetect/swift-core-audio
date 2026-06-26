@@ -41,14 +41,18 @@ extension SerializedTests {
         func channelCounts_invalid() throws {
             let device = AudioDevice(id: .randomUnused)
             #expect(throws: SwiftCoreAudioError.self) {
-                _ = try device.channelCounts
+                _ = try device.channelCounts()
             }
         }
 
         @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
-        func channelCounts_valid() throws {
+        func channelCounts_valid() async throws {
             let device = try #require(AudioDevice.blackHole2Ch)
-            #expect(try device.channelCounts == (inputs: 2, outputs: 2))
+            let (inputs, outputs) = try await confirmation(expectedCount: 0) { confirmation in
+                try device.channelCounts { stream, error in confirmation() }
+            }
+            #expect(inputs == 2)
+            #expect(outputs == 2)
         }
 
         // MARK: channelName
