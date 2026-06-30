@@ -15,6 +15,7 @@ extension SerializedTests {
     struct AudioSystem_Objects_Tests {
         // MARK: - object_forID
 
+        #if compiler(>=6.2)
         @Test
         func object_forID_unknown() async throws {
             await #expect(processExitsWith: .failure) {
@@ -22,7 +23,8 @@ extension SerializedTests {
                 _ = try AudioSystem.shared.object(forID: 0) // 0 is always unknown
             }
         }
-
+        #endif
+        
         @Test
         func object_forID_system() throws {
             let object = try AudioSystem.shared.object(forID: 1) // 1 is always System
@@ -31,6 +33,7 @@ extension SerializedTests {
 
         // MARK: - object_forID_ofType
 
+        #if compiler(>=6.2)
         @Test
         func object_forID_ofType_unknown() async throws {
             await #expect(processExitsWith: .failure) {
@@ -38,6 +41,7 @@ extension SerializedTests {
                 _ = try AudioSystem.shared.object(forID: 0, ofType: .device) // 0 is always unknown
             }
         }
+        #endif
 
         @Test
         func object_forID_ofType_valid() throws {
