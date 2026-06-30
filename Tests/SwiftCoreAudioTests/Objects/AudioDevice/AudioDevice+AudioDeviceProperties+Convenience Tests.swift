@@ -81,6 +81,10 @@ extension SerializedTests {
         func channelName_valid() throws {
             let device = try #require(AudioDevice.blackHole2Ch)
 
+            // note: at the time of writing this test (using BlackHole 0.6.1), BlackHole does not provide channel names.
+            // however, if the user has manually named any of the channels in Audio MIDI Setup, this test will fail
+            // because we are expecting them to be default (not named).
+
             // 0 is invalid chan # - channels are 1-based, not 0-based, but we get `nil` instead of an error
             #expect(try device.channelName(forChannelNumber: 0, of: .input) == nil)
             #expect(try device.channelName(forChannelNumber: 0, of: .output) == nil)
