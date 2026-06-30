@@ -60,7 +60,6 @@ extension AudioStreamProperties {
         }
     }
 
-    // TODO: add iteration error handler closure
     nonisolated
     public func availableVirtualFormats(
         formatParseErrorHandler: ((_ rangedDescription: AudioStreamRangedDescription, _ error: SwiftCoreAudioError) -> Void)? = nil
@@ -72,7 +71,11 @@ extension AudioStreamProperties {
                 let desc = try AudioStream.RangedDescription(from: coreAudioDesc)
                 descs.append(desc)
             } catch {
-                CoreAudioLogging.log(.error, "Error parsing Core Audio AudioStreamRangedDescription while getting available virtual formats for audio stream with ID \(id): \(error)")
+                if let formatParseErrorHandler {
+                    formatParseErrorHandler(coreAudioDesc, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error parsing Core Audio AudioStreamRangedDescription while getting available virtual formats for audio stream with ID \(id): \(error)")
+                }
             }
         }
         return descs
@@ -87,7 +90,6 @@ extension AudioStreamProperties {
         }
     }
 
-    // TODO: add iteration error handler closure
     nonisolated
     public func availablePhysicalFormats(
         formatParseErrorHandler: ((_ rangedDescription: AudioStreamRangedDescription, _ error: SwiftCoreAudioError) -> Void)? = nil
@@ -99,7 +101,11 @@ extension AudioStreamProperties {
                 let desc = try AudioStream.RangedDescription(from: coreAudioDesc)
                 descs.append(desc)
             } catch {
-                CoreAudioLogging.log(.error, "Error parsing Core Audio AudioStreamRangedDescription while getting available physical formats for audio stream with ID \(id): \(error)")
+                if let formatParseErrorHandler {
+                    formatParseErrorHandler(coreAudioDesc, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error parsing Core Audio AudioStreamRangedDescription while getting available physical formats for audio stream with ID \(id): \(error)")
+                }
             }
         }
         return descs
