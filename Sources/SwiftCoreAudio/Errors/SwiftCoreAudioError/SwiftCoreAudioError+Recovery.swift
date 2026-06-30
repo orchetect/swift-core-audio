@@ -39,12 +39,12 @@ public func withRecovery<T>(
             throw error
         }
 
-        #if DEBUG
-        var logMessage = "Core Audio error: \(osStatusError)."
-        if let message { logMessage += " (\(message))" }
-        logMessage += " Recovering with substitute \(T.self) value: \(value)."
-        Logging.log(.error, logMessage)
-        #endif
+        CoreAudioLogging.log(.error) {
+            var logMessage = "Core Audio error: \(osStatusError)."
+            if let message { logMessage += " (\(message))" }
+            logMessage += " Recovering with substitute \(T.self) value: \(value)."
+            return logMessage
+        }
 
         return value
     }

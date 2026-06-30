@@ -20,7 +20,7 @@ extension AnyAudioDevice: IDConstructibleAudioObject {
         do throws(SwiftCoreAudioError) {
             classID = try AnyAudioObject(id: id).classID
         } catch {
-            Logging.log(.error, "Failed to get classID for object ID \(id): \(error)")
+            CoreAudioLogging.log(.error, "Failed to get classID for object ID \(id): \(error)")
             classID = nil
         }
 
@@ -32,7 +32,7 @@ extension AnyAudioDevice: IDConstructibleAudioObject {
             let device = AudioAggregateDevice(id: id)
             self = .aggregate(device)
         default:
-            Logging.log(
+            CoreAudioLogging.log(
                 .error,
                 """
                 Attempted to create an AnyAudioDevice from an object that is not a device or an aggregate device. \

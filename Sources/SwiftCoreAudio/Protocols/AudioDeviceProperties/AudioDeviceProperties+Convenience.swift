@@ -49,7 +49,7 @@ extension AudioDeviceProperties {
                 // this may be naïve but it seems to work
                 count += try Int(stream.channelCount)
             } catch {
-                Logging.log(.error, "Error looking up channel count for \(direction) audio stream with ID \(stream.id): \(error)")
+                CoreAudioLogging.log(.error, "Error looking up channel count for \(direction) audio stream with ID \(stream.id): \(error)")
                 streamLookupErrorHandler?(stream, error)
             }
         }
@@ -84,7 +84,7 @@ extension AudioDeviceProperties {
                     outputCount += channels
                 }
             } catch {
-                Logging.log(.error, "Error looking up channel counts for audio stream with ID \(stream.id): \(error)")
+                CoreAudioLogging.log(.error, "Error looking up channel counts for audio stream with ID \(stream.id): \(error)")
                 streamLookupErrorHandler?(stream, error)
             }
         }
@@ -138,7 +138,7 @@ extension AudioDeviceProperties {
             do throws(SwiftCoreAudioError) {
                 if try stream.direction == direction { filteredStreams.append(stream) }
             } catch {
-                Logging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
+                CoreAudioLogging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
                 directionLookupErrorHandler?(stream, error)
             }
         }
@@ -164,7 +164,7 @@ extension AudioDeviceProperties {
             do throws(SwiftCoreAudioError) {
                 if try stream.direction == direction { return true }
             } catch {
-                Logging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
+                CoreAudioLogging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
                 directionLookupErrorHandler?(stream, error)
             }
         }

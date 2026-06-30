@@ -34,7 +34,7 @@ public enum SystemInfo {
 
         #if DEBUG
         if result != 0 {
-            Logging.log(.error, "Error retrieving model name from sysctl. Error # \(result)")
+            CoreAudioLogging.log(.error, "Error retrieving model name from sysctl. Error # \(result)")
         }
         #endif
 

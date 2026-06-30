@@ -118,7 +118,7 @@ extension AudioObjectProperties {
                 let object = try AudioSystem.shared.object(forID: id, ofType: objectType)
                 objects.append(object)
             } catch {
-                Logging.log(.error, "Object type lookup failed for object with ID \(id) while enumerating owned objects of object with ID \(self.id).")
+                CoreAudioLogging.log(.error, "Object type lookup failed for object with ID \(id) while enumerating owned objects of object with ID \(self.id).")
                 objectTypeLookupErrorHandler?(AnyAudioObject.ID(id), error)
             }
         }

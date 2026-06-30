@@ -65,7 +65,7 @@ extension AudioSystemProperties {
                     includedDevices.append(device)
                 }
             } catch {
-                Logging.log(.error, "Error looking up \(direction) stream information for audio device with ID \(device.id): \(error)")
+                CoreAudioLogging.log(.error, "Error looking up \(direction) stream information for audio device with ID \(device.id): \(error)")
                 streamLookupErrorHandler?(device, error)
             }
         }

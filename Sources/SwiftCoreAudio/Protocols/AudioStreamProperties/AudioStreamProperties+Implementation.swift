@@ -71,7 +71,7 @@ extension AudioStreamProperties {
                 let desc = try AudioStream.RangedDescription(from: coreAudioDesc)
                 descs.append(desc)
             } catch {
-                Logging.log(.error, "Error parsing Core Audio AudioStreamRangedDescription while getting available virtual formats for audio stream with ID \(id): \(error)")
+                CoreAudioLogging.log(.error, "Error parsing Core Audio AudioStreamRangedDescription while getting available virtual formats for audio stream with ID \(id): \(error)")
             }
         }
         return descs
@@ -97,7 +97,7 @@ extension AudioStreamProperties {
                 let desc = try AudioStream.RangedDescription(from: coreAudioDesc)
                 descs.append(desc)
             } catch {
-                Logging.log(.error, "Error parsing Core Audio AudioStreamRangedDescription while getting available physical formats for audio stream with ID \(id): \(error)")
+                CoreAudioLogging.log(.error, "Error parsing Core Audio AudioStreamRangedDescription while getting available physical formats for audio stream with ID \(id): \(error)")
             }
         }
         return descs
