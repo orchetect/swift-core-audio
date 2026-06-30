@@ -15,6 +15,10 @@ import TestingExtensions
 extension SerializedTests {
     @Suite
     struct AudioAggregateDevice_Convenience_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+        
         // MARK: update()
 
         @Test

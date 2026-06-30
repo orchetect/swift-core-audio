@@ -16,6 +16,10 @@ extension SerializedTests {
     /// This does not have to be exhaustive.
     @Suite
     struct AudioAggregateDevice_AudioDeviceProperties_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+        
         // empty for now; add tests as-needed
     }
 }

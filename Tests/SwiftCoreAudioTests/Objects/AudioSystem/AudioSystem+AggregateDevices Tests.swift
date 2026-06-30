@@ -13,6 +13,10 @@ import Testing
 extension SerializedTests {
     @Suite
     struct AudioSystem_AggregateDevices_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+
         /// Test Core Audio's behavior when you attempt to create two aggregates without a UID.
         @Test
         func missingUID() throws {

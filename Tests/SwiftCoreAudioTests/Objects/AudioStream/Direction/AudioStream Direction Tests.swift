@@ -14,6 +14,10 @@ import Testing
 /// These are logic-only tests and do not need to be nested under ``SerializedTests``.
 @Suite
 struct AudioStream_Direction_Tests {
+    init() {
+        CoreAudioLogging.bootstrap()
+    }
+    
     @Test
     func codable() throws {
         for direction in AudioStream.Direction.allCases {

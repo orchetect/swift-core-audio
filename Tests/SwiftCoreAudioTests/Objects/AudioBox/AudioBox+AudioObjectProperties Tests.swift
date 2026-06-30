@@ -15,6 +15,10 @@ extension SerializedTests {
     /// This does not have to be exhaustive.
     @Suite
     struct AudioBox_AudioObjectProperties_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+        
         // MARK: firmwareVersion
 
         @Test

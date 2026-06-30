@@ -14,6 +14,10 @@ import Testing
 extension SerializedTests {
     @Suite
     struct AudioBox_UIDIdentifiableAudioObject_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+        
         // MARK: uid
 
         @Test

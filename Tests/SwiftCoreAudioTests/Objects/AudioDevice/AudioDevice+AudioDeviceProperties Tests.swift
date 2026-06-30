@@ -14,6 +14,10 @@ import Testing
 extension SerializedTests {
     @Suite
     struct AudioDevice_AudioDeviceProperties_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+
         // MARK: configurationApplication
 
         @Test

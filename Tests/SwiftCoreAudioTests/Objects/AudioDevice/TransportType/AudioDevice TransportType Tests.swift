@@ -15,6 +15,10 @@ import Testing
 /// These are logic-only tests and do not need to be nested under ``SerializedTests``.
 @Suite
 struct AudioDevice_TransportType_Tests {
+    init() {
+        CoreAudioLogging.bootstrap()
+    }
+    
     @Test
     func initKnownValue() {
         #expect(AudioDevice.TransportType(rawValue: kAudioDeviceTransportTypeAggregate) == .aggregate)

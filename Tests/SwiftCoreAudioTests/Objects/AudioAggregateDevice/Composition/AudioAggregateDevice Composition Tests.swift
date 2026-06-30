@@ -14,6 +14,10 @@ import Testing
 /// These are logic-only tests and do not need to be nested under ``SerializedTests``.
 @Suite
 struct AudioAggregateDevice_Composition_Tests {
+    init() {
+        CoreAudioLogging.bootstrap()
+    }
+    
     /// Checks the sample `Composition` for integrity.
     @Test
     func baselineCompositionCheck() throws {

@@ -13,6 +13,10 @@ import Testing
 extension SerializedTests {
     @Suite
     struct AudioDevice_IDConstructibleAudioObject_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+        
         @Test
         func codable() throws {
             let device = AudioDevice(id: AudioDevice.ID(123))

@@ -14,6 +14,10 @@ import Testing
 extension SerializedTests {
     @Suite
     struct AudioDevice_AudioObjectProperties_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+        
         // MARK: baseClassID
 
         @Test

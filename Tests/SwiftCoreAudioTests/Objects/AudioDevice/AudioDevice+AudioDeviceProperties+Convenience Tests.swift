@@ -14,6 +14,10 @@ import Testing
 extension SerializedTests {
     @Suite
     struct AudioDevice_AudioDeviceProperties_Convenience_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+        
         // MARK: channelCount(for:)
 
         @Test

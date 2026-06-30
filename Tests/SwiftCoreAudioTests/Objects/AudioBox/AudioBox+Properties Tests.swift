@@ -13,6 +13,10 @@ import Testing
 extension SerializedTests {
     @Suite
     struct AudioBox_Properties_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+        
         // MARK: boxUID
 
         @Test

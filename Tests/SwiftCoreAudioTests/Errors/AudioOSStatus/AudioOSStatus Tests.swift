@@ -11,6 +11,10 @@ import Testing
 /// These are logic-only tests and do not need to be nested under ``SerializedTests``.
 @Suite
 struct AudioOSStatus_Tests {
+    init() {
+        CoreAudioLogging.bootstrap()
+    }
+    
     /// Ensure that `noErr` (value `0`) is allowed.
     @Test
     func init_RawValue_noErr() {

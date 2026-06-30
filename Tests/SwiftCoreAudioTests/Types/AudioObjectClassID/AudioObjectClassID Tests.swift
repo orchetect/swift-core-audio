@@ -8,7 +8,13 @@ import Foundation
 import Testing
 import SwiftCoreAudio
 
-@Suite struct AudioObjectClassID_Tests {
+/// These are logic-only tests and do not need to be nested under ``SerializedTests``.
+@Suite
+struct AudioObjectClassID_Tests {
+    init() {
+        CoreAudioLogging.bootstrap()
+    }
+    
     @Test
     func codable() throws {
         for classID in AudioObjectClassID.allCases {

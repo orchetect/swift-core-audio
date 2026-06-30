@@ -8,7 +8,13 @@ import Foundation
 import Testing
 import SwiftCoreAudio
 
-@Suite struct AudioUID_Properties_Tests {
+/// These are logic-only tests and do not need to be nested under ``SerializedTests``.
+@Suite
+struct AudioUID_Properties_Tests {
+    init() {
+        CoreAudioLogging.bootstrap()
+    }
+    
     @Test
     func isBlackHole() throws {
         #expect(AudioUID<AnyAudioDevice>("BlackHole2ch_UID").isBlackHole)

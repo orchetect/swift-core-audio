@@ -16,6 +16,10 @@ extension SerializedTests {
     /// This does not have to be exhaustive.
     @Suite
     struct AudioAggregateDevice_AudioDeviceProperties_Convenience_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+        
         // MARK: isPresent
 
         @Test

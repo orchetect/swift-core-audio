@@ -13,6 +13,10 @@ import Testing
 extension SerializedTests {
     @Suite
     struct AudioSystem_Objects_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+        
         // MARK: - object_forID
 
         #if compiler(>=6.2)

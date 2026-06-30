@@ -13,6 +13,10 @@ import Testing
 extension SerializedTests {
     @Suite
     struct AudioBox_Convenience_Tests {
+        init() {
+            CoreAudioLogging.bootstrap()
+        }
+        
         // MARK: isPresent
 
         @Test

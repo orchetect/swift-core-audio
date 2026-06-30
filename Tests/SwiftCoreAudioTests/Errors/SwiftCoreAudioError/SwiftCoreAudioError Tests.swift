@@ -11,6 +11,10 @@ import Testing
 /// These are logic-only tests and do not need to be nested under ``SerializedTests``.
 @Suite
 struct SwiftCoreAudioError_Tests {
+    init() {
+        CoreAudioLogging.bootstrap()
+    }
+    
     /// Spot-check equatable.
     @Test
     func equatable_typical() throws {
