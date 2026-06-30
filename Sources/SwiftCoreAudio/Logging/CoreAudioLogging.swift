@@ -19,13 +19,26 @@ public enum CoreAudioLogging {
 
     nonisolated(unsafe)
     private static var _logClosure: (@Sendable (_ logLevel: OSLogType, _ message: String) -> Void)?
+
+    /// Once bootstrapped, determines whether recovery errors are logged.
+    static var isRecoveryErrorsEnabled: Bool {
+        get { lock.withLock { _isRecoveryErrorsEnabled } }
+        set { lock.withLock { _isRecoveryErrorsEnabled = newValue } }
+    }
+
+    nonisolated(unsafe)
+    private static var _isRecoveryErrorsEnabled: Bool = true
 }
 
 // MARK: - Bootstrap
 
 extension CoreAudioLogging {
     /// Enable SwiftCoreAudio logging using the default logging backend.
-    public static func bootstrap() {
+    public static func bootstrap(
+        isRecoveryErrorsEnabled: Bool = true
+    ) {
+        self.isRecoveryErrorsEnabled = isRecoveryErrorsEnabled
+
         logClosure = { logLevel, message in
             if #available(macOS 11.0, iOS 14.0, watchOS 7.0, tvOS 14.0, *) {
                 defaultLogger.log(level: logLevel, "\(message)")
@@ -38,8 +51,11 @@ extension CoreAudioLogging {
     /// Enable SwiftCoreAudio logging using a custom logging backend.
     nonisolated
     public static func bootstrap(
+        isRecoveryErrorsEnabled: Bool = true,
         _ logger: (@Sendable (_ logLevel: OSLogType, _ message: String) -> Void)?
     ) {
+        self.isRecoveryErrorsEnabled = isRecoveryErrorsEnabled
+
         logClosure = logger
     }
 }
