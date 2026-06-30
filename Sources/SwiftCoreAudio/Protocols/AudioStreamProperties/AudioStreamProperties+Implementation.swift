@@ -60,6 +60,7 @@ extension AudioStreamProperties {
         }
     }
 
+    // TODO: add iteration error handler closure
     nonisolated
     public func availableVirtualFormats(
         formatParseErrorHandler: ((_ rangedDescription: AudioStreamRangedDescription, _ error: SwiftCoreAudioError) -> Void)? = nil
@@ -86,6 +87,7 @@ extension AudioStreamProperties {
         }
     }
 
+    // TODO: add iteration error handler closure
     nonisolated
     public func availablePhysicalFormats(
         formatParseErrorHandler: ((_ rangedDescription: AudioStreamRangedDescription, _ error: SwiftCoreAudioError) -> Void)? = nil

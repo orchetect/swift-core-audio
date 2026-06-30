@@ -49,8 +49,11 @@ extension AudioDeviceProperties {
                 // this may be naïve but it seems to work
                 count += try Int(stream.channelCount)
             } catch {
-                CoreAudioLogging.log(.error, "Error looking up channel count for \(direction) audio stream with ID \(stream.id): \(error)")
-                streamLookupErrorHandler?(stream, error)
+                if let streamLookupErrorHandler {
+                    streamLookupErrorHandler(stream, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error looking up channel count for \(direction) audio stream with ID \(stream.id): \(error)")
+                }
             }
         }
         return count
@@ -84,8 +87,11 @@ extension AudioDeviceProperties {
                     outputCount += channels
                 }
             } catch {
-                CoreAudioLogging.log(.error, "Error looking up channel counts for audio stream with ID \(stream.id): \(error)")
-                streamLookupErrorHandler?(stream, error)
+                if let streamLookupErrorHandler {
+                    streamLookupErrorHandler(stream, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error looking up channel counts for audio stream with ID \(stream.id): \(error)")
+                }
             }
         }
 
@@ -138,8 +144,11 @@ extension AudioDeviceProperties {
             do throws(SwiftCoreAudioError) {
                 if try stream.direction == direction { filteredStreams.append(stream) }
             } catch {
-                CoreAudioLogging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
-                directionLookupErrorHandler?(stream, error)
+                if let directionLookupErrorHandler {
+                    directionLookupErrorHandler(stream, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
+                }
             }
         }
         return filteredStreams
@@ -164,8 +173,11 @@ extension AudioDeviceProperties {
             do throws(SwiftCoreAudioError) {
                 if try stream.direction == direction { return true }
             } catch {
-                CoreAudioLogging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
-                directionLookupErrorHandler?(stream, error)
+                if let directionLookupErrorHandler {
+                    directionLookupErrorHandler(stream, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
+                }
             }
         }
 

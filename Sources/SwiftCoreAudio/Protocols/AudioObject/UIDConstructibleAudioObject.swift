@@ -66,8 +66,11 @@ extension Sequence where Element: UIDIdentifiableAudioObject {
                 let uid = try object.uid
                 uids.append(uid)
             } catch {
-                CoreAudioLogging.log(.error, "Error looking up UID for \(Element.self) with ID \(object.id): \(error)")
-                uidLookupErrorHandler?(object, error)
+                if let uidLookupErrorHandler {
+                    uidLookupErrorHandler(object, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error looking up UID for \(Element.self) with ID \(object.id): \(error)")
+                }
             }
         }
 

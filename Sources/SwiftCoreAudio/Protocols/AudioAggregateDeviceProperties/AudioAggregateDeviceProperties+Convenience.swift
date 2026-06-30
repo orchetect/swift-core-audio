@@ -269,8 +269,11 @@ extension AudioAggregateDeviceProperties {
                 }
                 devices.append(device)
             } catch {
-                CoreAudioLogging.log(.error, "Error getting aggregate subdevice: \(error)")
-                uidLookupErrorHandler?(uid, error)
+                if let uidLookupErrorHandler {
+                    uidLookupErrorHandler(uid, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error getting aggregate subdevice: \(error)")
+                }
             }
         }
         return devices
@@ -299,8 +302,11 @@ extension AudioAggregateDeviceProperties {
                 let uid = try device.uid
                 uids.append(uid)
             } catch {
-                CoreAudioLogging.log(.error, "Error setting aggregate subdevice: \(error)")
-                deviceLookupErrorHandler?(device, error)
+                if let deviceLookupErrorHandler {
+                    deviceLookupErrorHandler(device, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error setting aggregate subdevice: \(error)")
+                }
             }
         }
         try setSubdevices(uids: uids)
@@ -350,8 +356,11 @@ extension AudioAggregateDeviceProperties {
                 let uid = try device.uid
                 uids.append(.init(rawValue: uid.rawValue))
             } catch {
-                CoreAudioLogging.log(.error, "Error adding aggregate subdevice: \(error)")
-                deviceLookupErrorHandler?(device, error)
+                if let deviceLookupErrorHandler {
+                    deviceLookupErrorHandler(device, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error adding aggregate subdevice: \(error)")
+                }
             }
         }
 
@@ -380,8 +389,11 @@ extension AudioAggregateDeviceProperties {
                 let uid = try device.uid
                 uids.append(.init(uid.rawValue))
             } catch {
-                CoreAudioLogging.log(.error, "Error removing aggregate subdevice; could not look up its UID. \(error)")
-                deviceLookupErrorHandler?(device, error)
+                if let deviceLookupErrorHandler {
+                    deviceLookupErrorHandler(device, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error removing aggregate subdevice; could not look up its UID. \(error)")
+                }
             }
         }
 
@@ -484,8 +496,11 @@ extension AudioAggregateDeviceProperties {
                 }
                 taps.append(tap)
             } catch {
-                CoreAudioLogging.log(.error, "Error getting aggregate tap: \(error)")
-                uidLookupErrorHandler?(uid, error)
+                if let uidLookupErrorHandler {
+                    uidLookupErrorHandler(uid, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error getting aggregate tap: \(error)")
+                }
             }
         }
         return taps
@@ -511,8 +526,11 @@ extension AudioAggregateDeviceProperties {
                 let uid = try tap.uid
                 uids.append(uid)
             } catch {
-                CoreAudioLogging.log(.error, "Error setting aggregate subtap; could not look up its UID. \(error)")
-                tapLookupErrorHandler?(tap, error)
+                if let tapLookupErrorHandler {
+                    tapLookupErrorHandler(tap, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error setting aggregate subtap; could not look up its UID. \(error)")
+                }
             }
         }
         try setTaps(uids: uids)
@@ -557,8 +575,11 @@ extension AudioAggregateDeviceProperties {
                 let uid = try tap.uid
                 uids.append(uid)
             } catch {
-                CoreAudioLogging.log(.error, "Error adding aggregate subtap; could not look up its UID. \(error)")
-                tapLookupErrorHandler?(tap, error)
+                if let tapLookupErrorHandler {
+                    tapLookupErrorHandler(tap, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error adding aggregate subtap; could not look up its UID. \(error)")
+                }
             }
         }
         try addTaps(withUIDs: uids)
@@ -587,8 +608,11 @@ extension AudioAggregateDeviceProperties {
                 let uid = try tap.uid
                 uids.append(uid)
             } catch {
-                CoreAudioLogging.log(.error, "Error removing aggregate subtap; could not look up its UID. \(error)")
-                tapLookupErrorHandler?(tap, error)
+                if let tapLookupErrorHandler {
+                    tapLookupErrorHandler(tap, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error removing aggregate subtap; could not look up its UID. \(error)")
+                }
             }
         }
         try removeTaps(withUIDs: uids, destroyTapsIfNeeded: destroyTapsIfNeeded)

@@ -114,8 +114,11 @@ extension AudioSystemProperties {
             do throws(SwiftCoreAudioError) {
                 if let device = try Object(uid: uid) { objects.append(device) }
             } catch {
-                CoreAudioLogging.log(.error, "Error resolving UID for \(Object.self) to object ID: \(error)")
-                uidLookupErrorHandler?(uid, error)
+                if let uidLookupErrorHandler {
+                    uidLookupErrorHandler(uid, error)
+                } else {
+                    CoreAudioLogging.log(.error, "Error resolving UID for \(Object.self) to object ID: \(error)")
+                }
             }
         }
         return objects
