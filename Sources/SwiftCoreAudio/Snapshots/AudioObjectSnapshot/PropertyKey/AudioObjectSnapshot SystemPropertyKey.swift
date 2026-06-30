@@ -60,8 +60,7 @@ extension AudioObjectSnapshot.SystemPropertyKey {
         case .isUserSessionForProcessActiveOrHeadless:
             withErrorCapture(key: self, try object.isUserSessionForProcessActiveOrHeadless, transform: \.description)
         case .powerHint:
-            // TODO: add once implemented
-            "Not yet implemented."
+            withErrorCapture(key: self, try object.powerHint, transform: \.rawValue.description)
         }
         // swiftformat:enable hoistTry
     }
