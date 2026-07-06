@@ -29,18 +29,11 @@ struct SnapshotDocument: FileDocument {
             throw CocoaError(.fileReadCorruptFile)
         }
 
-        let jsonDecoder = JSONDecoder()
-        snapshot = try jsonDecoder.decode(AudioObjectSnapshot.self, from: data)
+        snapshot = try AudioObjectSnapshot(data: data)
     }
 
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let jsonEncoder = JSONEncoder()
-        let data = try jsonEncoder.encode(snapshot)
+        let data = try snapshot.data()
         return .init(regularFileWithContents: data)
     }
-}
-
-extension UTType {
-    nonisolated
-    static let coreAudioSnapshot = UTType(importedAs: "com.orchetect.SwiftCoreAudio.Snapshot")
 }
