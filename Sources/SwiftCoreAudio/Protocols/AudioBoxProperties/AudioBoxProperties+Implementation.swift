@@ -66,7 +66,33 @@ extension AudioBoxProperties {
 
     nonisolated
     public func setIsEnabled(_ state: Bool) throws(SwiftCoreAudioError) {
-        _ = try setPropertyValue(property: BoxProperty.acquired, value: state)
+        guard isPresent else {
+            throw .audioBoxNotFound
+        }
+
+        // call asynchronously on background queue
+        // workaround for potential internal CoreAudio mutex deadlocks that can happen
+        DispatchQueue.global().async {
+            do throws(SwiftCoreAudioError) {
+                _ = try setPropertyValue(property: BoxProperty.acquired, value: state)
+            } catch {
+                CoreAudioLogging.log(.error, "\(error)")
+            }
+        }
+
+        // wait synchronously until state changes
+        let timeout: TimeInterval = 0.5
+        let pollingInterval: DispatchTimeInterval = .milliseconds(50)
+        let inDate = Date()
+        while let getState = try? isEnabled, getState != state {
+            sleep(pollingInterval)
+            if Date().timeIntervalSince(inDate) > timeout {
+                throw .osStatus(
+                    AudioOSStatusError(unsafe: .propertyNotWritable),
+                    message: "Timed out while waiting for audio box state to change to \(state)."
+                )
+            }
+        }
     }
 
     // note: acquisitionFailed can be read after a call to acquire it fails, which should happen in `setEnabled()`
