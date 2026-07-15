@@ -28,6 +28,7 @@ env:
   SCHEME: swift-core-audio
   WORKSPACEPATH: .swiftpm/xcode/package.xcworkspace
 
+jobs:
   macOS-15:
     name: Tests (macOS 15)
     runs-on: macos-15
