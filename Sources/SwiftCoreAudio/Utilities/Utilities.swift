@@ -43,3 +43,16 @@ func osStatus(fourCharCode chars: StaticString) -> OSStatus {
         return OSStatus(bitPattern: fourCharCode(chars))
     }
 }
+
+extension DispatchQueue {
+    /// Wrapper for `sync { }` that allows the use of typed error throws.
+    func syncTypedThrowable<T, E>(execute work: () throws(E) -> T) throws(E) -> T {
+        do {
+            return try sync(execute: work)
+        } catch let error as E {
+            throw error
+        } catch {
+            fatalError("Should never happen.")
+        }
+    }
+}
