@@ -88,7 +88,7 @@ extension AudioBoxProperties {
     public func setIsEnabled(_ state: Bool) throws(SwiftCoreAudioError) {
         try audioBoxQueue.syncTypedThrowable { () throws(SwiftCoreAudioError) in
             // buffer in case this method runs immediately after another audio box method
-            sleep(.milliseconds(50))
+            sleep(.milliseconds(100))
 
             guard isPresent else {
                 throw .audioBoxNotFound
@@ -98,7 +98,7 @@ extension AudioBoxProperties {
             // workaround for potential internal CoreAudio mutex deadlocks that can happen
             DispatchQueue.global().async {
                 // sleep after calling `isPresent`
-                sleep(.milliseconds(50))
+                sleep(.milliseconds(100))
 
                 do throws(SwiftCoreAudioError) {
                     _ = try setPropertyValue(property: BoxProperty.acquired, value: state)
@@ -109,7 +109,7 @@ extension AudioBoxProperties {
 
             // wait synchronously until state changes
             let timeout: TimeInterval = 0.5
-            let pollingInterval: DispatchTimeInterval = .milliseconds(50)
+            let pollingInterval: DispatchTimeInterval = .milliseconds(100)
             let inDate = Date()
             while let getState = try? getPropertyValue(property: BoxProperty.acquired), getState != state {
                 sleep(pollingInterval)
@@ -122,7 +122,7 @@ extension AudioBoxProperties {
             }
 
             // buffer in case another method is called immediately after this method
-            sleep(.milliseconds(50))
+            sleep(.milliseconds(100))
         }
     }
 
