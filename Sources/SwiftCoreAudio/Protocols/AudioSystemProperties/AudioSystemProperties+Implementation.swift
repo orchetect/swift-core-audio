@@ -30,6 +30,11 @@ extension AudioSystemProperties {
     }
 
     nonisolated
+    public func setDefaultInputDevice(_ device: some AudioDeviceProperties) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: SystemProperty.defaultInputDevice, value: device.id.rawValue)
+    }
+
+    nonisolated
     public var defaultOutputDevice: AnyAudioDevice {
         get throws(SwiftCoreAudioError) {
             let id = try getPropertyValue(property: SystemProperty.defaultOutputDevice)
