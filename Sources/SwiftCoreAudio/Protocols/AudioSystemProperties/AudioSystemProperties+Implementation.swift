@@ -58,6 +58,11 @@ extension AudioSystemProperties {
     }
 
     nonisolated
+    public func setDefaultOutputDeviceForSystemSounds(_ device: some AudioDeviceProperties) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: SystemProperty.defaultOutputDeviceForSystemSounds, value: device.id.rawValue)
+    }
+
+    nonisolated
     public func device<Device: AudioDeviceProperties & IDConstructibleAudioObject>(
         forUID uid: Device.UID
     ) throws(SwiftCoreAudioError) -> Device? {
