@@ -291,18 +291,18 @@ extension AudioObject {
 
     // MARK: Set
 
-    /// Sets a `UInt32` value for the given property of the audio object.
+    /// Sets a `Float32` value for the given property of the audio object.
     @discardableResult
     nonisolated
     public func setPropertyValue<Property: AudioPropertyProtocol>(
         property: Property,
         value: Property.Value,
         osStatusErrorMessage: String? = nil
-    ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == UInt32, Property.Qualifier == Never {
+    ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == Float32, Property.Qualifier == Never {
         try setPropertyValue(property: property, qualifier: .none, value: value, osStatusErrorMessage: osStatusErrorMessage)
     }
 
-    /// Sets a `UInt32` value for the given property of the audio object.
+    /// Sets a `Float32` value for the given property of the audio object.
     @discardableResult
     nonisolated
     public func setPropertyValue<Property: AudioPropertyProtocol>(
@@ -310,7 +310,7 @@ extension AudioObject {
         qualifier: AudioPropertyQualifier<Property.Qualifier>,
         value: Property.Value,
         osStatusErrorMessage: String? = nil
-    ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == UInt32 {
+    ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == Float32 {
         let newValue = try setPropertyValue(
             address: property.address,
             qualifier: qualifier,
@@ -720,7 +720,34 @@ extension AudioObject {
 
     // MARK: Set
 
-    // implement as-needed in future
+    /// Sets a `UInt32` value for the given property of the audio object.
+    @discardableResult
+    nonisolated
+    public func setPropertyValue<Property: AudioPropertyProtocol>(
+        property: Property,
+        value: Property.Value,
+        osStatusErrorMessage: String? = nil
+    ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == UInt32, Property.Qualifier == Never {
+        try setPropertyValue(property: property, qualifier: .none, value: value, osStatusErrorMessage: osStatusErrorMessage)
+    }
+
+    /// Sets a `UInt32` value for the given property of the audio object.
+    @discardableResult
+    nonisolated
+    public func setPropertyValue<Property: AudioPropertyProtocol>(
+        property: Property,
+        qualifier: AudioPropertyQualifier<Property.Qualifier>,
+        value: Property.Value,
+        osStatusErrorMessage: String? = nil
+    ) throws(SwiftCoreAudioError) -> Property.Value where Property.Value == UInt32 {
+        let newValue = try setPropertyValue(
+            address: property.address,
+            qualifier: qualifier,
+            value: value,
+            osStatusErrorMessage: osStatusErrorMessage
+        )
+        return newValue
+    }
 }
 
 // MARK: - [UInt32]
