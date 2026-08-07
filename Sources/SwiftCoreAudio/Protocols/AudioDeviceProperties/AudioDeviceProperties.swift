@@ -214,7 +214,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     ///
     /// This property is implemented by an `AudioJackControl`, a subclass of `AudioBooleanControl`.
     nonisolated
-    func isJackConnected(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool
+    func isJackConnected(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool
 
     /// A `Float32` that represents the value of the volume control.
     /// The range is between `0.0` and `1.0` (inclusive).
@@ -222,7 +222,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func volumeScalar(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Float32
+    func volumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
 
     /// Set the `Float32` that represents the value of the volume control.
     /// The range is between `0.0` and `1.0` (inclusive).
@@ -230,28 +230,28 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func setVolumeScalar(for direction: AudioStream.Direction, channel: Int?, to value: Float32) throws(SwiftCoreAudioError)
+    func setVolumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
 
     /// A `Float32` that represents the value of the volume control in dB.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func volumeDecibels(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Float32
+    func volumeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
 
     /// Set the `Float32` that represents the value of the volume control in dB.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func setVolumeDecibels(for direction: AudioStream.Direction, channel: Int?, to value: Float32) throws(SwiftCoreAudioError)
+    func setVolumeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
 
     /// Range representing the minimum and maximum dB volume values the volume control can have.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func volumeRangeDecibels(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> ClosedRange<Double>
+    func volumeRangeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> ClosedRange<Double>
 
     /// Converts a scalar volume level value to its equivalent dB value.
     ///
@@ -273,7 +273,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioStereoPanControl`.
     nonisolated
-    func stereoPan(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Float32
+    func stereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
 
     /// Set the `Float32` stereo pan value where `0.0` is full left, `1.0` is full right, and
     /// `0.5` is center.
@@ -281,7 +281,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioStereoPanControl`.
     nonisolated
-    func setStereoPan(for direction: AudioStream.Direction, channel: Int?, to value: Float32) throws(SwiftCoreAudioError)
+    func setStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
 
     /// The stereo pan channels for the given stream direction.
     ///
@@ -294,28 +294,28 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// The property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioMuteControl`.
     nonisolated
-    func isMuted(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool
+    func isMuted(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool
 
     /// Set the boolean value indicating whether the device or specific channel is muted.
     ///
     /// The property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioMuteControl`.
     nonisolated
-    func setIsMuted(for direction: AudioStream.Direction, channel: Int?, to value: Bool) throws(SwiftCoreAudioError)
+    func setIsMuted(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError)
 
     /// A boolean value indicating whether the device or specific channel is soloed.
     ///
     /// The property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioMuteControl`.
     nonisolated
-    func isSoloed(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool
+    func isSoloed(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool
 
     /// Set the boolean value indicating whether the device or specific channel is soloed.
     ///
     /// The property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioMuteControl`.
     nonisolated
-    func setIsSoloed(for direction: AudioStream.Direction, channel: Int?, to value: Bool) throws(SwiftCoreAudioError)
+    func setIsSoloed(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError)
 
     /// A boolean value indicating whether the device or specific input channel has phantom
     /// power (48V) enabled.
@@ -323,7 +323,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// The property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioPhantomPowerControl`.
     nonisolated
-    func isPhantomPowerEnabled(forInputChannel channel: Int?) throws(SwiftCoreAudioError) -> Bool
+    func isPhantomPowerEnabled(forInputChannel channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool
 
     /// Set the boolean value indicating whether the device or specific input channel has phantom
     /// power (48V) enabled.
@@ -331,21 +331,21 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// The property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioPhantomPowerControl`.
     nonisolated
-    func setIsPhantomPowerEnabled(forInputChannel channel: Int?, to value: Bool) throws(SwiftCoreAudioError)
+    func setIsPhantomPowerEnabled(forInputChannel channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError)
 
     /// A boolean value indicating whether the device or specific channel has its phase inverted (flipped 180°).
     ///
     /// The property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioPhaseInvertControl`.
     nonisolated
-    func isPhaseInverted(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool
+    func isPhaseInverted(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool
 
     /// Set the boolean value indicating whether the device or specific channel has its phase inverted (flipped 180°).
     ///
     /// The property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioPhaseInvertControl`.
     nonisolated
-    func setIsPhaseInverted(for direction: AudioStream.Direction, channel: Int?, to value: Bool) throws(SwiftCoreAudioError)
+    func setIsPhaseInverted(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError)
 
     /// A boolean value indicating whether the signal for the channel has exceeded the sample range.
     ///
@@ -355,7 +355,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// The property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioClipLightControl`.
     nonisolated
-    func isClipLightOn(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool
+    func isClipLightOn(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool
 
     /// Set the boolean value indicating whether the signal for the element has exceeded the sample range.
     ///
@@ -365,7 +365,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// The property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioClipLightControl`.
     nonisolated
-    func setIsClipLightOn(for direction: AudioStream.Direction, channel: Int?, to value: Bool) throws(SwiftCoreAudioError)
+    func setIsClipLightOn(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError)
 
     /// A boolean value indicating whether the talkback channel is enabled.
     ///
@@ -450,28 +450,28 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioMuteControl`.
     nonisolated
-    func isPlayThruEnabled(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool
+    func isPlayThruEnabled(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool
 
     /// Set the boolean value indicating whether play through for the channel is enabled.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioMuteControl`.
     nonisolated
-    func setIsPlayThruEnabled(for direction: AudioStream.Direction, channel: Int?, to value: Bool) throws(SwiftCoreAudioError)
+    func setIsPlayThruEnabled(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError)
 
     /// A boolean value indicating whether solo for the play through channel is enabled.
     ///
     /// The property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioSoloControl`.
     nonisolated
-    func isPlayThruSoloed(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool
+    func isPlayThruSoloed(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool
 
     /// Set the boolean value indicating whether solo for the play through channel is enabled.
     ///
     /// The property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioSoloControl`.
     nonisolated
-    func setIsPlayThruSoloed(for direction: AudioStream.Direction, channel: Int?, to value: Bool) throws(SwiftCoreAudioError)
+    func setIsPlayThruSoloed(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError)
 
     /// A `Float32` that represents the value of the play through volume control.
     /// The range is between `0.0` and `1.0` (inclusive).
@@ -479,7 +479,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func playThruVolumeScalar(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Float32
+    func playThruVolumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
 
     /// Set the `Float32` that represents the value of the play through volume control.
     /// The range is between `0.0` and `1.0` (inclusive).
@@ -487,21 +487,21 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func setPlayThruVolumeScalar(for direction: AudioStream.Direction, channel: Int?, to value: Float32) throws(SwiftCoreAudioError)
+    func setPlayThruVolumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
 
     /// A `Float32` that represents the value of the play through volume control in dB.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func playThruVolumeDecibels(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Float32
+    func playThruVolumeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
 
     /// Set the `Float32` that represents the value of the play through volume control in dB.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func setPlayThruVolumeDecibels(for direction: AudioStream.Direction, channel: Int?, to value: Float32) throws(SwiftCoreAudioError)
+    func setPlayThruVolumeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
 
     /// Range representing the minimum and maximum dB volume values the play through volume control
     /// can have.
@@ -509,7 +509,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func playThruVolumeRangeDecibels(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> ClosedRange<Double>
+    func playThruVolumeRangeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> ClosedRange<Double>
 
     /// Converts a scalar play through volume level value to its equivalent dB value.
     ///
@@ -529,7 +529,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioStereoPanControl`.
     nonisolated
-    func playThruStereoPan(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Float32
+    func playThruStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
 
     /// Set the `Float32` play through stereo pan value where `0.0` is full left, `1.0` is full right,
     /// and `0.5` is center.
@@ -537,7 +537,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioStereoPanControl`.
     nonisolated
-    func setPlayThruStereoPan(for direction: AudioStream.Direction, channel: Int?, to value: Float32) throws(SwiftCoreAudioError)
+    func setPlayThruStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
 
     /// The stereo pan channels for the given play through stream direction.
     ///
@@ -550,14 +550,14 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioDataDestinationControl`.
     nonisolated
-    func playThruDestinationIDs(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> [UInt32]
+    func playThruDestinationIDs(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> [UInt32]
 
     /// An array of item IDs of all the play through data destinations currently available.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioDataDestinationControl`.
     nonisolated
-    func playThruDestinationsIDs(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> [UInt32]
+    func playThruDestinationsIDs(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> [UInt32]
 
     /// Returns the human-readable name for the play through data destination with the given ID.
     ///
@@ -675,14 +675,14 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// Voice activity detection can be used with input audio and has echo cancellation.
     /// Detection works when a process mute is used, but not with hardware mute.
     nonisolated
-    func isVoiceActivityDetectionEnabled(forInputChannel channel: Int) throws(SwiftCoreAudioError) -> Bool
+    func isVoiceActivityDetectionEnabled(forInputChannel channel: AudioChannelIndex) throws(SwiftCoreAudioError) -> Bool
 
     /// Set the boolean value indicating whether voice activity detection processing is enabled.
     ///
     /// Voice activity detection can be used with input audio and has echo cancellation.
     /// Detection works when a process mute is used, but not with hardware mute.
     nonisolated
-    func setIsVoiceActivityDetectionEnabled(forInputChannel channel: Int, to value: Bool) throws(SwiftCoreAudioError) -> Bool
+    func setIsVoiceActivityDetectionEnabled(forInputChannel channel: AudioChannelIndex, to value: Bool) throws(SwiftCoreAudioError) -> Bool
 
     /// A read-only boolean value indicating whether voice activity is currently detected.
     ///
@@ -695,7 +695,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// If input audio is not active/running or the voice activity detection is disabled,
     /// then it is not analyzed and this will return `false`.
     nonisolated
-    func isVoiceActivityDetected(forInputChannel channel: Int) throws(SwiftCoreAudioError) -> Bool
+    func isVoiceActivityDetected(forInputChannel channel: AudioChannelIndex) throws(SwiftCoreAudioError) -> Bool
 
     /// A boolean value indicating whether controls for the device should be saved/restored when
     /// the device is first published.

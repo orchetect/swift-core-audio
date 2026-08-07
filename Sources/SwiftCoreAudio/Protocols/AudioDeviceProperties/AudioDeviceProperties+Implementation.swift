@@ -302,36 +302,36 @@ extension AudioDeviceProperties {
     // MARK: - CoreAudio/AudioHardware.h - Device properties implemented via AudioControl objects
 
     nonisolated
-    public func isJackConnected(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool {
+    public func isJackConnected(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
         try withRecovery(
-            getPropertyValue(property: DeviceProperty.isJackConnected(for: direction, channel: channel)),
+            getPropertyValue(property: DeviceProperty.isJackConnected(for: direction, channel: channel?.number)),
             unknownPropertyDefault: false
         )
     }
 
     nonisolated
-    public func volumeScalar(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Float32 {
-        try getPropertyValue(property: DeviceProperty.volumeScalar(for: direction, channel: channel))
+    public func volumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> Float32 {
+        try getPropertyValue(property: DeviceProperty.volumeScalar(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setVolumeScalar(for direction: AudioStream.Direction, channel: Int?, to value: Float32) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.volumeScalar(for: direction, channel: channel), value: value)
+    public func setVolumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil, to value: Float32) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.volumeScalar(for: direction, channel: channel?.number), value: value)
     }
 
     nonisolated
-    public func volumeDecibels(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Float32 {
-        try getPropertyValue(property: DeviceProperty.volumeDecibels(for: direction, channel: channel))
+    public func volumeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> Float32 {
+        try getPropertyValue(property: DeviceProperty.volumeDecibels(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setVolumeDecibels(for direction: AudioStream.Direction, channel: Int?, to value: Float32) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.volumeDecibels(for: direction, channel: channel), value: value)
+    public func setVolumeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil, to value: Float32) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.volumeDecibels(for: direction, channel: channel?.number), value: value)
     }
 
     nonisolated
-    public func volumeRangeDecibels(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> ClosedRange<Double> {
-        let audioValueRange = try getPropertyValue(property: DeviceProperty.volumeRangeDecibels(for: direction, channel: channel))
+    public func volumeRangeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> ClosedRange<Double> {
+        let audioValueRange = try getPropertyValue(property: DeviceProperty.volumeRangeDecibels(for: direction, channel: channel?.number))
         return audioValueRange.mMinimum ... audioValueRange.mMaximum
     }
 
@@ -350,13 +350,13 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func stereoPan(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Float32 {
-        try getPropertyValue(property: DeviceProperty.stereoPan(for: direction, channel: channel))
+    public func stereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32 {
+        try getPropertyValue(property: DeviceProperty.stereoPan(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setStereoPan(for direction: AudioStream.Direction, channel: Int?, to value: Float32) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.stereoPan(for: direction, channel: channel), value: value)
+    public func setStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.stereoPan(for: direction, channel: channel?.number), value: value)
     }
 
     nonisolated
@@ -371,53 +371,53 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func isMuted(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool {
-        try getPropertyValue(property: DeviceProperty.isMuted(for: direction, channel: channel))
+    public func isMuted(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+        try getPropertyValue(property: DeviceProperty.isMuted(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setIsMuted(for direction: AudioStream.Direction, channel: Int?, to value: Bool) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.isMuted(for: direction, channel: channel), value: value)
+    public func setIsMuted(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.isMuted(for: direction, channel: channel?.number), value: value)
     }
 
     nonisolated
-    public func isSoloed(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool {
-        try getPropertyValue(property: DeviceProperty.isSoloed(for: direction, channel: channel))
+    public func isSoloed(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+        try getPropertyValue(property: DeviceProperty.isSoloed(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setIsSoloed(for direction: AudioStream.Direction, channel: Int?, to value: Bool) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.isSoloed(for: direction, channel: channel), value: value)
+    public func setIsSoloed(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.isSoloed(for: direction, channel: channel?.number), value: value)
     }
 
     nonisolated
-    public func isPhantomPowerEnabled(forInputChannel channel: Int?) throws(SwiftCoreAudioError) -> Bool {
-        try getPropertyValue(property: DeviceProperty.isPhantomPowerEnabled(forInputChannel: channel))
+    public func isPhantomPowerEnabled(forInputChannel channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+        try getPropertyValue(property: DeviceProperty.isPhantomPowerEnabled(forInputChannel: channel?.number))
     }
 
     nonisolated
-    public func setIsPhantomPowerEnabled(forInputChannel channel: Int?, to value: Bool) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.isPhantomPowerEnabled(forInputChannel: channel), value: value)
+    public func setIsPhantomPowerEnabled(forInputChannel channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.isPhantomPowerEnabled(forInputChannel: channel?.number), value: value)
     }
 
     nonisolated
-    public func isPhaseInverted(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool {
-        try getPropertyValue(property: DeviceProperty.isPhaseInverted(for: direction, channel: channel))
+    public func isPhaseInverted(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+        try getPropertyValue(property: DeviceProperty.isPhaseInverted(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setIsPhaseInverted(for direction: AudioStream.Direction, channel: Int?, to value: Bool) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.isPhaseInverted(for: direction, channel: channel), value: value)
+    public func setIsPhaseInverted(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.isPhaseInverted(for: direction, channel: channel?.number), value: value)
     }
 
     nonisolated
-    public func isClipLightOn(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool {
-        try getPropertyValue(property: DeviceProperty.isClipLightOn(for: direction, channel: channel))
+    public func isClipLightOn(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+        try getPropertyValue(property: DeviceProperty.isClipLightOn(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setIsClipLightOn(for direction: AudioStream.Direction, channel: Int?, to value: Bool) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.isClipLightOn(for: direction, channel: channel), value: value)
+    public func setIsClipLightOn(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.isClipLightOn(for: direction, channel: channel?.number), value: value)
     }
 
     nonisolated
@@ -497,48 +497,48 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func isPlayThruEnabled(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool {
-        try getPropertyValue(property: DeviceProperty.isPlayThruEnabled(for: direction, channel: channel))
+    public func isPlayThruEnabled(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+        try getPropertyValue(property: DeviceProperty.isPlayThruEnabled(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setIsPlayThruEnabled(for direction: AudioStream.Direction, channel: Int?, to value: Bool) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.isPlayThruEnabled(for: direction, channel: channel), value: value)
+    public func setIsPlayThruEnabled(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.isPlayThruEnabled(for: direction, channel: channel?.number), value: value)
     }
 
     nonisolated
-    public func isPlayThruSoloed(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Bool {
-        try getPropertyValue(property: DeviceProperty.isPlayThruSoloed(for: direction, channel: channel))
+    public func isPlayThruSoloed(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+        try getPropertyValue(property: DeviceProperty.isPlayThruSoloed(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setIsPlayThruSoloed(for direction: AudioStream.Direction, channel: Int?, to value: Bool) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.isPlayThruSoloed(for: direction, channel: channel), value: value)
+    public func setIsPlayThruSoloed(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.isPlayThruSoloed(for: direction, channel: channel?.number), value: value)
     }
 
     nonisolated
-    public func playThruVolumeScalar(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Float32 {
-        try getPropertyValue(property: DeviceProperty.playThruVolumeScalar(for: direction, channel: channel))
+    public func playThruVolumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32 {
+        try getPropertyValue(property: DeviceProperty.playThruVolumeScalar(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setPlayThruVolumeScalar(for direction: AudioStream.Direction, channel: Int?, to value: Float32) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.playThruVolumeScalar(for: direction, channel: channel), value: value)
+    public func setPlayThruVolumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.playThruVolumeScalar(for: direction, channel: channel?.number), value: value)
     }
 
     nonisolated
-    public func playThruVolumeDecibels(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Float32 {
-        try getPropertyValue(property: DeviceProperty.playThruVolumeDecibels(for: direction, channel: channel))
+    public func playThruVolumeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32 {
+        try getPropertyValue(property: DeviceProperty.playThruVolumeDecibels(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setPlayThruVolumeDecibels(for direction: AudioStream.Direction, channel: Int?, to value: Float32) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.playThruVolumeDecibels(for: direction, channel: channel), value: value)
+    public func setPlayThruVolumeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.playThruVolumeDecibels(for: direction, channel: channel?.number), value: value)
     }
 
     nonisolated
-    public func playThruVolumeRangeDecibels(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> ClosedRange<Double> {
-        let audioValueRange = try getPropertyValue(property: DeviceProperty.playThruVolumeRangeDecibels(for: direction, channel: channel))
+    public func playThruVolumeRangeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> ClosedRange<Double> {
+        let audioValueRange = try getPropertyValue(property: DeviceProperty.playThruVolumeRangeDecibels(for: direction, channel: channel?.number))
         return audioValueRange.mMinimum ... audioValueRange.mMaximum
     }
 
@@ -557,13 +557,13 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func playThruStereoPan(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> Float32 {
-        try getPropertyValue(property: DeviceProperty.playThruStereoPan(for: direction, channel: channel))
+    public func playThruStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32 {
+        try getPropertyValue(property: DeviceProperty.playThruStereoPan(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setPlayThruStereoPan(for direction: AudioStream.Direction, channel: Int?, to value: Float32) throws(SwiftCoreAudioError) {
-        try setPropertyValue(property: DeviceProperty.playThruStereoPan(for: direction, channel: channel), value: value)
+    public func setPlayThruStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError) {
+        try setPropertyValue(property: DeviceProperty.playThruStereoPan(for: direction, channel: channel?.number), value: value)
     }
 
     // TODO: Not sure if scope is applicable.
@@ -581,13 +581,13 @@ extension AudioDeviceProperties {
     // TODO: Not sure if element is applicable.
     // TODO: Not sure if property is settable.
     nonisolated
-    public func playThruDestinationIDs(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> [UInt32] {
+    public func playThruDestinationIDs(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> [UInt32] {
         try getPropertyValue(property: DeviceProperty.playThruDestination)
     }
 
     // TODO: Not sure if element is applicable.
     nonisolated
-    public func playThruDestinationsIDs(for direction: AudioStream.Direction, channel: Int?) throws(SwiftCoreAudioError) -> [UInt32] {
+    public func playThruDestinationsIDs(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> [UInt32] {
         try getPropertyValue(property: DeviceProperty.playThruDestinations)
     }
 
@@ -695,18 +695,18 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func isVoiceActivityDetectionEnabled(forInputChannel channel: Int) throws(SwiftCoreAudioError) -> Bool {
-        try getPropertyValue(property: DeviceProperty.isVoiceActivityDetectionEnabled(forInputChannel: channel))
+    public func isVoiceActivityDetectionEnabled(forInputChannel channel: AudioChannelIndex) throws(SwiftCoreAudioError) -> Bool {
+        try getPropertyValue(property: DeviceProperty.isVoiceActivityDetectionEnabled(forInputChannel: channel.number))
     }
 
     nonisolated
-    public func setIsVoiceActivityDetectionEnabled(forInputChannel channel: Int, to value: Bool) throws(SwiftCoreAudioError) -> Bool {
-        try setPropertyValue(property: DeviceProperty.isVoiceActivityDetectionEnabled(forInputChannel: channel), value: value)
+    public func setIsVoiceActivityDetectionEnabled(forInputChannel channel: AudioChannelIndex, to value: Bool) throws(SwiftCoreAudioError) -> Bool {
+        try setPropertyValue(property: DeviceProperty.isVoiceActivityDetectionEnabled(forInputChannel: channel.number), value: value)
     }
 
     nonisolated
-    public func isVoiceActivityDetected(forInputChannel channel: Int) throws(SwiftCoreAudioError) -> Bool {
-        try getPropertyValue(property: DeviceProperty.isVoiceActivityDetected(forInputChannel: channel))
+    public func isVoiceActivityDetected(forInputChannel channel: AudioChannelIndex) throws(SwiftCoreAudioError) -> Bool {
+        try getPropertyValue(property: DeviceProperty.isVoiceActivityDetected(forInputChannel: channel.number))
     }
 
     nonisolated
