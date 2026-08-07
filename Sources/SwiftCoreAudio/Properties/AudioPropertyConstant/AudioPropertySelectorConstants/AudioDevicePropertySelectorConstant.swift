@@ -1103,7 +1103,7 @@ public enum AudioDevicePropertySelectorConstant {
     /// HighPass Filter Setting Name for ID (CFString)
     ///
     /// This property translates the given high pass filter setting item ID into a
-    /// human readable name using an AudioValueTranslation structure.
+    /// human readable name using an `AudioValueTranslation` structure.
     ///
     /// The input data is the `UInt32` containing the item ID to be translated and the output
     /// data is a `CFString`.
