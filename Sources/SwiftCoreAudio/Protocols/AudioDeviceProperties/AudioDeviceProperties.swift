@@ -259,14 +259,14 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func convertVolumeToDBFS(unitInterval level: UnitInterval) throws(SwiftCoreAudioError) -> Float32
+    func convertVolumeToDBFS(unitInterval level: UnitInterval, for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
 
     /// Converts a dB volume level value to its equivalent scalar value.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func convertVolumeToUnitInterval(dBFS level: Float32) throws(SwiftCoreAudioError) -> UnitInterval
+    func convertVolumeToUnitInterval(dBFS level: Float32, for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> UnitInterval
 
     /// A `Float32` stereo pan value where `0.0` is full left, `1.0` is full right, and
     /// `0.5` is center.
@@ -516,13 +516,13 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of `AudioVolumeControl`.
     nonisolated
-    func convertPlayThruVolumeToDBFS(unitInterval level: UnitInterval) throws(SwiftCoreAudioError) -> Float32
+    func convertPlayThruVolumeToDBFS(unitInterval level: UnitInterval, for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
 
     /// Converts a dB play through volume level value to its equivalent scalar value.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of `AudioVolumeControl`.
     nonisolated
-    func convertPlayThruVolumeToUnitInterval(dBFS level: Float32) throws(SwiftCoreAudioError) -> UnitInterval
+    func convertPlayThruVolumeToUnitInterval(dBFS level: Float32, for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> UnitInterval
 
     /// A `Float32` play through stereo pan value where `0.0` is full left, `1.0` is full right,
     /// and `0.5` is center.

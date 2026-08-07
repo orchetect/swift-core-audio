@@ -339,15 +339,15 @@ extension AudioDeviceProperties {
 
     // TODO: Not sure if scope or element are applicable.
     nonisolated
-    public func convertVolumeToDBFS(unitInterval level: UnitInterval) throws(SwiftCoreAudioError) -> Float32 {
-        let convertedValue = try getPropertyValue(property: DeviceProperty.volumeScalarToDecibels, qualifier: .float32(Float32(level.rawValue)))
+    public func convertVolumeToDBFS(unitInterval level: UnitInterval, for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> Float32 {
+        let convertedValue = try getPropertyValue(property: DeviceProperty.volumeScalarToDecibels(for: direction, channel: channel?.number), initialValue: Float32(level.rawValue))
         return convertedValue
     }
 
     // TODO: Not sure if scope or element are applicable.
     nonisolated
-    public func convertVolumeToUnitInterval(dBFS level: Float32) throws(SwiftCoreAudioError) -> UnitInterval {
-        let convertedValue = try getPropertyValue(property: DeviceProperty.volumeDecibelsToScalar, qualifier: .float32(level))
+    public func convertVolumeToUnitInterval(dBFS level: Float32, for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> UnitInterval {
+        let convertedValue = try getPropertyValue(property: DeviceProperty.volumeDecibelsToScalar(for: direction, channel: channel?.number), initialValue: level)
         return UnitInterval(convertedValue)
     }
 
@@ -548,15 +548,15 @@ extension AudioDeviceProperties {
 
     // TODO: Not sure if scope or element are applicable.
     nonisolated
-    public func convertPlayThruVolumeToDBFS(unitInterval level: UnitInterval) throws(SwiftCoreAudioError) -> Float32 {
-        let convertedValue = try getPropertyValue(property: DeviceProperty.playThruVolumeScalarToDecibels, qualifier: .float32(Float32(level.rawValue)))
+    public func convertPlayThruVolumeToDBFS(unitInterval level: UnitInterval, for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> Float32 {
+        let convertedValue = try getPropertyValue(property: DeviceProperty.playThruVolumeScalarToDecibels(for: direction, channel: channel?.number), initialValue: Float32(level.rawValue))
         return convertedValue
     }
 
     // TODO: Not sure if scope or element are applicable.
     nonisolated
-    public func convertPlayThruVolumeToUnitInterval(dBFS level: Float32) throws(SwiftCoreAudioError) -> UnitInterval {
-        let convertedValue = try getPropertyValue(property: DeviceProperty.playThruVolumeDecibelsToScalar, qualifier: .float32(level))
+    public func convertPlayThruVolumeToUnitInterval(dBFS level: Float32, for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> UnitInterval {
+        let convertedValue = try getPropertyValue(property: DeviceProperty.playThruVolumeDecibelsToScalar(for: direction, channel: channel?.number), initialValue: level)
         return UnitInterval(convertedValue)
     }
 
@@ -678,13 +678,13 @@ extension AudioDeviceProperties {
 
     nonisolated
     public func convertSubVolumeToDBFS(unitInterval level: UnitInterval) throws(SwiftCoreAudioError) -> Float32 {
-        let convertedValue = try getPropertyValue(property: DeviceProperty.subVolumeScalarToDecibels, qualifier: .float32(Float32(level.rawValue)))
+        let convertedValue = try getPropertyValue(property: DeviceProperty.subVolumeScalarToDecibels, initialValue: Float32(level.rawValue))
         return convertedValue
     }
 
     nonisolated
     public func convertSubVolumeToUnitInterval(dBFS level: Float32) throws(SwiftCoreAudioError) -> UnitInterval {
-        let convertedValue = try getPropertyValue(property: DeviceProperty.subVolumeDecibelsToScalar, qualifier: .float32(level))
+        let convertedValue = try getPropertyValue(property: DeviceProperty.subVolumeDecibelsToScalar, initialValue: level)
         return UnitInterval(convertedValue)
     }
 
