@@ -19,13 +19,15 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/orchetect/swift-process", from: "0.2.0"),
-        .package(url: "https://github.com/orchetect/swift-testing-extensions", from: "0.3.0")
+        .package(url: "https://github.com/orchetect/swift-testing-extensions", from: "0.3.0"),
+        .package(url: "https://github.com/orchetect/swift-unit-interval", from: "1.0.1")
     ],
     targets: [
         .target(
             name: "SwiftCoreAudio",
             dependencies: [
-                .product(name: "SwiftProcess", package: "swift-process")
+                .product(name: "SwiftProcess", package: "swift-process"),
+                .product(name: "SwiftUnitInterval", package: "swift-unit-interval")
             ]
         ),
         .testTarget(
