@@ -875,4 +875,48 @@ extension AudioObject {
     // implement as-needed in future
 }
 
+// MARK: - AudioValueTranslation
+
+extension AudioObject {
+    // MARK: Get
+
+    /// Queries the audio object to return the value for the given property for properties that
+    /// use the Core Audio `AudioValueTranslation` structure to supply input and output values.
+    ///
+    /// Generally, Core Audio property selectors that use the `AudioValueTranslation` structure
+    /// do not take a qualifier value.
+    nonisolated
+    public func getPropertyValue<Property: AudioPropertyProtocol, Input>(
+        property: Property,
+        input: Input,
+        osStatusErrorMessage: String? = nil
+    ) throws(SwiftCoreAudioError) -> UInt32 where Property.Value == AudioPropertyValueTranslation<Input, UInt32> {
+        var input = input
+        var output: UInt32 = 0
+        try getPropertyValue(address: property.address, input: &input, output: &output, osStatusErrorMessage: osStatusErrorMessage)
+        return output
+    }
+
+    /// Queries the audio object to return the value for the given property for properties that
+    /// use the Core Audio `AudioValueTranslation` structure to supply input and output values.
+    ///
+    /// Generally, Core Audio property selectors that use the `AudioValueTranslation` structure
+    /// do not take a qualifier value.
+    nonisolated
+    public func getPropertyValue<Property: AudioPropertyProtocol, Input>(
+        property: Property,
+        input: Input,
+        osStatusErrorMessage: String? = nil
+    ) throws(SwiftCoreAudioError) -> String where Property.Value == AudioPropertyValueTranslation<Input, String> {
+        var input = input
+        var output: CFString = "" as CFString
+        try getPropertyValue(address: property.address, input: &input, output: &output, osStatusErrorMessage: osStatusErrorMessage)
+        return output as String
+    }
+
+    // MARK: Set
+
+    // implement as-needed in future
+}
+
 #endif

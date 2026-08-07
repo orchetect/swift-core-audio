@@ -82,8 +82,6 @@ extension AudioObject {
 // MARK: - Property Value - Value Type
 
 extension AudioObject {
-    // MARK: - Generic
-
     /// Queries the audio object to return the value for the given property.
     ///
     /// `Value` must be a value type. To get a reference (object) value, call
@@ -164,6 +162,54 @@ extension AudioObject {
         return value
     }
 
+    /// Queries the audio object to return the value for the given property for properties that
+    /// use the Core Audio `AudioValueTranslation` structure to supply input and output values.
+    ///
+    /// `Input` and `Output` must be value types.
+    ///
+    /// Generally, Core Audio property selectors that use the `AudioValueTranslation` structure
+    /// do not take a qualifier value.
+    nonisolated
+    public func getPropertyValue<Input, Output>(
+        address: AudioObjectPropertyAddress,
+        input: inout Input,
+        output: inout Output,
+        osStatusErrorMessage: String? = nil
+    ) throws(SwiftCoreAudioError) {
+        let audioObjectID = id.rawValue
+
+        var address = address
+
+        let inputSize = MemoryLayout<Input>.stride
+        let outputSize = MemoryLayout<Output>.stride
+
+        try withUnsafeMutablePointer(to: &input) { inputPtr in
+            withUnsafeMutablePointer(to: &output) { outputPtr in
+                var value = AudioValueTranslation(
+                    mInputData: inputPtr,
+                    mInputDataSize: UInt32(inputSize),
+                    mOutputData: outputPtr,
+                    mOutputDataSize: UInt32(outputSize)
+                )
+                var valueSize = UInt32(MemoryLayout<AudioValueTranslation>.stride)
+
+                return AudioObjectGetPropertyData(
+                    audioObjectID,
+                    &address,
+                    0,
+                    nil,
+                    &valueSize,
+                    &value
+                )
+            }
+        }
+        .audioOSStatusError()?
+        .throwSwiftCoreAudioError(
+            message: osStatusErrorMessage
+                ?? "Error getting \(Output.self) value for property \(address) of audio object ID \(audioObjectID)."
+        )
+    }
+
     /// Sets a new value for the given property of the audio object.
     ///
     /// `Value` must be a value type. To get a reference (object) value, call
@@ -207,8 +253,6 @@ extension AudioObject {
 // MARK: - Property - Reference Type (Object)
 
 extension AudioObject {
-    // MARK: - Generic
-
     /// Queries an audio object to return the reference-type object for the given property.
     ///
     /// The underlying type should be a `CF*` object (ie: `CFArray`, `CFDictionary`).
