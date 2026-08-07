@@ -43,4 +43,20 @@ extension AudioPropertyQualifier where T == UInt32 {
     }
 }
 
+extension AudioPropertyQualifier where T == Float32 {
+    /// `Float32` qualifier value.
+    nonisolated
+    public static func float32(_ value: Float32) -> Self {
+        AudioPropertyQualifier(initialValue: value)
+    }
+}
+
+extension AudioPropertyQualifier where T == Double {
+    /// `Double` qualifier value (a.k.a. `Float64`).
+    nonisolated
+    public static func double(_ value: Double) -> Self {
+        AudioPropertyQualifier(initialValue: value)
+    }
+}
+
 #endif
