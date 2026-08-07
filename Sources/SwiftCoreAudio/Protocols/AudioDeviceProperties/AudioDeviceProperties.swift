@@ -8,6 +8,7 @@
 
 import CoreAudio
 import SwiftProcess
+import SwiftUnitInterval
 
 /// Properties offered by the Core Audio `AudioObject` class.
 public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProperties & UIDIdentifiableAudioObject {
@@ -222,7 +223,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func volumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
+    func volumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> UnitInterval
 
     /// Set the `Float32` that represents the value of the volume control.
     /// The range is between `0.0` and `1.0` (inclusive).
@@ -230,7 +231,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func setVolumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
+    func setVolumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: UnitInterval) throws(SwiftCoreAudioError)
 
     /// A `Float32` that represents the value of the volume control in dB.
     ///
@@ -258,14 +259,14 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func convertScalarVolumeToDecibels(scalar level: Float32) throws(SwiftCoreAudioError) -> Float32
+    func convertScalarVolumeToDecibels(scalar level: UnitInterval) throws(SwiftCoreAudioError) -> Float32
 
     /// Converts a dB volume level value to its equivalent scalar value.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func convertDecibelsVolumeToScalar(scalar level: Float32) throws(SwiftCoreAudioError) -> Float32
+    func convertDecibelsVolumeToScalar(dB level: Float32) throws(SwiftCoreAudioError) -> UnitInterval
 
     /// A `Float32` stereo pan value where `0.0` is full left, `1.0` is full right, and
     /// `0.5` is center.
@@ -273,7 +274,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioStereoPanControl`.
     nonisolated
-    func stereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
+    func stereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> UnitInterval
 
     /// Set the `Float32` stereo pan value where `0.0` is full left, `1.0` is full right, and
     /// `0.5` is center.
@@ -281,7 +282,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioStereoPanControl`.
     nonisolated
-    func setStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
+    func setStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: UnitInterval) throws(SwiftCoreAudioError)
 
     /// The stereo pan channels for the given stream direction.
     ///
@@ -479,7 +480,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func playThruVolumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
+    func playThruVolumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> UnitInterval
 
     /// Set the `Float32` that represents the value of the play through volume control.
     /// The range is between `0.0` and `1.0` (inclusive).
@@ -487,7 +488,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func setPlayThruVolumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
+    func setPlayThruVolumeScalar(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: UnitInterval) throws(SwiftCoreAudioError)
 
     /// A `Float32` that represents the value of the play through volume control in dB.
     ///
@@ -515,13 +516,13 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of `AudioVolumeControl`.
     nonisolated
-    func convertPlayThruScalarVolumeToDecibels(scalar level: Float32) throws(SwiftCoreAudioError) -> Float32
+    func convertPlayThruScalarVolumeToDecibels(scalar level: UnitInterval) throws(SwiftCoreAudioError) -> Float32
 
     /// Converts a dB play through volume level value to its equivalent scalar value.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of `AudioVolumeControl`.
     nonisolated
-    func convertPlayThruDecibelsVolumeToScalar(scalar level: Float32) throws(SwiftCoreAudioError) -> Float32
+    func convertPlayThruDecibelsVolumeToScalar(dB level: Float32) throws(SwiftCoreAudioError) -> UnitInterval
 
     /// A `Float32` play through stereo pan value where `0.0` is full left, `1.0` is full right,
     /// and `0.5` is center.
@@ -529,7 +530,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioStereoPanControl`.
     nonisolated
-    func playThruStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
+    func playThruStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> UnitInterval
 
     /// Set the `Float32` play through stereo pan value where `0.0` is full left, `1.0` is full right,
     /// and `0.5` is center.
@@ -537,7 +538,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioStereoPanControl`.
     nonisolated
-    func setPlayThruStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
+    func setPlayThruStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: UnitInterval) throws(SwiftCoreAudioError)
 
     /// The stereo pan channels for the given play through stream direction.
     ///
@@ -611,7 +612,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioLFEVolumeControl`.
     nonisolated
-    var subVolumeScalar: Float32 { get throws(SwiftCoreAudioError) }
+    var subVolumeScalar: UnitInterval { get throws(SwiftCoreAudioError) }
 
     /// Set the `Float32` that represents the value of the sub (LFE) volume control. The range is
     /// between `0.0` and `1.0` (inclusive).
@@ -619,7 +620,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioLFEVolumeControl`.
     nonisolated
-    func setSubVolumeScalar(to value: Float32) throws(SwiftCoreAudioError)
+    func setSubVolumeScalar(to value: UnitInterval) throws(SwiftCoreAudioError)
 
     /// A `Float32` that represents the value of the sub (LFE) volume control in dB.
     ///
@@ -647,14 +648,14 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioLFEVolumeControl`.
     nonisolated
-    func convertSubVolumeScalarToDecibels(scalar level: Float32) throws(SwiftCoreAudioError) -> Float32
+    func convertSubVolumeScalarToDecibels(scalar level: UnitInterval) throws(SwiftCoreAudioError) -> Float32
 
     /// Converts a dB sub (LFE) volume level value to its equivalent scalar value.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioLFEVolumeControl`.
     nonisolated
-    func convertSubVolumeDecibelsToScalar(scalar level: Float32) throws(SwiftCoreAudioError) -> Float32
+    func convertSubVolumeDecibelsToScalar(dB level: Float32) throws(SwiftCoreAudioError) -> UnitInterval
 
     /// A boolean value indicating whether the sub (LFE) channel is muted.
     ///
