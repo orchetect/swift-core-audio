@@ -295,14 +295,16 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Float32 {
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Float32, Value == Float32 {
+    // TODO: Not sure if scope or element are applicable.
     nonisolated
     public static var volumeScalarToDecibels: Self {
         AudioProperty(selectorConstant: .volumeScalarToDecibels, scope: defaultScope, element: defaultElement)
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Float32 {
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Float32, Value == Float32 {
+    // TODO: Not sure if scope or element are applicable.
     nonisolated
     public static var volumeDecibelsToScalar: Self {
         AudioProperty(selectorConstant: .volumeDecibelsToScalar, scope: defaultScope, element: defaultElement)
@@ -339,8 +341,8 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Bool {
     nonisolated
-    public static func isPhantomPowerEnabled(for direction: AudioStream.Direction, channel: Int?) -> Self {
-        AudioProperty(selectorConstant: .phantomPower, scope: scope(for: direction), element: element(forChannel: channel))
+    public static func isPhantomPowerEnabled(forInputChannel channel: Int?) -> Self {
+        AudioProperty(selectorConstant: .phantomPower, scope: .object(.input), element: element(forChannel: channel))
     }
 }
 
@@ -388,14 +390,14 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == UInt32, Value == String {
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == AudioPropertyValueTranslation<UInt32, String> {
     nonisolated
     public static var dataSourceNameForID: Self {
         AudioProperty(selectorConstant: .dataSourceNameForIDCFString, scope: defaultScope, element: defaultElement)
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == UInt32, Value == UInt32 {
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == AudioPropertyValueTranslation<UInt32, UInt32> {
     nonisolated
     public static var dataSourceKindForID: Self {
         AudioProperty(selectorConstant: .dataSourceKindForID, scope: defaultScope, element: defaultElement)
@@ -418,14 +420,14 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == UInt32, Value == String {
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == AudioPropertyValueTranslation<UInt32, String> {
     nonisolated
     public static var clockSourceNameForID: Self {
         AudioProperty(selectorConstant: .clockSourceNameForIDCFString, scope: defaultScope, element: defaultElement)
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == UInt32, Value == UInt32 {
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == AudioPropertyValueTranslation<UInt32, UInt32> {
     nonisolated
     public static var clockSourceKindForID: Self {
         AudioProperty(selectorConstant: .clockSourceKindForID, scope: defaultScope, element: defaultElement)
@@ -472,16 +474,16 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Float32 {
-    // TODO: Not sure if scope is applicable.
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Float32, Value == Float32 {
+    // TODO: Not sure if scope or element are applicable.
     nonisolated
     public static var playThruVolumeScalarToDecibels: Self {
         AudioProperty(selectorConstant: .playThruVolumeScalarToDecibels, scope: defaultScope, element: defaultElement)
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Float32 {
-    // TODO: Not sure if scope is applicable.
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Float32, Value == Float32 {
+    // TODO: Not sure if scope or element are applicable.
     nonisolated
     public static var playThruVolumeDecibelsToScalar: Self {
         AudioProperty(selectorConstant: .playThruVolumeDecibelsToScalar, scope: defaultScope, element: defaultElement)
@@ -505,22 +507,22 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == [UInt32] {
-    // TODO: Not sure if scope or element are applicable.
+    // TODO: Not sure if element is applicable.
     nonisolated
     public static var playThruDestination: Self {
-        AudioProperty(selectorConstant: .playThruDestination, scope: defaultScope, element: defaultElement)
+        AudioProperty(selectorConstant: .playThruDestination, scope: .object(.playThrough), element: defaultElement)
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == [UInt32] {
-    // TODO: Not sure if scope or element are applicable.
+    // TODO: Not sure if element is applicable.
     nonisolated
     public static var playThruDestinations: Self {
-        AudioProperty(selectorConstant: .playThruDestinations, scope: defaultScope, element: defaultElement)
+        AudioProperty(selectorConstant: .playThruDestinations, scope: .object(.playThrough), element: defaultElement)
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == UInt32, Value == String {
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == AudioPropertyValueTranslation<UInt32, String> {
     nonisolated
     public static var playThruDestinationNameForID: Self {
         AudioProperty(selectorConstant: .playThruDestinationNameForIDCFString, scope: defaultScope, element: defaultElement)
@@ -543,7 +545,7 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == UInt32, Value == String {
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == AudioPropertyValueTranslation<UInt32, String> {
     nonisolated
     public static var channelNominalLineLevelNameForID: Self {
         AudioProperty(selectorConstant: .channelNominalLineLevelNameForIDCFString, scope: defaultScope, element: defaultElement)
@@ -566,7 +568,7 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == UInt32, Value == String {
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == AudioPropertyValueTranslation<UInt32, String> {
     nonisolated
     public static var highPassFilterSettingNameForID: Self {
         AudioProperty(selectorConstant: .highPassFilterSettingNameForIDCFString, scope: defaultScope, element: defaultElement)
@@ -594,14 +596,14 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Float32 {
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Float32, Value == Float32 {
     nonisolated
     public static var subVolumeScalarToDecibels: Self {
         AudioProperty(selectorConstant: .subVolumeScalarToDecibels, scope: defaultScope, element: defaultElement)
     }
 }
 
-extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Float32 {
+extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Float32, Value == Float32 {
     nonisolated
     public static var subVolumeDecibelsToScalar: Self {
         AudioProperty(selectorConstant: .subVolumeDecibelsToScalar, scope: defaultScope, element: defaultElement)
