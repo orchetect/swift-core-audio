@@ -18,6 +18,8 @@ extension SerializedTests {
             CoreAudioLogging.bootstrap()
         }
 
+        // MARK: - CoreAudio/AudioHardwareBase.h
+
         // MARK: configurationApplication
 
         @Test
@@ -368,6 +370,8 @@ extension SerializedTests {
             #expect(try device.preferredChannelLayout == nil)
         }
 
+        // MARK: - CoreAudio/AudioHardware.h
+
         // MARK: plugInLoadStatus
 
         @Test
@@ -542,6 +546,332 @@ extension SerializedTests {
             // BlackHole contains both inputs and outputs
             #expect(try device.isCurrentProcessMuted(for: .input) == false)
             #expect(try device.isCurrentProcessMuted(for: .output) == false)
+        }
+
+        // MARK: - CoreAudio/AudioHardware.h - Device properties implemented via AudioControl objects
+
+        // MARK: isJackConnected(for:channel:)
+
+        @Test
+        func isJackConnected_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isJackConnected(for: .input, channel: .number(1))
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isJackConnected(for: .output, channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func isJackConnected_valid() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+            #expect(try device.isJackConnected(for: .input, channel: nil) == false)
+            #expect(try device.isJackConnected(for: .input, channel: .number(1)) == false)
+            #expect(try device.isJackConnected(for: .input, channel: .number(2)) == false)
+        }
+
+        // MARK: volumeUnitInterval(for:channel:)
+
+        @Test
+        func volumeUnitInterval_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeUnitInterval(for: .input, channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeUnitInterval(for: .output, channel: nil)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func volumeUnitInterval_valid_blackhole_input() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // `nil` and `0` are both considered the entire "device" and not a particular channel.
+            // this value will be dependent on what volume level the user has the device set to,
+            // so we can only check that the call doesn't throw, and returns a value in range (0.0 ... 1.0)
+            #expect((0.0 ... 1.0).contains(try device.volumeUnitInterval(for: .input, channel: nil)))
+
+            // individual channels on BlackHole do not have volume controls implemented
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeUnitInterval(for: .input, channel: .number(1))
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeUnitInterval(for: .input, channel: .number(2))
+            }
+
+            // channel 3 doesn't exist
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeUnitInterval(for: .input, channel: .number(3))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func volumeUnitInterval_valid_blackhole_output() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // `nil` and `0` are both considered the entire "device" and not a particular channel.
+            // this value will be dependent on what volume level the user has the device set to,
+            // so we can only check that the call doesn't throw, and returns a value in range (0.0 ... 1.0)
+            #expect((0.0 ... 1.0).contains(try device.volumeUnitInterval(for: .output, channel: nil)))
+
+            // individual channels on BlackHole do not have volume controls implemented
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeUnitInterval(for: .output, channel: .number(1))
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeUnitInterval(for: .output, channel: .number(2))
+            }
+
+            // channel 3 doesn't exist
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeUnitInterval(for: .output, channel: .number(3))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.airPodsPro3(.output)))
+        func volumeUnitInterval_valid_airPodsPro3_output() throws {
+            let device = try #require(AudioDevice.airPodsPro3(.output))
+
+            // AirPods Pro 3 does not have a device output volume control, only per-channel volume controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeUnitInterval(for: .output, channel: nil)
+            }
+
+            // AirPods Pro 3 is one of the few audio devices that has per-channel output volume controls.
+            // these values will be dependent on what volume level the user has the device set to,
+            // so we can only check that the call doesn't throw, and returns a value in range (0.0 ... 1.0)
+            #expect((0.0 ... 1.0).contains(try device.volumeUnitInterval(for: .output, channel: .number(1))))
+            #expect((0.0 ... 1.0).contains(try device.volumeUnitInterval(for: .output, channel: .number(2))))
+
+            // channel 3 doesn't exist
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeUnitInterval(for: .output, channel: .number(3))
+            }
+        }
+
+        // MARK: setVolumeUnitInterval(for:channel:)
+
+        @Test
+        func setVolumeUnitInterval_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setVolumeUnitInterval(for: .input, channel: nil, to: 1.0)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setVolumeUnitInterval(for: .output, channel: nil, to: 1.0)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func setVolumeUnitInterval_valid_blackhole_input() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // fetch current value so we can reset them when done
+            let initialValue = try device.volumeUnitInterval(for: .input, channel: nil)
+            defer { try? device.setVolumeUnitInterval(for: .input, channel: nil, to: initialValue) }
+
+            // set new value
+            try device.setVolumeUnitInterval(for: .input, channel: nil, to: 0.5)
+
+            // check new value
+            #expect(try device.volumeUnitInterval(for: .input, channel: nil) == 0.5)
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func setVolumeUnitInterval_valid_blackhole_output() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // fetch current value so we can reset them when done
+            let initialValue = try device.volumeUnitInterval(for: .output, channel: nil)
+            defer { try? device.setVolumeUnitInterval(for: .output, channel: nil, to: initialValue) }
+
+            // set new value
+            try device.setVolumeUnitInterval(for: .output, channel: nil, to: 0.5)
+
+            // check new value
+            #expect(try device.volumeUnitInterval(for: .output, channel: nil) == 0.5)
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.airPodsPro3(.output)))
+        func setVolumeUnitInterval_valid_airPodsPro3_output() throws {
+            let device = try #require(AudioDevice.airPodsPro3(.output))
+
+            // AirPods Pro 3 does not have a device output volume control, only per-channel volume controls
+            // AirPods Pro 3 is one of the few audio devices that has per-channel output volume controls.
+
+            // fetch current value so we can reset them when done
+            let initialLValue = try device.volumeUnitInterval(for: .output, channel: .number(1))
+            let initialRValue = try device.volumeUnitInterval(for: .output, channel: .number(2))
+            defer {
+                try? device.setVolumeUnitInterval(for: .output, channel: .number(1), to: initialLValue)
+                try? device.setVolumeUnitInterval(for: .output, channel: .number(2), to: initialRValue)
+            }
+
+            // set new values
+            try device.setVolumeUnitInterval(for: .output, channel: .number(1), to: 0.25)
+            try device.setVolumeUnitInterval(for: .output, channel: .number(2), to: 0.75)
+
+            // check new value
+            #expect(try device.volumeUnitInterval(for: .output, channel: .number(1)) == 0.25)
+            #expect(try device.volumeUnitInterval(for: .output, channel: .number(2)) == 0.75)
+        }
+
+        // MARK: volumeDBFS(for:channel:)
+
+        @Test
+        func volumeDecibels_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeDBFS(for: .input, channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeDBFS(for: .output, channel: nil)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func volumeDBFS_valid_blackhole_input() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // `nil` and `0` are both considered the entire "device" and not a particular channel.
+            // this value will be dependent on what volume level the user has the device set to,
+            // so we can only check that the call doesn't throw, and returns a value in range.
+            // BlackHole uses a dbFS range of `-64.0 ... 0.0`
+            #expect((-64.0 ... 0.0).contains(try device.volumeDBFS(for: .input, channel: nil)))
+
+            // individual channels on BlackHole do not have volume controls implemented
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeDBFS(for: .input, channel: .number(1))
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeDBFS(for: .input, channel: .number(2))
+            }
+
+            // channel 3 doesn't exist
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeDBFS(for: .input, channel: .number(3))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func volumeDBFS_valid_blackhole_output() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // `nil` and `0` are both considered the entire "device" and not a particular channel.
+            // this value will be dependent on what volume level the user has the device set to,
+            // so we can only check that the call doesn't throw, and returns a value in range.
+            // BlackHole uses a dbFS range of `-64.0 ... 0.0`
+            #expect((-64.0 ... 0.0).contains(try device.volumeDBFS(for: .output, channel: nil)))
+
+            // individual channels on BlackHole do not have volume controls implemented
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeDBFS(for: .output, channel: .number(1))
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeDBFS(for: .output, channel: .number(2))
+            }
+
+            // channel 3 doesn't exist
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeDBFS(for: .output, channel: .number(3))
+            }
+        }
+
+        // MARK: setVolumeDBFS(for:channel:)
+
+        @Test
+        func setVolumeDBFS_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setVolumeDBFS(for: .input, channel: nil, to: 1.0)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setVolumeDBFS(for: .output, channel: nil, to: 1.0)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func setVolumeDBFS_valid_input() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // fetch current value so we can reset them when done
+            let initialValue = try device.volumeDBFS(for: .input, channel: nil)
+            defer { try? device.setVolumeDBFS(for: .input, channel: nil, to: initialValue) }
+
+            // set new value
+            try device.setVolumeDBFS(for: .input, channel: nil, to: -20.0)
+
+            // check new value
+            #expect(try device.volumeDBFS(for: .input, channel: nil) == -20.0)
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func setVolumeDBFS_valid_output() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // fetch current value so we can reset them when done
+            let initialValue = try device.volumeDBFS(for: .output, channel: nil)
+            defer { try? device.setVolumeDBFS(for: .output, channel: nil, to: initialValue) }
+
+            // set new value
+            try device.setVolumeDBFS(for: .output, channel: nil, to: -20.0)
+
+            // check new value
+            #expect(try device.volumeDBFS(for: .output, channel: nil) == -20.0)
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.airPodsPro3(.output)))
+        func setVolumeDBFS_valid_airPodsPro3_output() throws {
+            let device = try #require(AudioDevice.airPodsPro3(.output))
+
+            // AirPods Pro 3 does not have a device output volume control, only per-channel volume controls
+            // AirPods Pro 3 is one of the few audio devices that has per-channel output volume controls.
+            // However, Apple is doing something wacky with dBFS values for this device.
+            // We can read the values, but setting the values has unpredictable results so we can't test setting.
+
+            // The values seem pinned at -0.15025711 but we'll just test that the methods don't throw
+            // an error and the values are within valid dBFS range.
+            let lValue = try device.volumeDBFS(for: .output, channel: .number(1))
+            let rValue = try device.volumeDBFS(for: .output, channel: .number(2))
+            #expect((...0.0).contains(lValue))
+            #expect((...0.0).contains(rValue))
+        }
+
+        // MARK: volumeRangeDBFS(for:channel:)
+
+        @Test
+        func volumeRangeDBFS_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeRangeDBFS(for: .input, channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeRangeDBFS(for: .output, channel: nil)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func volumeRangeDBFS_valid() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // `nil` and `0` are both considered the entire "device" and not a particular channel.
+            // BlackHole uses a dbFS range of `-64.0 ... 0.0`
+            #expect(try device.volumeRangeDBFS(for: .input, channel: nil) == -64.0 ... 0.0)
+
+            // individual channels on BlackHole do not have volume controls implemented
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeRangeDBFS(for: .input, channel: .number(1))
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeRangeDBFS(for: .input, channel: .number(2))
+            }
+
+            // channel 3 doesn't exist
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeRangeDBFS(for: .input, channel: .number(3))
+            }
         }
     }
 }

@@ -43,4 +43,20 @@ extension AudioDevice {
     }
 }
 
+// MARK: - AirPods Pro 3
+
+extension AudioDevice {
+    /// AirPods Pro 3 - Input Device.
+    /// For local testing.
+    ///
+    /// Apple splits the AirPods Pro 3 into two separate devices -
+    /// one with input (mic), and one with outputs (L/R earbud speakers).
+    static func airPodsPro3(_ direction: AudioStream.Direction) -> Self? {
+        try? AudioSystem.shared
+            .devices(with: direction)
+            .audioDevices
+            .first(where: { (try? $0.name)?.starts(with: "AirPods Pro 3") == true })
+    }
+}
+
 #endif
