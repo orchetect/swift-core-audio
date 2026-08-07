@@ -238,35 +238,35 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func volumeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
+    func volumeDBFS(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
 
     /// Set the `Float32` that represents the value of the volume control in dB.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func setVolumeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
+    func setVolumeDBFS(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
 
     /// Range representing the minimum and maximum dB volume values the volume control can have.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func volumeRangeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> ClosedRange<Double>
+    func volumeRangeDBFS(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> ClosedRange<Double>
 
     /// Converts a scalar volume level value to its equivalent dB value.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func convertScalarVolumeToDecibels(scalar level: UnitInterval) throws(SwiftCoreAudioError) -> Float32
+    func convertVolumeToDBFS(scalar level: UnitInterval) throws(SwiftCoreAudioError) -> Float32
 
     /// Converts a dB volume level value to its equivalent scalar value.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func convertDecibelsVolumeToScalar(dB level: Float32) throws(SwiftCoreAudioError) -> UnitInterval
+    func convertVolumeToScalar(dBFS level: Float32) throws(SwiftCoreAudioError) -> UnitInterval
 
     /// A `Float32` stereo pan value where `0.0` is full left, `1.0` is full right, and
     /// `0.5` is center.
@@ -495,14 +495,14 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func playThruVolumeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
+    func playThruVolumeDBFS(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Float32
 
     /// Set the `Float32` that represents the value of the play through volume control in dB.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func setPlayThruVolumeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
+    func setPlayThruVolumeDBFS(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Float32) throws(SwiftCoreAudioError)
 
     /// Range representing the minimum and maximum dB volume values the play through volume control
     /// can have.
@@ -510,19 +510,19 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioVolumeControl`.
     nonisolated
-    func playThruVolumeRangeDecibels(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> ClosedRange<Double>
+    func playThruVolumeRangeDBFS(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> ClosedRange<Double>
 
     /// Converts a scalar play through volume level value to its equivalent dB value.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of `AudioVolumeControl`.
     nonisolated
-    func convertPlayThruScalarVolumeToDecibels(scalar level: UnitInterval) throws(SwiftCoreAudioError) -> Float32
+    func convertPlayThruVolumeToDBFS(scalar level: UnitInterval) throws(SwiftCoreAudioError) -> Float32
 
     /// Converts a dB play through volume level value to its equivalent scalar value.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of `AudioVolumeControl`.
     nonisolated
-    func convertPlayThruDecibelsVolumeToScalar(dB level: Float32) throws(SwiftCoreAudioError) -> UnitInterval
+    func convertPlayThruVolumeToScalar(dBFS level: Float32) throws(SwiftCoreAudioError) -> UnitInterval
 
     /// A `Float32` play through stereo pan value where `0.0` is full left, `1.0` is full right,
     /// and `0.5` is center.
@@ -627,35 +627,35 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioLFEVolumeControl`.
     nonisolated
-    var subVolumeDecibels: Float32 { get throws(SwiftCoreAudioError) }
+    var subVolumeDBFS: Float32 { get throws(SwiftCoreAudioError) }
 
     /// Set the `Float32` that represents the value of the sub (LFE) volume control in dB.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioLFEVolumeControl`.
     nonisolated
-    func setSubVolumeDecibels(to value: Float32) throws(SwiftCoreAudioError)
+    func setSubVolumeDBFS(to value: Float32) throws(SwiftCoreAudioError)
 
     /// Range representing the minimum and maximum dB volume values the sub (LFE) volume control can have.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioLFEVolumeControl`.
     nonisolated
-    var subVolumeRangeDecibels: ClosedRange<Double> { get throws(SwiftCoreAudioError) }
+    var subVolumeRangeDBFS: ClosedRange<Double> { get throws(SwiftCoreAudioError) }
 
     /// Converts a scalar sub (LFE) volume level value to its equivalent dB value.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioLFEVolumeControl`.
     nonisolated
-    func convertSubVolumeScalarToDecibels(scalar level: UnitInterval) throws(SwiftCoreAudioError) -> Float32
+    func convertSubVolumeToDBFS(scalar level: UnitInterval) throws(SwiftCoreAudioError) -> Float32
 
     /// Converts a dB sub (LFE) volume level value to its equivalent scalar value.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioLFEVolumeControl`.
     nonisolated
-    func convertSubVolumeDecibelsToScalar(dB level: Float32) throws(SwiftCoreAudioError) -> UnitInterval
+    func convertSubVolumeToScalar(dBFS level: Float32) throws(SwiftCoreAudioError) -> UnitInterval
 
     /// A boolean value indicating whether the sub (LFE) channel is muted.
     ///
