@@ -14,17 +14,23 @@ import SwiftCoreAudio
 extension AudioDevice {
     /// `BuiltInSpeakerDevice`: Audio device UID common on many Macs for built-in speakers (has outputs).
     ///
-    /// - Name on Mac Pro is "Mac Pro Speakers"
-    /// - Name on MacBook Pro is "MacBook Pro Speakers"
+    /// See the `BuiltInSpeakers` enum for known static metadata.
     static var builtInSpeakerDevice: Self? {
         try? Self(uid: .builtInSpeakerDevice)
     }
 
     /// `BuiltInMicrophoneDevice`: Audio device UID common on many Macs for built-in microphone (has input).
     ///
-    /// - Name on MacBook Pro is "MacBook Pro Microphone"
+    /// See the `BuiltInMic` enum for known static metadata.
     static var builtInMicrophoneDevice: Self? {
         try? Self(uid: .builtInMicrophoneDevice)
+    }
+
+    /// `AVIODevice`: Audio device UID common on macOS virtual machine installations (has inputs & outputs).
+    ///
+    /// See the `VMAudioDevice` enum for known static metadata.
+    static var vmAudioDevice: Self? {
+        try? Self(uid: .vmAudioDevice)
     }
 }
 
