@@ -565,7 +565,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioDataDestinationControl`.
     nonisolated
-    func playThruDestinationName(forID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String
+    func playThruDestinationName(ofID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String
 
     /// An array of item IDs for the currently selected nominal line levels.
     ///
@@ -583,7 +583,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
 
     /// Returns the human-readable name for the nominal line level with the given ID.
     nonisolated
-    func channelNominalLineLevelName(forID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String
+    func channelNominalLineLevelName(ofID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String
 
     /// An array of item IDs for the currently selected high pass filter setting.
     ///
@@ -604,7 +604,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioHighPassFilterControl`.
     nonisolated
-    func highPassFilterSettingName(forID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String
+    func highPassFilterSettingName(ofID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String
 
     /// A `Float32` that represents the value of the sub (LFE) volume control. The range is
     /// between `0.0` and `1.0` (inclusive).

@@ -587,7 +587,7 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func playThruDestinationName(forID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String {
+    public func playThruDestinationName(ofID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String {
         try getPropertyValue(property: DeviceProperty.playThruDestinationNameForID, input: dataSourceID)
     }
 
@@ -608,7 +608,7 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func channelNominalLineLevelName(forID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String {
+    public func channelNominalLineLevelName(ofID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String {
         try getPropertyValue(property: DeviceProperty.channelNominalLineLevelNameForID, input: dataSourceID)
     }
 
@@ -629,7 +629,7 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func highPassFilterSettingName(forID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String {
+    public func highPassFilterSettingName(ofID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String {
         try getPropertyValue(property: DeviceProperty.highPassFilterSettingNameForID, input: dataSourceID)
     }
 
