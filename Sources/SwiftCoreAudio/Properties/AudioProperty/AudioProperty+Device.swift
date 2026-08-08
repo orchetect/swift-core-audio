@@ -434,76 +434,80 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Bool {
-    // TODO: Not sure if scope or element are applicable.
+    // Scope is always playThru
+    // TODO: Not sure if element is applicable.
     nonisolated
-    public static func isPlayThruEnabled(for direction: AudioStream.Direction, channel: Int?) -> Self {
-        AudioProperty(selectorConstant: .playThru, scope: scope(for: direction), element: element(forChannel: channel))
+    public static func isPlayThruEnabled(channel: Int?) -> Self {
+        AudioProperty(selectorConstant: .playThru, scope: .object(.playThrough), element: element(forChannel: channel))
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Bool {
-    // TODO: Not sure if scope is applicable.
+    // Scope is always playThru
     nonisolated
-    public static func isPlayThruSoloed(for direction: AudioStream.Direction, channel: Int?) -> Self {
-        AudioProperty(selectorConstant: .playThruSolo, scope: scope(for: direction), element: element(forChannel: channel))
+    public static func isPlayThruSoloed(channel: Int?) -> Self {
+        AudioProperty(selectorConstant: .playThruSolo, scope: .object(.playThrough), element: element(forChannel: channel))
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Float32 {
-    // TODO: Not sure if scope is applicable.
+    // Scope is always playThru
     nonisolated
-    public static func playThruVolumeScalar(for direction: AudioStream.Direction, channel: Int?) -> Self {
-        AudioProperty(selectorConstant: .playThruVolumeScalar, scope: scope(for: direction), element: element(forChannel: channel))
+    public static func playThruVolumeScalar(channel: Int?) -> Self {
+        AudioProperty(selectorConstant: .playThruVolumeScalar, scope: .object(.playThrough), element: element(forChannel: channel))
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Float32 {
-    // TODO: Not sure if scope is applicable.
+    // Scope is always playThru
     nonisolated
-    public static func playThruVolumeDecibels(for direction: AudioStream.Direction, channel: Int?) -> Self {
-        AudioProperty(selectorConstant: .playThruVolumeDecibels, scope: scope(for: direction), element: element(forChannel: channel))
+    public static func playThruVolumeDecibels(channel: Int?) -> Self {
+        AudioProperty(selectorConstant: .playThruVolumeDecibels, scope: .object(.playThrough), element: element(forChannel: channel))
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == AudioValueRange {
-    // TODO: Not sure if scope is applicable.
+    // Scope is always playThru
     nonisolated
-    public static func playThruVolumeRangeDecibels(for direction: AudioStream.Direction, channel: Int?) -> Self {
-        AudioProperty(selectorConstant: .playThruVolumeRangeDecibels, scope: scope(for: direction), element: element(forChannel: channel))
+    public static func playThruVolumeRangeDecibels(channel: Int?) -> Self {
+        AudioProperty(selectorConstant: .playThruVolumeRangeDecibels, scope: .object(.playThrough), element: element(forChannel: channel))
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Float32 {
+    // Scope is always playThru
     nonisolated
-    public static func playThruVolumeScalarToDecibels(for direction: AudioStream.Direction, channel: Int?) -> Self {
-        AudioProperty(selectorConstant: .playThruVolumeScalarToDecibels, scope: scope(for: direction), element: element(forChannel: channel))
+    public static func playThruVolumeScalarToDecibels(channel: Int?) -> Self {
+        AudioProperty(selectorConstant: .playThruVolumeScalarToDecibels, scope: .object(.playThrough), element: element(forChannel: channel))
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Float32 {
+    // Scope is always playThru
     nonisolated
-    public static func playThruVolumeDecibelsToScalar(for direction: AudioStream.Direction, channel: Int?) -> Self {
-        AudioProperty(selectorConstant: .playThruVolumeDecibelsToScalar, scope: scope(for: direction), element: element(forChannel: channel))
+    public static func playThruVolumeDecibelsToScalar(channel: Int?) -> Self {
+        AudioProperty(selectorConstant: .playThruVolumeDecibelsToScalar, scope: .object(.playThrough), element: element(forChannel: channel))
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Float32 {
-    // TODO: Not sure if scope is applicable.
+    // Scope is always playThru
     nonisolated
-    public static func playThruStereoPan(for direction: AudioStream.Direction, channel: Int?) -> Self {
-        AudioProperty(selectorConstant: .playThruStereoPan, scope: scope(for: direction), element: element(forChannel: channel))
+    public static func playThruStereoPan(channel: Int?) -> Self {
+        AudioProperty(selectorConstant: .playThruStereoPan, scope: .object(.playThrough), element: element(forChannel: channel))
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == (UInt32, UInt32) {
-    // TODO: Not sure if scope is applicable.
+    // Scope is always playThru
     nonisolated
-    public static func playThruStereoPanChannels(for direction: AudioStream.Direction) -> Self {
-        AudioProperty(selectorConstant: .playThruStereoPanChannels, scope: scope(for: direction), element: defaultElement)
+    public static var playThruStereoPanChannels: Self {
+        AudioProperty(selectorConstant: .playThruStereoPanChannels, scope: .object(.playThrough), element: defaultElement)
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == [UInt32] {
+    // Scope is always playThru
     // TODO: Not sure if element is applicable.
     nonisolated
     public static var playThruDestination: Self {
@@ -512,6 +516,7 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == [UInt32] {
+    // Scope is always playThru
     // TODO: Not sure if element is applicable.
     nonisolated
     public static var playThruDestinations: Self {
@@ -520,9 +525,10 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == AudioPropertyValueTranslation<UInt32, String> {
+    // Scope is always playThru
     nonisolated
     public static var playThruDestinationNameForID: Self {
-        AudioProperty(selectorConstant: .playThruDestinationNameForIDCFString, scope: defaultScope, element: defaultElement)
+        AudioProperty(selectorConstant: .playThruDestinationNameForIDCFString, scope: .object(.playThrough), element: defaultElement)
     }
 }
 
