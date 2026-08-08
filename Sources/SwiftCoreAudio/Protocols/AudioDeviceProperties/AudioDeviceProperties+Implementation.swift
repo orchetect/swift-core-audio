@@ -337,26 +337,26 @@ extension AudioDeviceProperties {
         return audioValueRange.mMinimum ... audioValueRange.mMaximum
     }
 
-    // TODO: Not sure if scope or element are applicable.
     nonisolated
     public func convertVolumeToDBFS(unitInterval level: UnitInterval, for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> Float32 {
         let convertedValue = try getPropertyValue(property: DeviceProperty.volumeScalarToDecibels(for: direction, channel: channel?.number), initialValue: Float32(level.rawValue))
         return convertedValue
     }
 
-    // TODO: Not sure if scope or element are applicable.
     nonisolated
     public func convertVolumeToUnitInterval(dBFS level: Float32, for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> UnitInterval {
         let convertedValue = try getPropertyValue(property: DeviceProperty.volumeDecibelsToScalar(for: direction, channel: channel?.number), initialValue: level)
         return UnitInterval(convertedValue)
     }
 
+    // TODO: Not sure if element is applicable. Can individual channels have pan controls?
     nonisolated
     public func stereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> UnitInterval {
         let float32 = try getPropertyValue(property: DeviceProperty.stereoPan(for: direction, channel: channel?.number))
         return UnitInterval(float32)
     }
 
+    // TODO: Not sure if element is applicable. Can individual channels have pan controls?
     nonisolated
     public func setStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: UnitInterval) throws(SwiftCoreAudioError) {
         try setPropertyValue(property: DeviceProperty.stereoPan(for: direction, channel: channel?.number), value: Float32(value.rawValue))
@@ -365,11 +365,7 @@ extension AudioDeviceProperties {
     nonisolated
     public func stereoPanChannels(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> StereoAudioChannelIndexes? {
         // Core Audio returns 1-based number series
-        guard let (left, right) = try withRecovery(
-            getPropertyValue(property: DeviceProperty.stereoPanChannels(for: direction)),
-            unknownPropertyDefault: nil
-        ) else { return nil }
-
+        let (left, right) = try getPropertyValue(property: DeviceProperty.stereoPanChannels(for: direction))
         return StereoAudioChannelIndexes(leftNumber: left, rightNumber: right)
     }
 
@@ -447,30 +443,24 @@ extension AudioDeviceProperties {
         try setPropertyValue(property: DeviceProperty.isListenbackEnabled, value: value)
     }
 
-    // TODO: Not sure if scope or element are applicable.
     nonisolated
-    public var dataSourceIDs: [UInt32] {
-        get throws(SwiftCoreAudioError) {
-            try getPropertyValue(property: DeviceProperty.dataSource)
-        }
-    }
-
-    // TODO: Not sure if scope or element are applicable.
-    nonisolated
-    public var dataSourcesIDs: [UInt32] {
-        get throws(SwiftCoreAudioError) {
-            try getPropertyValue(property: DeviceProperty.dataSources)
-        }
+    public func dataSourceIDs(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> [UInt32] {
+        try getPropertyValue(property: DeviceProperty.dataSource(for: direction))
     }
 
     nonisolated
-    public func dataSourceName(forID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String {
-        try getPropertyValue(property: DeviceProperty.dataSourceNameForID, input: dataSourceID)
+    public func dataSourcesIDs(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> [UInt32] {
+        try getPropertyValue(property: DeviceProperty.dataSources(for: direction))
     }
 
     nonisolated
-    public func dataSourceKind(forID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> UInt32 {
-        try getPropertyValue(property: DeviceProperty.dataSourceKindForID, input: dataSourceID)
+    public func dataSourceName(for direction: AudioStream.Direction, ofID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String {
+        try getPropertyValue(property: DeviceProperty.dataSourceNameForID(for: direction), input: dataSourceID)
+    }
+
+    nonisolated
+    public func dataSourceKind(for direction: AudioStream.Direction, ofID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> UInt32 {
+        try getPropertyValue(property: DeviceProperty.dataSourceKindForID(for: direction), input: dataSourceID)
     }
 
     // TODO: Not sure if scope or element are applicable.
@@ -490,12 +480,12 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func clockSourceName(forID clockSourceID: UInt32) throws(SwiftCoreAudioError) -> String {
+    public func clockSourceName(ofID clockSourceID: UInt32) throws(SwiftCoreAudioError) -> String {
         try getPropertyValue(property: DeviceProperty.clockSourceNameForID, input: clockSourceID)
     }
 
     nonisolated
-    public func clockSourceKind(forID clockSourceID: UInt32) throws(SwiftCoreAudioError) -> UInt32 {
+    public func clockSourceKind(ofID clockSourceID: UInt32) throws(SwiftCoreAudioError) -> UInt32 {
         try getPropertyValue(property: DeviceProperty.clockSourceKindForID, input: clockSourceID)
     }
 

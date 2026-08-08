@@ -310,6 +310,7 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == Float32 {
+    // TODO: Not sure if element is applicable. Can individual channels have pan controls?
     nonisolated
     public static func stereoPan(for direction: AudioStream.Direction, channel: Int?) -> Self {
         AudioProperty(selectorConstant: .stereoPan, scope: scope(for: direction), element: element(forChannel: channel))
@@ -317,6 +318,7 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == (UInt32, UInt32) {
+    // TODO: Not sure if element is applicable. Can individual channels have pan controls?
     nonisolated
     public static func stereoPanChannels(for direction: AudioStream.Direction) -> Self {
         AudioProperty(selectorConstant: .stereoPanChannels, scope: scope(for: direction), element: defaultElement)
@@ -373,37 +375,36 @@ extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorCon
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == [UInt32] {
-    // TODO: Not sure if scope or element are applicable.
     nonisolated
-    public static var dataSource: Self {
-        AudioProperty(selectorConstant: .dataSource, scope: defaultScope, element: defaultElement)
+    public static func dataSource(for direction: AudioStream.Direction) -> Self {
+        AudioProperty(selectorConstant: .dataSource, scope: scope(for: direction), element: defaultElement)
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == [UInt32] {
-    // TODO: Not sure if scope or element are applicable.
     nonisolated
-    public static var dataSources: Self {
-        AudioProperty(selectorConstant: .dataSources, scope: defaultScope, element: defaultElement)
+    public static func dataSources(for direction: AudioStream.Direction) -> Self {
+        AudioProperty(selectorConstant: .dataSources, scope: scope(for: direction), element: defaultElement)
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == AudioPropertyValueTranslation<UInt32, String> {
     nonisolated
-    public static var dataSourceNameForID: Self {
-        AudioProperty(selectorConstant: .dataSourceNameForIDCFString, scope: defaultScope, element: defaultElement)
+    public static func dataSourceNameForID(for direction: AudioStream.Direction) -> Self {
+        AudioProperty(selectorConstant: .dataSourceNameForIDCFString, scope: scope(for: direction), element: defaultElement)
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == AudioPropertyValueTranslation<UInt32, UInt32> {
     nonisolated
-    public static var dataSourceKindForID: Self {
-        AudioProperty(selectorConstant: .dataSourceKindForID, scope: defaultScope, element: defaultElement)
+    public static func dataSourceKindForID(for direction: AudioStream.Direction) -> Self {
+        AudioProperty(selectorConstant: .dataSourceKindForID, scope: scope(for: direction), element: defaultElement)
     }
 }
 
 extension AudioProperty where SelectorConstant == AudioDevicePropertySelectorConstant, Qualifier == Never, Value == [UInt32] {
-    // TODO: Not sure if scope or element are applicable.
+    // Anecdotally, returns same value whether scope is global, input, or output.
+    // Anecdotally, element is not used and should always be main. Passing channel numbers returns 'unknown property' status.
     nonisolated
     public static var clockSource: Self {
         AudioProperty(selectorConstant: .clockSource, scope: defaultScope, element: defaultElement)

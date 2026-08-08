@@ -401,25 +401,25 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioDataSourceControl`.
     nonisolated
-    var dataSourceIDs: [UInt32] { get throws(SwiftCoreAudioError) }
+    func dataSourceIDs(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> [UInt32]
 
     /// An array of item IDs of all the data sources currently available.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioDataSourceControl`.
     nonisolated
-    var dataSourcesIDs: [UInt32] { get throws(SwiftCoreAudioError) }
+    func dataSourcesIDs(for direction: AudioStream.Direction) throws(SwiftCoreAudioError) -> [UInt32]
 
     /// Returns the human-readable name for the data source with the given ID.
     ///
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioDataSourceControl`.
     nonisolated
-    func dataSourceName(forID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String
+    func dataSourceName(for direction: AudioStream.Direction, ofID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> String
 
     /// Returns a value describing the kind of the data source with the given ID.
     nonisolated
-    func dataSourceKind(forID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> UInt32
+    func dataSourceKind(for direction: AudioStream.Direction, ofID dataSourceID: UInt32) throws(SwiftCoreAudioError) -> UInt32
 
     /// An array of item IDs for the currently selected clock sources.
     ///
@@ -440,11 +440,11 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// This property is implemented by an `AudioControl` object that is a subclass of
     /// `AudioClockControl`.
     nonisolated
-    func clockSourceName(forID clockSourceID: UInt32) throws(SwiftCoreAudioError) -> String
+    func clockSourceName(ofID clockSourceID: UInt32) throws(SwiftCoreAudioError) -> String
 
     /// Returns a value describing the kind of the clock source with the given ID.
     nonisolated
-    func clockSourceKind(forID clockSourceID: UInt32) throws(SwiftCoreAudioError) -> UInt32
+    func clockSourceKind(ofID clockSourceID: UInt32) throws(SwiftCoreAudioError) -> UInt32
 
     /// A boolean value indicating whether play through for the channel is enabled.
     ///
