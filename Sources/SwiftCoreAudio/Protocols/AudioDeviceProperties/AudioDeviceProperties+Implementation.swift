@@ -691,7 +691,7 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func setIsVoiceActivityDetectionEnabled(forInputChannel channel: AudioChannelIndex, to value: Bool) throws(SwiftCoreAudioError) -> Bool {
+    public func setIsVoiceActivityDetectionEnabled(forInputChannel channel: AudioChannelIndex, to value: Bool) throws(SwiftCoreAudioError) {
         try setPropertyValue(property: DeviceProperty.isVoiceActivityDetectionEnabled(forInputChannel: channel.number), value: value)
     }
 

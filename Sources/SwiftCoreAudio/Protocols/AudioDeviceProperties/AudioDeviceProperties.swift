@@ -683,7 +683,7 @@ public protocol AudioDeviceProperties where Self: AudioObject & AudioClockProper
     /// Voice activity detection can be used with input audio and has echo cancellation.
     /// Detection works when a process mute is used, but not with hardware mute.
     nonisolated
-    func setIsVoiceActivityDetectionEnabled(forInputChannel channel: AudioChannelIndex, to value: Bool) throws(SwiftCoreAudioError) -> Bool
+    func setIsVoiceActivityDetectionEnabled(forInputChannel channel: AudioChannelIndex, to value: Bool) throws(SwiftCoreAudioError)
 
     /// A read-only boolean value indicating whether voice activity is currently detected.
     ///
