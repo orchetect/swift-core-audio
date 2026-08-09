@@ -94,6 +94,11 @@ extension AudioBoxProperties {
                 throw .audioBoxNotFound
             }
 
+            // early return if box is already in desired state
+            if let currentState = try? getPropertyValue(property: BoxProperty.acquired) {
+                guard currentState != state else { return }
+            }
+
             // call asynchronously on background queue
             // workaround for potential internal CoreAudio mutex deadlocks that can happen
             DispatchQueue.global().async {
@@ -108,17 +113,20 @@ extension AudioBoxProperties {
             }
 
             // wait synchronously until state changes
-            let timeout: TimeInterval = 0.5
-            let pollingInterval: DispatchTimeInterval = .milliseconds(100)
-            let inDate = Date()
-            while let getState = try? getPropertyValue(property: BoxProperty.acquired), getState != state {
-                sleep(pollingInterval)
-                if Date().timeIntervalSince(inDate) > timeout {
-                    throw .osStatus(
-                        AudioOSStatusError(unsafe: .propertyNotWritable),
-                        message: "Timed out while waiting for audio box state to change to \(state)."
-                    )
+            // Not ideal but it works. Ideally we hook Core Audio's notifications with a listener but that
+            // is not feasible in a synchronous (non-async) context.
+            let result = PollingPredicate(pollingInterval: 0.100)
+                .wait(timeout: 0.5) {
+                    (try? getPropertyValue(property: BoxProperty.acquired)) == state
                 }
+            switch result {
+            case .success:
+                break
+            case .timedOut:
+                throw .osStatus(
+                    AudioOSStatusError(unsafe: .propertyNotWritable),
+                    message: "Timed out while waiting for audio box state to change to \(state)."
+                )
             }
 
             // buffer in case another method is called immediately after this method
