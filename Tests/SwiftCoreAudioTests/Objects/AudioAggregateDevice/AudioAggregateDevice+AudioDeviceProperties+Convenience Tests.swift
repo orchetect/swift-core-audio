@@ -29,16 +29,16 @@ extension SerializedTests {
         }
 
         @Test
-        func isPresent_valid() throws {
+        func isPresent_valid() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             // verify
             #expect(aggregate.isPresent == true)
 
             // destroy the aggregate
-            try AudioSystem.shared.destroyAggregateDevice(aggregate)
+            try await AudioSystem.shared.destroyAggregateDevice(aggregate)
 
             // verify
             #expect(aggregate.isPresent == false)

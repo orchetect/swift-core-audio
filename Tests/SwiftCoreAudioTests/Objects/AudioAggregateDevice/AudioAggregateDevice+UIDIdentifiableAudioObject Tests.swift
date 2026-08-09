@@ -29,9 +29,9 @@ extension SerializedTests {
         }
 
         @Test
-        func uid_valid() throws {
+        func uid_valid() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             // verify

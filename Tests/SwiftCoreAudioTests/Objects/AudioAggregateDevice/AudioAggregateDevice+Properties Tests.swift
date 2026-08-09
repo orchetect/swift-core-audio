@@ -29,9 +29,9 @@ extension SerializedTests {
         }
 
         @Test
-        func subdeviceUIDs_valid() throws {
+        func subdeviceUIDs_valid() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(
                 withUID: aggregateUID,
                 subdevices: [.init(uid: AudioDevice.UID("Device1_UID")), .init(uid: AudioDevice.UID("Device2_UID"))],
                 subtaps: [.init(uid: AudioTap.UID("Tap1_UID")), .init(uid: AudioTap.UID("Tap2_UID"))],
@@ -57,9 +57,9 @@ extension SerializedTests {
         }
 
         @Test
-        func setSubdevices_uids_valid() throws {
+        func setSubdevices_uids_valid() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(
                 withUID: aggregateUID,
                 subdevices: [.init(uid: AudioDevice.UID("Device3_UID")), .init(uid: AudioDevice.UID("Device4_UID"))],
                 subtaps: [.init(uid: AudioTap.UID("Tap1_UID")), .init(uid: AudioTap.UID("Tap2_UID"))],
@@ -88,9 +88,9 @@ extension SerializedTests {
         }
 
         @Test
-        func activeSubdevices_valid_nonpresent() throws {
+        func activeSubdevices_valid_nonpresent() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(
                 withUID: aggregateUID,
                 subdevices: [.init(uid: AudioDevice.UID("Device1_UID")), .init(uid: AudioDevice.UID("Device2_UID"))],
                 subtaps: [.init(uid: AudioTap.UID("Tap1_UID")), .init(uid: AudioTap.UID("Tap2_UID"))],
@@ -105,7 +105,7 @@ extension SerializedTests {
         }
 
         @Test
-        func activeSubdevices_valid_present() throws {
+        func activeSubdevices_valid_present() async throws {
             // find a device to use as main subdevice
             guard let device = try AudioSystem.shared
                 .devices
@@ -132,7 +132,7 @@ extension SerializedTests {
 
             // create aggregate
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(
                 withUID: aggregateUID,
                 subdevices: [
                     .init(uid: deviceUID, extraInputLatency: 64, extraOutputLatency: 64, isDriftCompensationEnabled: true),
@@ -174,10 +174,10 @@ extension SerializedTests {
         }
 
         @Test
-        func composition_valid() throws {
+        func composition_valid() async throws {
             var composition = AudioAggregateDevice_Composition_Tests.sampleComposition
             composition.uid = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(composition: composition)
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(composition: composition)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             // verify
@@ -238,9 +238,9 @@ extension SerializedTests {
         }
 
         @Test
-        func setComposition_valid() throws {
+        func setComposition_valid() async throws {
             let originalAggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: originalAggregateUID, isPrivate: true)
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(withUID: originalAggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             // set composition
@@ -287,9 +287,9 @@ extension SerializedTests {
         }
 
         @Test
-        func mainSubdeviceUID_valid_none() throws {
+        func mainSubdeviceUID_valid_none() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             // verify
@@ -297,7 +297,7 @@ extension SerializedTests {
         }
 
         @Test
-        func mainSubdeviceUID_valid_present() throws {
+        func mainSubdeviceUID_valid_present() async throws {
             // find a device to use
             guard let mainDevice = try AudioSystem.shared
                 .devices
@@ -323,7 +323,7 @@ extension SerializedTests {
 
             // create aggregate
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(
                 withUID: aggregateUID,
                 subdevices: [.init(uid: mainDeviceUID), .init(uid: AudioDevice.UID("Device2_UID"))],
                 subtaps: [.init(uid: AudioTap.UID("Tap1_UID")), .init(uid: AudioTap.UID("Tap2_UID"))],
@@ -346,7 +346,7 @@ extension SerializedTests {
         }
 
         @Test
-        func setMainSubdevice_uid_valid() throws {
+        func setMainSubdevice_uid_valid() async throws {
             // find a device
             guard let mainDevice = try AudioSystem.shared
                 .devices
@@ -372,7 +372,7 @@ extension SerializedTests {
 
             // create aggregate
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(
                 withUID: aggregateUID,
                 subdevices: [.init(uid: mainDeviceUID), .init(uid: AudioDevice.UID("Device2_UID"))],
                 subtaps: [.init(uid: AudioTap.UID("Tap1_UID")), .init(uid: AudioTap.UID("Tap2_UID"))],
@@ -425,9 +425,9 @@ extension SerializedTests {
         }
 
         @Test
-        func clockUID_valid_none() throws {
+        func clockUID_valid_none() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             // verify
@@ -435,7 +435,7 @@ extension SerializedTests {
         }
 
         @Test
-        func clockUID_valid_nonpresent() throws {
+        func clockUID_valid_nonpresent() async throws {
             // find a device to use as main subdevice
             guard let mainDevice = try AudioSystem.shared
                 .devices
@@ -461,7 +461,7 @@ extension SerializedTests {
 
             // create aggregate
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(
                 withUID: aggregateUID,
                 subdevices: [.init(uid: mainDeviceUID), .init(uid: AudioDevice.UID("Device2_UID"))],
                 subtaps: [.init(uid: AudioTap.UID("Tap1_UID")), .init(uid: AudioTap.UID("Tap2_UID"))],
@@ -474,7 +474,7 @@ extension SerializedTests {
         }
 
         @Test
-        func clockUID_valid_present_suppliedAtAggregateCreation() throws {
+        func clockUID_valid_present_suppliedAtAggregateCreation() async throws {
             // find a device to use as main subdevice
             guard let mainDevice = try AudioSystem.shared
                 .devices
@@ -515,7 +515,7 @@ extension SerializedTests {
 
             // create aggregate
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(
                 withUID: aggregateUID,
                 subdevices: [.init(uid: mainDeviceUID), .init(uid: AudioDevice.UID("Device2_UID"))],
                 subtaps: [.init(uid: AudioTap.UID("Tap1_UID")), .init(uid: AudioTap.UID("Tap2_UID"))],
@@ -529,7 +529,7 @@ extension SerializedTests {
         }
 
         @Test
-        func clockUID_valid_present_setAfterAggregateCreation() throws {
+        func clockUID_valid_present_setAfterAggregateCreation() async throws {
             // find a device to use as main subdevice
             guard let mainDevice = try AudioSystem.shared
                 .devices
@@ -570,7 +570,7 @@ extension SerializedTests {
 
             // create aggregate
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(
                 withUID: aggregateUID,
                 subdevices: [.init(uid: mainDeviceUID), .init(uid: AudioDevice.UID("Device2_UID"))],
                 subtaps: [.init(uid: AudioTap.UID("Tap1_UID")), .init(uid: AudioTap.UID("Tap2_UID"))],
@@ -596,9 +596,9 @@ extension SerializedTests {
         }
 
         @Test
-        func tapUIDs_valid() throws {
+        func tapUIDs_valid() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(
                 withUID: aggregateUID,
                 subdevices: [.init(uid: AudioDevice.UID("Device1_UID")), .init(uid: AudioDevice.UID("Device2_UID"))],
                 subtaps: [.init(uid: AudioTap.UID("Tap1_UID")), .init(uid: AudioTap.UID("Tap2_UID"))],
@@ -622,9 +622,9 @@ extension SerializedTests {
         }
 
         @Test
-        func setTaps_uids_valid() throws {
+        func setTaps_uids_valid() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(
                 withUID: aggregateUID,
                 subdevices: [.init(uid: AudioDevice.UID("Device1_UID")), .init(uid: AudioDevice.UID("Device2_UID"))],
                 isPrivate: true
@@ -654,9 +654,9 @@ extension SerializedTests {
         }
 
         @Test
-        func activeSubtaps_valid_nonpresent() throws {
+        func activeSubtaps_valid_nonpresent() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             // verify
@@ -668,7 +668,7 @@ extension SerializedTests {
         @available(macOS 14.2, *)
         @available(macCatalyst, unavailable) // doesn't prevent Swift Testing from running this on Mac Catalyst
         @Test
-        func activeSubtaps_valid_present() throws {
+        func activeSubtaps_valid_present() async throws {
             // find a device to tap
             guard let device = try AudioSystem.shared
                 .devices
@@ -698,7 +698,7 @@ extension SerializedTests {
 
             // create aggregate
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             // create a tap
