@@ -80,7 +80,7 @@ extension AudioPlugInProperties {
     }
 }
 
-// MARK: - Aggregate Device Lifecycle
+// MARK: - Aggregate Device Lifecycle (Non-Async)
 
 extension AudioPlugInProperties {
     // TODO: needs testing
@@ -108,15 +108,15 @@ extension AudioPlugInProperties {
         let newAggregate = AudioAggregateDevice(id: aggregateID)
 
         if let timeout {
-            // CoreAudio does not fully create the aggregate synchronously, so we have to wait for it before returning.
-            // TODO: Not ideal but it works.
-            let inDate = Date()
-            while !newAggregate.isPresent {
-                usleep(UInt32(Double(USEC_PER_SEC) * 0.05))
-                if Date().timeIntervalSince(inDate) > timeout {
-                    // timeout
-                    throw .aggregateCreationTimeout
-                }
+            // CoreAudio does not fully create the aggregate synchronously, so we have to wait for changes.
+            // Not ideal but it works. Ideally we hook Core Audio's notifications with a listener but that
+            // is not feasible in a synchronous (non-async) context.
+            let result = PollingPredicate().wait(timeout: timeout, for: {
+                newAggregate.isPresent
+            })
+            switch result {
+            case .success: break
+            case .timedOut: throw .aggregateCreationTimeout
             }
         }
 
@@ -139,15 +139,92 @@ extension AudioPlugInProperties {
         // TODO: not sure if a value gets returned (OSStatus? docs don't say.)
 
         if let timeout {
-            // CoreAudio does not fully destroy the aggregate synchronously, so we have to wait for it before returning.
-            // TODO: Not ideal but it works.
-            let inDate = Date()
-            while aggregate.isPresent {
-                usleep(UInt32(Double(USEC_PER_SEC) * 0.05))
-                if Date().timeIntervalSince(inDate) > timeout {
-                    // timeout
-                    throw .aggregateDestructionTimeout
-                }
+            // CoreAudio does not fully destroy the aggregate synchronously, so we have to wait for changes.
+            // Not ideal but it works. Ideally we hook Core Audio's notifications with a listener but that
+            // is not feasible in a synchronous (non-async) context.
+            let result = PollingPredicate().wait(timeout: timeout, for: {
+                !aggregate.isPresent
+            })
+            switch result {
+            case .success: break
+            case .timedOut: throw .aggregateDestructionTimeout
+            }
+        }
+    }
+}
+
+// MARK: - Aggregate Device Lifecycle (Async)
+
+extension AudioPlugInProperties {
+    // TODO: needs testing
+    /// - Throws: Throws an error if an aggregate device with the same UID already exists.
+    @discardableResult
+    nonisolated
+    public func makeAggregateDevice(
+        composition: AudioAggregateDevice.Composition,
+        waitForCompletionWithTimeout timeout: TimeInterval? = 5.0
+    ) async throws(SwiftCoreAudioError) -> AudioAggregateDevice {
+        let cfDictionary = composition.cfDictionary()
+        return try await makeAggregateDevice(composition: cfDictionary, waitForCompletionWithTimeout: timeout)
+    }
+
+    // TODO: needs testing
+    /// - Throws: Throws an error if an aggregate device with the same UID already exists.
+    @discardableResult
+    nonisolated
+    public func makeAggregateDevice(
+        composition: CFDictionary,
+        waitForCompletionWithTimeout timeout: TimeInterval? = 5.0
+    ) async throws(SwiftCoreAudioError) -> AudioAggregateDevice {
+        // create local asynchronous devices watcher
+        let presence = AsyncAudioDevicesPresence()
+        // start listening for changes in system devices before we create the aggregate
+        await presence.start()
+
+        let aggregateID = try getPropertyValue(property: PlugInProperty.createAggregateDevice, qualifier: .init(initialValue: composition))
+        let newAggregate = AudioAggregateDevice(id: aggregateID)
+
+        if let timeout {
+            // CoreAudio does not fully create the aggregate synchronously, so we have to wait for changes.
+            let result = await presence.wait(timeout: timeout) { devices in
+                devices.contains(where: { device in device.id.rawValue == newAggregate.id.rawValue })
+            }
+            switch result {
+            case .success: break
+            case .timedOut: throw .aggregateCreationTimeout
+            }
+        }
+
+        return newAggregate
+    }
+
+    // TODO: needs testing
+    nonisolated
+    public func destroyAggregateDevice(
+        _ aggregate: AudioAggregateDevice,
+        waitForCompletionWithTimeout timeout: TimeInterval? = 5.0
+    ) async throws(SwiftCoreAudioError) {
+        // create local asynchronous devices watcher
+        let presence = AsyncAudioDevicesPresence()
+        // start listening for changes in system devices before we create the aggregate
+        await presence.start()
+
+        // TODO: not sure if this works, needs testing
+        var value = aggregate.id.rawValue
+        _ = try getPropertyValue(
+            address: PlugInProperty.destroyAggregateDevice.address,
+            value: &value,
+            qualifier: .none
+        )
+        // TODO: not sure if a value gets returned (OSStatus? docs don't say.)
+
+        if let timeout {
+            let result = await presence.wait(timeout: timeout) { devices in
+                !devices.contains(where: { device in device.id.rawValue == aggregate.id.rawValue })
+            }
+            switch result {
+            case .success: break
+            case .timedOut: throw .aggregateDestructionTimeout
             }
         }
     }
