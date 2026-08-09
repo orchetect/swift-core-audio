@@ -104,7 +104,7 @@ extension SerializedTests {
 
         // MARK: clockDomain
 
-        // TODO: add test after implementing the property
+        // TODO: add test after implementing clockDomain
 
         // MARK: isDeviceAlive
 
@@ -484,11 +484,11 @@ extension SerializedTests {
 
         // MARK: streamConfiguration(for:)
 
-        // TODO: add test after implementing the property
+        // TODO: add test after implementing streamConfiguration(for:)
 
         // MARK: ioProcStreamUsage
 
-        // TODO: add test after implementing the property
+        // TODO: add test after implementing ioProcStreamUsage
 
         // MARK: actualSampleRate
 
@@ -1635,9 +1635,1202 @@ extension SerializedTests {
 
         // MARK: isPlayThruEnabled(for:channel:)
 
-        
+        @Test
+        func isPlayThruEnabled_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isPlayThruEnabled(channel: .number(1))
+            }
+        }
 
-        // TODO: finish unit tests
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func isPlayThruEnabled_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isPlayThruEnabled(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isPlayThruEnabled(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func isPlayThruEnabled_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isPlayThruEnabled(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isPlayThruEnabled(channel: .number(1))
+            }
+        }
+
+        // MARK: setIsPlayThruEnabled(channel:to:)
+
+        @Test
+        func setIsPlayThruEnabled_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setIsPlayThruEnabled(channel: .number(1), to: false)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func setIsPlayThruEnabled_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setIsPlayThruEnabled(channel: nil, to: false)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setIsPlayThruEnabled(channel: .number(1), to: false)
+            }
+        }
+
+        // MARK: isPlayThruSoloed(for:channel:)
+
+        @Test
+        func isPlayThruSoloed_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isPlayThruSoloed(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func isPlayThruSoloed_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isPlayThruSoloed(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isPlayThruSoloed(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func isPlayThruSoloed_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isPlayThruSoloed(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isPlayThruSoloed(channel: .number(1))
+            }
+        }
+
+        // MARK: setIsPlayThruSoloed(channel:to:)
+
+        @Test
+        func setIsPlayThruSoloed_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setIsPlayThruSoloed(channel: .number(1), to: false)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func setIsPlayThruSoloed_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setIsPlayThruSoloed(channel: nil, to: false)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setIsPlayThruSoloed(channel: .number(1), to: false)
+            }
+        }
+
+        // MARK: playThruVolumeUnitInterval(channel:)
+
+        @Test
+        func playThruVolumeUnitInterval_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeUnitInterval(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func playThruVolumeUnitInterval_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeUnitInterval(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeUnitInterval(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func playThruVolumeUnitInterval_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeUnitInterval(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeUnitInterval(channel: .number(1))
+            }
+        }
+
+        // MARK: setPlayThruVolumeUnitInterval(channel:to:)
+
+        @Test
+        func setPlayThruVolumeUnitInterval_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setPlayThruVolumeUnitInterval(channel: .number(1), to: 1.0)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func setPlayThruVolumeUnitInterval_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setPlayThruVolumeUnitInterval(channel: nil, to: 1.0)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setPlayThruVolumeUnitInterval(channel: .number(1), to: 1.0)
+            }
+        }
+
+        // MARK: playThruVolumeDBFS(channel:)
+
+        @Test
+        func playThruVolumeDBFS_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeDBFS(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func playThruVolumeDBFS_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeDBFS(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeDBFS(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func playThruVolumeDBFS_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeDBFS(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeDBFS(channel: .number(1))
+            }
+        }
+
+        // MARK: setPlayThruVolumeDBFS(channel:to:)
+
+        @Test
+        func setPlayThruVolumeDBFS_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setPlayThruVolumeDBFS(channel: .number(1), to: 0.0)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func setPlayThruVolumeDBFS_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setPlayThruVolumeDBFS(channel: nil, to: 0.0)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setPlayThruVolumeDBFS(channel: .number(1), to: 0.0)
+            }
+        }
+
+        // MARK: playThruVolumeRangeDBFS(channel:)
+
+        @Test
+        func playThruVolumeRangeDBFS_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeRangeDBFS(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func playThruVolumeRangeDBFS_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeRangeDBFS(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeRangeDBFS(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func playThruVolumeRangeDBFS_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeRangeDBFS(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruVolumeRangeDBFS(channel: .number(1))
+            }
+        }
+
+        // MARK: convertPlayThruVolumeToDBFS(unitInterval:channel:)
+
+        @Test
+        func convertPlayThruVolumeToDBFS_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertPlayThruVolumeToDBFS(unitInterval: 1.0, channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func convertPlayThruVolumeToDBFS_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertPlayThruVolumeToDBFS(unitInterval: 1.0, channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertPlayThruVolumeToDBFS(unitInterval: 1.0, channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func convertPlayThruVolumeToDBFS_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertPlayThruVolumeToDBFS(unitInterval: 1.0, channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertPlayThruVolumeToDBFS(unitInterval: 1.0, channel: .number(1))
+            }
+        }
+
+        // MARK: convertPlayThruVolumeToUnitInterval(dBFS:channel:)
+
+        @Test
+        func convertPlayThruVolumeToUnitInterval_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertPlayThruVolumeToUnitInterval(dBFS: 0.0, channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func convertPlayThruVolumeToUnitInterval_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertPlayThruVolumeToUnitInterval(dBFS: 0.0, channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertPlayThruVolumeToUnitInterval(dBFS: 0.0, channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func convertPlayThruVolumeToUnitInterval_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertPlayThruVolumeToUnitInterval(dBFS: 0.0, channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertPlayThruVolumeToUnitInterval(dBFS: 0.0, channel: .number(1))
+            }
+        }
+
+        // MARK: playThruStereoPan(channel:)
+
+        @Test
+        func playThruStereoPan_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruStereoPan(channel: nil)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func playThruStereoPan_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruStereoPan(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruStereoPan(channel: .number(1))
+            }
+        }
+
+        // MARK: setPlayThruStereoPan(for:channel:)
+
+        @Test
+        func setPlayThruStereoPan_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setPlayThruStereoPan(channel: nil, to: 0.5)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func setPlayThruStereoPan_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setPlayThruStereoPan(channel: nil, to: 0.25)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setPlayThruStereoPan(channel: .number(1), to: 0.25)
+            }
+        }
+
+        // MARK: playThruDestinationIDs(channel:)
+
+        @Test
+        func playThruDestinationIDs_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationIDs(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func playThruDestinationIDs_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationIDs(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationIDs(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func playThruDestinationIDs_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationIDs(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationIDs(channel: .number(1))
+            }
+        }
+
+        // MARK: playThruDestinationsIDs(channel:)
+
+        @Test
+        func playThruDestinationsIDs_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationsIDs(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func playThruDestinationsIDs_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationsIDs(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationsIDs(channel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func playThruDestinationsIDs_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationsIDs(channel: nil)
+            }
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationsIDs(channel: .number(1))
+            }
+        }
+
+        // MARK: playThruDestinationNameForID
+
+        @Test
+        func playThruDestinationNameForID_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationName(ofID: 123)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func playThruDestinationNameForID_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationName(ofID: 123)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func playThruDestinationNameForID_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not support play-thru (?)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.playThruDestinationName(ofID: 123)
+            }
+        }
+
+        // MARK: channelNominalLineLevelIDs
+
+        @Test
+        func channelNominalLineLevelIDs_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.channelNominalLineLevelIDs
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func channelNominalLineLevelIDs_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have line level controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.channelNominalLineLevelIDs
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func channelNominalLineLevelIDs_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have line level controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.channelNominalLineLevelIDs
+            }
+        }
+
+        // MARK: channelNominalLineLevelsIDs
+
+        @Test
+        func channelNominalLineLevelsIDs_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.channelNominalLineLevelsIDs
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func channelNominalLineLevelsIDs_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have line level controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.channelNominalLineLevelsIDs
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func channelNominalLineLevelsIDs_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have line level controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.channelNominalLineLevelsIDs
+            }
+        }
+
+        // MARK: channelNominalLineLevelName(ofID:)
+
+        @Test
+        func channelNominalLineLevelName_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.channelNominalLineLevelName(ofID: 123)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func channelNominalLineLevelName_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have line level controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.channelNominalLineLevelName(ofID: 123)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func channelNominalLineLevelName_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have line level controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.channelNominalLineLevelName(ofID: 123)
+            }
+        }
+
+        // MARK: highPassFilterSettingIDs
+
+        @Test
+        func highPassFilterSettingIDs_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.highPassFilterSettingIDs
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func highPassFilterSettingIDs_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have high-pass filter controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.highPassFilterSettingIDs
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func highPassFilterSettingIDs_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have high-pass filter controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.highPassFilterSettingIDs
+            }
+        }
+
+        // MARK: highPassFilterSettingsIDs
+
+        @Test
+        func highPassFilterSettingsIDs_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.highPassFilterSettingsIDs
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func highPassFilterSettingsIDs_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have high-pass filter controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.highPassFilterSettingsIDs
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func highPassFilterSettingsIDs_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have high-pass filter controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.highPassFilterSettingsIDs
+            }
+        }
+
+        // MARK: highPassFilterSettingName(ofID:)
+
+        @Test
+        func highPassFilterSettingName_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.highPassFilterSettingName(ofID: 123)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func highPassFilterSettingName_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have high-pass filter controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.highPassFilterSettingName(ofID: 123)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func highPassFilterSettingName_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have high-pass filter controls
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.highPassFilterSettingName(ofID: 123)
+            }
+        }
+
+        // MARK: subVolumeUnitInterval
+
+        @Test
+        func subVolumeUnitInterval_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.subVolumeUnitInterval
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func subVolumeUnitInterval_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.subVolumeUnitInterval
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func subVolumeUnitInterval_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.subVolumeUnitInterval
+            }
+        }
+
+        // MARK: setSubVolumeUnitInterval
+
+        @Test
+        func setSubVolumeUnitInterval_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setSubVolumeUnitInterval(to: 1.0)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func setSubVolumeUnitInterval_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setSubVolumeUnitInterval(to: 1.0)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func setSubVolumeUnitInterval_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setSubVolumeUnitInterval(to: 1.0)
+            }
+        }
+
+        // MARK: subVolumeDBFS
+
+        @Test
+        func subVolumeDBFS_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.subVolumeDBFS
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func subVolumeDBFS_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.subVolumeDBFS
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func subVolumeDBFS_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.subVolumeDBFS
+            }
+        }
+
+        // MARK: setSubVolumeDBFS
+
+        @Test
+        func setSubVolumeDBFS_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setSubVolumeDBFS(to: 0.0)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func setSubVolumeDBFS_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setSubVolumeDBFS(to: 0.0)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func setSubVolumeDBFS_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setSubVolumeDBFS(to: 0.0)
+            }
+        }
+
+        // MARK: subVolumeRangeDBFS
+
+        @Test
+        func subVolumeRangeDBFS_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.subVolumeRangeDBFS
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func subVolumeRangeDBFS_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.subVolumeRangeDBFS
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func subVolumeRangeDBFS_valid_blackhole() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.subVolumeRangeDBFS
+            }
+        }
+
+        // MARK: convertSubVolumeToDBFS(unitInterval:channel:)
+
+        @Test
+        func convertSubVolumeToDBFS_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertSubVolumeToDBFS(unitInterval: 1.0)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func convertSubVolumeToDBFS_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertSubVolumeToDBFS(unitInterval: 1.0)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func convertSubVolumeToDBFS_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertSubVolumeToDBFS(unitInterval: 1.0)
+            }
+        }
+
+        // MARK: convertSubVolumeToUnitInterval(dBFS:channel:)
+
+        @Test
+        func convertSubVolumeToUnitInterval_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertSubVolumeToUnitInterval(dBFS: 0.0)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func convertSubVolumeToUnitInterval_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertSubVolumeToUnitInterval(dBFS: 0.0)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func convertSubVolumeToUnitInterval_valid_blackHole2Ch() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.convertSubVolumeToUnitInterval(dBFS: 0.0)
+            }
+        }
+
+        // MARK: isSubMuted
+
+        @Test
+        func isSubMuted_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isSubMuted
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func isSubMuted_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isSubMuted
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func isSubMuted_valid_blackhole() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isSubMuted
+            }
+        }
+
+        // MARK: setIsSubMuted(to:)
+
+        @Test
+        func setIsSubMuted_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.setIsSubMuted(to: false)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func setIsSubMuted_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.setIsSubMuted(to: false)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func setIsSubMuted_valid_blackhole() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole does not have a sub (LFE) channel
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.setIsSubMuted(to: false)
+            }
+        }
+
+        // MARK: isVoiceActivityDetectionEnabled(forInputChannel:)
+
+        @Test
+        func isVoiceActivityDetectionEnabled_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInMicrophoneDevice))
+        func isVoiceActivityDetectionEnabled_valid_builtInMic() throws {
+            let device = try #require(AudioDevice.builtInMicrophoneDevice)
+
+            // MacBook Pro Microphone (M1 Max / macOS 26.6) defaults to false.
+            // Not entirely sure when this property will be true unless another app or system service
+            // enables it. To be safe, just check that the call doesn't throw but don't test the value.
+            _ = try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(1))
+
+            // channel 2 doesn't exist, but Core Audio returns `noErr` status with a value of 0 (false)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(2)) == false)
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func isVoiceActivityDetectionEnabled_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) don't have input channels, but
+            // the property exists and should always return false, as voice activity is only supported
+            // for input channels.
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(1)) == false)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(2)) == false)
+
+            // channel 3 doesn't exist, but Core Audio returns `noErr` status with a value of 0 (false)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(3)) == false)
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func isVoiceActivityDetectionEnabled_valid_blackhole() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole defaults to false.
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(1)) == false)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(2)) == false)
+
+            // channel 3 doesn't exist, but Core Audio returns `noErr` status with a value of 0 (false)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(3)) == false)
+        }
+
+        // MARK: setIsVoiceActivityDetectionEnabled(forInputChannel:)
+
+        @Test
+        func setIsVoiceActivityDetectionEnabled_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(1), to: false)
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInMicrophoneDevice))
+        func setIsVoiceActivityDetectionEnabled_valid_builtInMic() throws {
+            let device = try #require(AudioDevice.builtInMicrophoneDevice)
+
+            // fetch current value so we can reset them when done
+            let initialValue = try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(1))
+            defer { try? device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(1), to: initialValue) }
+
+            // set new value
+            let newValue = !initialValue
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(1), to: newValue)
+
+            // check new value
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(1)) == newValue)
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func setIsVoiceActivityDetectionEnabled_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) don't have input channels,
+            // but Core Audio simply ignores the call silently without posting any log messages, and
+            // returns a `noErr` status.
+            // These channels do not exist, but Core Audio seems to store the values any way.
+
+            // fetch current values so we can reset them when done
+            let initialCh1Value = try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(1))
+            let initialCh2Value = try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(2))
+            let initialCh3Value = try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(3))
+            defer {
+                try? device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(1), to: initialCh1Value)
+                try? device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(2), to: initialCh2Value)
+                try? device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(3), to: initialCh3Value)
+            }
+
+            // channel 1: enable and verify
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(1), to: true)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(1)) == true)
+            // channel 1: disable and verify
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(1), to: false)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(1)) == false)
+
+            // channel 2: enable and verify
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(2), to: true)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(2)) == true)
+            // channel 2: disable and verify
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(2), to: false)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(2)) == false)
+
+            // channel 3: enable and verify
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(3), to: true)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(3)) == true)
+            // channel 3: disable and verify
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(3), to: false)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(3)) == false)
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func setIsVoiceActivityDetectionEnabled_valid_blackhole() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // fetch current values so we can reset them when done
+            let initialCh1Value = try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(1))
+            let initialCh2Value = try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(2))
+            let initialCh3Value = try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(3))
+            defer {
+                try? device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(1), to: initialCh1Value)
+                try? device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(2), to: initialCh2Value)
+                try? device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(3), to: initialCh3Value)
+            }
+
+            // channel 1: enable and verify
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(1), to: true)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(1)) == true)
+            // channel 1: disable and verify
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(1), to: false)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(1)) == false)
+
+            // channel 2: enable and verify
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(2), to: true)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(2)) == true)
+            // channel 2: disable and verify
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(2), to: false)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(2)) == false)
+
+            // Channel 3 doesn't exist, but Core Audio seems to store the values any way.
+            // channel 3 (doesn't exist): enable and verify
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(3), to: true)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(3)) == true)
+            // channel 3 (doesn't exist): disable and verify
+            try device.setIsVoiceActivityDetectionEnabled(forInputChannel: .number(3), to: false)
+            #expect(try device.isVoiceActivityDetectionEnabled(forInputChannel: .number(3)) == false)
+        }
+
+        // MARK: isVoiceActivityDetected(forInputChannel:)
+
+        @Test
+        func isVoiceActivityDetected_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isVoiceActivityDetected(forInputChannel: .number(1))
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInMicrophoneDevice))
+        func isVoiceActivityDetected_valid_builtInMic() throws {
+            let device = try #require(AudioDevice.builtInMicrophoneDevice)
+
+            // Just check that the call doesn't throw an error since the value could be intermittent
+            _ = try device.isVoiceActivityDetected(forInputChannel: .number(1))
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func isVoiceActivityDetected_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // Just check that the call doesn't throw an error since the value could be intermittent
+            _ = try device.isVoiceActivityDetected(forInputChannel: .number(1))
+            _ = try device.isVoiceActivityDetected(forInputChannel: .number(2))
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func isVoiceActivityDetected_valid_blackhole() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // Just check that the call doesn't throw an error since the value could be intermittent
+            _ = try device.isVoiceActivityDetected(forInputChannel: .number(1))
+            _ = try device.isVoiceActivityDetected(forInputChannel: .number(2))
+        }
+
+        // MARK: isControlRestorationWanted
+
+        @Test
+        func isControlRestorationWanted_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isControlRestorationWanted
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInMicrophoneDevice))
+        func isControlRestorationWanted_valid_builtInMic() throws {
+            let device = try #require(AudioDevice.builtInMicrophoneDevice)
+
+            // MacBook Pro Microphone (M1 Max / macOS 26.6) returns true
+            #expect(try device.isControlRestorationWanted == true)
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func isControlRestorationWanted_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) returns true
+            #expect(try device.isControlRestorationWanted == true)
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func isControlRestorationWanted_valid_blackhole() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole returns true
+            #expect(try device.isControlRestorationWanted == true)
+        }
+
+        // MARK: isStreamFormatsRestorationWanted
+
+        @Test
+        func isStreamFormatsRestorationWanted_invalid() throws {
+            let device = AudioDevice(id: .randomUnused)
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.isStreamFormatsRestorationWanted
+            }
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInMicrophoneDevice))
+        func isStreamFormatsRestorationWanted_valid_builtInMic() throws {
+            let device = try #require(AudioDevice.builtInMicrophoneDevice)
+
+            // MacBook Pro Microphone (M1 Max / macOS 26.6) returns true
+            #expect(try device.isStreamFormatsRestorationWanted == true)
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.builtInSpeakerDevice))
+        func isStreamFormatsRestorationWanted_valid_builtInSpeakers() throws {
+            let device = try #require(AudioDevice.builtInSpeakerDevice)
+
+            // MacBook Pro Speakers (M1 Max / macOS 26.6) returns true
+            #expect(try device.isStreamFormatsRestorationWanted == true)
+        }
+
+        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        func isStreamFormatsRestorationWanted_valid_blackhole() throws {
+            let device = try #require(AudioDevice.blackHole2Ch)
+
+            // BlackHole returns true
+            #expect(try device.isStreamFormatsRestorationWanted == true)
+        }
     }
 }
 
