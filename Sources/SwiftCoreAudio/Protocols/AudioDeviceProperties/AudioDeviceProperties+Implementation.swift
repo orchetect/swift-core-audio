@@ -358,7 +358,7 @@ extension AudioDeviceProperties {
 
     // TODO: Not sure if element is applicable. Can individual channels have pan controls?
     nonisolated
-    public func setStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: UnitInterval) throws(SwiftCoreAudioError) {
+    public func setStereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil, to value: UnitInterval) throws(SwiftCoreAudioError) {
         try setPropertyValue(property: DeviceProperty.stereoPan(for: direction, channel: channel?.number), value: Float32(value.rawValue))
     }
 
@@ -375,7 +375,7 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func setIsMuted(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError) {
+    public func setIsMuted(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil, to value: Bool) throws(SwiftCoreAudioError) {
         try setPropertyValue(property: DeviceProperty.isMuted(for: direction, channel: channel?.number), value: value)
     }
 
@@ -385,7 +385,7 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func setIsSoloed(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError) {
+    public func setIsSoloed(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil, to value: Bool) throws(SwiftCoreAudioError) {
         try setPropertyValue(property: DeviceProperty.isSoloed(for: direction, channel: channel?.number), value: value)
     }
 
