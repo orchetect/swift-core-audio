@@ -303,7 +303,7 @@ extension AudioDeviceProperties {
     // MARK: - CoreAudio/AudioHardware.h - Device properties implemented via AudioControl objects
 
     nonisolated
-    public func isJackConnected(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+    public func isJackConnected(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> Bool {
         try withRecovery(
             getPropertyValue(property: DeviceProperty.isJackConnected(for: direction, channel: channel?.number)),
             unknownPropertyDefault: false
@@ -351,7 +351,7 @@ extension AudioDeviceProperties {
 
     // TODO: Not sure if element is applicable. Can individual channels have pan controls?
     nonisolated
-    public func stereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> UnitInterval {
+    public func stereoPan(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> UnitInterval {
         let float32 = try getPropertyValue(property: DeviceProperty.stereoPan(for: direction, channel: channel?.number))
         return UnitInterval(float32)
     }
@@ -370,7 +370,7 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func isMuted(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+    public func isMuted(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> Bool {
         try getPropertyValue(property: DeviceProperty.isMuted(for: direction, channel: channel?.number))
     }
 
@@ -380,7 +380,7 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func isSoloed(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+    public func isSoloed(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> Bool {
         try getPropertyValue(property: DeviceProperty.isSoloed(for: direction, channel: channel?.number))
     }
 
@@ -390,32 +390,32 @@ extension AudioDeviceProperties {
     }
 
     nonisolated
-    public func isPhantomPowerEnabled(forInputChannel channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+    public func isPhantomPowerEnabled(forInputChannel channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> Bool {
         try getPropertyValue(property: DeviceProperty.isPhantomPowerEnabled(forInputChannel: channel?.number))
     }
 
     nonisolated
-    public func setIsPhantomPowerEnabled(forInputChannel channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError) {
+    public func setIsPhantomPowerEnabled(forInputChannel channel: AudioChannelIndex? = nil, to value: Bool) throws(SwiftCoreAudioError) {
         try setPropertyValue(property: DeviceProperty.isPhantomPowerEnabled(forInputChannel: channel?.number), value: value)
     }
 
     nonisolated
-    public func isPhaseInverted(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+    public func isPhaseInverted(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> Bool {
         try getPropertyValue(property: DeviceProperty.isPhaseInverted(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setIsPhaseInverted(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError) {
+    public func setIsPhaseInverted(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil, to value: Bool) throws(SwiftCoreAudioError) {
         try setPropertyValue(property: DeviceProperty.isPhaseInverted(for: direction, channel: channel?.number), value: value)
     }
 
     nonisolated
-    public func isClipLightOn(for direction: AudioStream.Direction, channel: AudioChannelIndex?) throws(SwiftCoreAudioError) -> Bool {
+    public func isClipLightOn(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil) throws(SwiftCoreAudioError) -> Bool {
         try getPropertyValue(property: DeviceProperty.isClipLightOn(for: direction, channel: channel?.number))
     }
 
     nonisolated
-    public func setIsClipLightOn(for direction: AudioStream.Direction, channel: AudioChannelIndex?, to value: Bool) throws(SwiftCoreAudioError) {
+    public func setIsClipLightOn(for direction: AudioStream.Direction, channel: AudioChannelIndex? = nil, to value: Bool) throws(SwiftCoreAudioError) {
         try setPropertyValue(property: DeviceProperty.isClipLightOn(for: direction, channel: channel?.number), value: value)
     }
 
