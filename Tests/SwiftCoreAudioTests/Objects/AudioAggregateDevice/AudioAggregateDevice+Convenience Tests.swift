@@ -203,25 +203,50 @@ extension SerializedTests {
             #expect(try aggregate.isTapAutoStartEnabled == false)
         }
 
-        // MARK: destroy()
+        // MARK: destroy() - non-async
 
         @Test
-        func destroy_invalid() throws {
+        func destroy_nonAsync_invalid() /* NOT ASYNC */ throws {
             let aggregate = AudioAggregateDevice(id: .randomUnused)
             // no error is thrown by Core Audio when attempting to destroy an aggregate device that doesn't exist
             #expect(throws: Never.self) {
-                try aggregate.destroy()
+                try /* NOT AWAIT */ aggregate.destroy()
             }
         }
 
         @Test
-        func destroy_valid_true() async throws {
+        func destroy_nonAsync_valid_true() /* NOT ASYNC */ throws {
+            let aggregateUID: AudioAggregateDevice.UID = .random
+            let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
+            defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
+
+            // destroy aggregate
+            try /* NOT AWAIT */ aggregate.destroy()
+
+            // verify
+            #expect(try !AudioSystem.shared.aggregates.contains(aggregate))
+            #expect(!aggregate.isPresent)
+        }
+
+        // MARK: destroy() - async
+
+        @Test
+        func destroy_async_invalid() async throws {
+            let aggregate = AudioAggregateDevice(id: .randomUnused)
+            // no error is thrown by Core Audio when attempting to destroy an aggregate device that doesn't exist
+            await #expect(throws: Never.self) {
+                try await aggregate.destroy()
+            }
+        }
+
+        @Test
+        func destroy_async_valid_true() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
             let aggregate = try await AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             // destroy aggregate
-            try aggregate.destroy()
+            try await aggregate.destroy()
 
             // verify
             #expect(try !AudioSystem.shared.aggregates.contains(aggregate))
