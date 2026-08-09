@@ -260,7 +260,7 @@ extension AudioSystemProperties {
         waitForCompletionWithTimeout timeout: TimeInterval? = 5.0
     ) async throws(SwiftCoreAudioError) -> AudioAggregateDevice {
         // create local asynchronous devices watcher
-        let presence = AsyncAudioDevicesPresence()
+        let presence: AsyncAudioPropertyCache = .devices()
         // start listening for changes in system devices before we create the aggregate
         await presence.start()
 
@@ -314,7 +314,7 @@ extension AudioSystemProperties {
         waitForCompletionWithTimeout timeout: TimeInterval? = 5.0
     ) async throws(SwiftCoreAudioError) {
         // create local asynchronous devices watcher
-        let presence = AsyncAudioDevicesPresence()
+        let presence: AsyncAudioPropertyCache = .devices()
         // start listening for changes in system devices before we create the aggregate
         await presence.start()
 
