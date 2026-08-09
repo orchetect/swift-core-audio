@@ -831,12 +831,15 @@ extension SerializedTests {
             // However, Apple is doing something wacky with dBFS values for this device.
             // We can read the values, but setting the values has unpredictable results so we can't test setting.
 
-            // The values seem pinned at -0.15025711 but we'll just test that the methods don't throw
-            // an error and the values are within valid dBFS range.
-            let lValue = try device.volumeDBFS(for: .output, channel: .number(1))
-            let rValue = try device.volumeDBFS(for: .output, channel: .number(2))
-            #expect((...0.0).contains(lValue))
-            #expect((...0.0).contains(rValue))
+            // For some reason, Apple uses values are not standard dBFS values, so we'll just check that
+            // the call doesn't throw.
+            _ = try device.volumeDBFS(for: .output, channel: .number(1))
+            _ = try device.volumeDBFS(for: .output, channel: .number(2))
+
+            // channel 3 doesn't exist
+            #expect(throws: SwiftCoreAudioError.self) {
+                _ = try device.volumeDBFS(for: .input, channel: .number(3))
+            }
         }
 
         // MARK: volumeRangeDBFS(for:channel:)
