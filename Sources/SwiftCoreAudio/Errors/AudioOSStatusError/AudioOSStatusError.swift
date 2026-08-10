@@ -38,7 +38,7 @@ public struct AudioOSStatusError: RawRepresentable {
     }
 
     /// Internal:
-    /// Construct from an ``OSStatus`` instance without checking for `noErr`.
+    /// Construct from an `OSStatus` instance without checking for `noErr`.
     @inline(__always)
     nonisolated
     public init(unsafe rawValue: OSStatus) {

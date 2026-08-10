@@ -8,8 +8,8 @@
 ///
 /// > Note:
 /// >
-/// > Channel numbers are presented to the end-user as a 1-based number series (not 0-based indexes).
-/// > SwiftCoreAudio provides a `AudioChannelIndex` type which offers both a channel index
+/// > Core Audio channel numbers are presented to the end-user as a 1-based number series (not 0-based indexes).
+/// > SwiftCoreAudio provides an `AudioChannelIndex` type which offers both a channel index
 /// > a channel number property to avoid ambiguity.
 public struct AudioChannelIndex {
     /// The index (0-based) for the channel.

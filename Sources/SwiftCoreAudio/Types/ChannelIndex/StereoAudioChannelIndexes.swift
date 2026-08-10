@@ -8,7 +8,7 @@
 ///
 /// > Note:
 /// >
-/// > Channel numbers are presented to the end-user as a 1-based number series (not 0-based indexes).
+/// > Core Audio channel numbers are presented to the end-user as a 1-based number series (not 0-based indexes).
 /// > SwiftCoreAudio provides a `StereoAudioChannelIndexes` type which offers both a channel index
 /// > a channel number property for each channel to avoid ambiguity.
 public struct StereoAudioChannelIndexes {

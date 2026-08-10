@@ -21,10 +21,10 @@ extension AudioAggregateDeviceProperties {
     ///
     /// If only setting one parameter, see additional available set methods:
     ///
-    /// - ``setMainSubdevice(uid:)-(AudioSubDevice.UID)``
-    /// - ``setClock(uid:)``
-    /// - ``setSubdevices(uids:)-(Sequence<AudioSubDevice.UID>)``
-    /// - ``setTaps(uids:)``
+    /// - ``AudioAggregateDeviceProperties/setMainSubdevice(uid:)``
+    /// - ``AudioAggregateDeviceProperties/setClock(uid:)``
+    /// - ``AudioAggregateDeviceProperties/setSubdevices(uids:)``
+    /// - ``AudioAggregateDeviceProperties/setTaps(uids:)``
     ///
     /// For information on parameters, see ``AudioAggregateDevice/Composition``.
     nonisolated
@@ -62,10 +62,10 @@ extension AudioAggregateDeviceProperties {
     ///
     /// If only setting one parameter, see additional available set methods:
     ///
-    /// - ``setMainSubdevice(uid:)-(AudioSubDevice.UID)``
-    /// - ``setClock(uid:)``
-    /// - ``setSubdevices(uids:)-(Sequence<AudioSubDevice.UID>)``
-    /// - ``setTaps(uids:)-4vjxn``
+    /// - ``AudioAggregateDeviceProperties/setMainSubdevice(uid:)``
+    /// - ``AudioAggregateDeviceProperties/setClock(uid:)``
+    /// - ``AudioAggregateDeviceProperties/setSubdevices(uids:)``
+    /// - ``AudioAggregateDeviceProperties/setTaps(uids:)``
     ///
     /// For information on parameters, see ``AudioAggregateDevice/Composition``.
     @_disfavoredOverload
@@ -110,7 +110,7 @@ extension AudioAggregateDeviceProperties {
 extension AudioAggregateDeviceProperties {
     /// Destroys the aggregate device.
     ///
-    /// Convenience for calling ``AudioSystem/destroyAggregateDevice(_:waitForCompletionWithTimeout:)``
+    /// Convenience for calling ``AudioSystemProperties/destroyAggregateDevice(_:waitForCompletionWithTimeout:)-3mpp4``
     /// on ``AudioSystem``.
     ///
     /// If an aggregate does not exist, this method will return gracefully without throwing an error.
@@ -131,7 +131,7 @@ extension AudioAggregateDeviceProperties {
 extension AudioAggregateDeviceProperties {
     /// Destroys the aggregate device.
     ///
-    /// Convenience for calling ``AudioSystem/destroyAggregateDevice(_:waitForCompletionWithTimeout:)``
+    /// Convenience for calling ``AudioSystemProperties/destroyAggregateDevice(_:waitForCompletionWithTimeout:)-7m9s4``
     /// on ``AudioSystem``.
     ///
     /// If an aggregate does not exist, this method will return gracefully without throwing an error.
@@ -256,7 +256,7 @@ extension AudioAggregateDeviceProperties {
     /// >
     /// > If a new UID is supplied within the new composition, the new UID will be stored and returned when
     /// > the aggregate's ``composition`` is later retrieved. However, the new UID cannot be used to
-    /// > look up the aggregate in Core Audio (``AudioSystemProperties/device(forUID:)-9imh0``).
+    /// > look up the aggregate in Core Audio (``AudioSystemProperties/device(forUID:)``).
     /// > The original UID that was used to create it in order to look the aggregate up.
     nonisolated
     public func setComposition(_ composition: [String: Any]) throws(SwiftCoreAudioError) {
@@ -615,6 +615,7 @@ extension AudioAggregateDeviceProperties {
     ///
     /// - Parameters:
     ///   - taps: Subdevices to set.
+    ///   - destroyTapsIfNeeded: If the subtaps exist, they can be optionally destroyed.
     ///   - tapLookupErrorHandler: Optionally supply an error handler that will be called for any
     ///     subtaps that fail lookup.
     ///     If this closure is `nil`, failures are silently ignored but will still be logged.

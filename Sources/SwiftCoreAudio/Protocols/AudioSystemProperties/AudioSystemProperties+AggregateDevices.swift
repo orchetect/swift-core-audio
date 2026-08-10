@@ -340,7 +340,7 @@ extension AudioSystemProperties {
     /// Convenience to create or update an aggregate audio device by with ``AudioAggregateDevice/Composition`` properties.
     ///
     /// For additional properties, see
-    /// ``makeAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
+    /// ``AudioSystemProperties/makeAggregateDevice(composition:waitForCompletionWithTimeout:)-7x96s``.
     ///
     /// - Parameters:
     ///   - uid: Aggregate composition `UID` property.
@@ -388,13 +388,13 @@ extension AudioSystemProperties {
     /// Convenience to create or update an aggregate audio device by with ``AudioAggregateDevice/Composition`` properties.
     ///
     /// For additional properties, see
-    /// ``makeAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
+    /// ``AudioSystemProperties/makeAggregateDevice(composition:waitForCompletionWithTimeout:)-7x96s``.
     ///
     /// - Parameters:
     ///   - uid: Aggregate composition `UID` property.
     ///   - name: Aggregate composition `name` property.
-    ///   - subdevices: Aggregate composition `subdevices` property.
-    ///   - subtaps: Aggregate composition `subtaps` property.
+    ///   - deviceUIDs: Aggregate composition `subdevices` property.
+    ///   - tapUIDs: Aggregate composition `subtaps` property.
     ///   - clockUID: Aggregate composition `clockUID` property.
     ///   - mainSubdeviceUID: Aggregate composition `mainSubdeviceUID` property.
     ///   - isPrivate: Aggregate composition `isPrivate` property.
@@ -451,7 +451,7 @@ extension AudioSystemProperties {
     /// Otherwise, a new aggregate device will be created.
     ///
     /// For additional properties, see
-    /// ``makeOrUpdateAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
+    /// ``AudioSystemProperties/makeOrUpdateAggregateDevice(composition:waitForCompletionWithTimeout:)-4m1hc``.
     ///
     /// - Parameters:
     ///   - uid: Aggregate composition `UID` property.
@@ -519,13 +519,13 @@ extension AudioSystemProperties {
     /// Otherwise, a new aggregate device will be created.
     ///
     /// For additional properties, see
-    /// ``makeOrUpdateAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
+    /// ``AudioSystemProperties/makeOrUpdateAggregateDevice(composition:waitForCompletionWithTimeout:)-4m1hc``.
     ///
     /// - Parameters:
     ///   - uid: Aggregate composition `UID` property.
     ///   - name: Aggregate composition `name` property.
-    ///   - subdevices: Aggregate composition `subdevices` property.
-    ///   - subtaps: Aggregate composition `subtaps` property.
+    ///   - deviceUIDs: Aggregate composition `subdevices` property.
+    ///   - tapUIDs: Aggregate composition `subtaps` property.
     ///   - clockUID: Aggregate composition `clockUID` property.
     ///   - mainSubdeviceUID: Aggregate composition `mainSubdeviceUID` property.
     ///   - isPrivate: Aggregate composition `isPrivate` property.
@@ -593,7 +593,7 @@ extension AudioSystemProperties {
     /// Convenience to create or update an aggregate audio device by with ``AudioAggregateDevice/Composition`` properties.
     ///
     /// For additional properties, see
-    /// ``makeAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
+    /// ``AudioSystemProperties/makeAggregateDevice(composition:waitForCompletionWithTimeout:)-1s5hp``.
     ///
     /// - Parameters:
     ///   - uid: Aggregate composition `UID` property.
@@ -641,13 +641,13 @@ extension AudioSystemProperties {
     /// Convenience to create or update an aggregate audio device by with ``AudioAggregateDevice/Composition`` properties.
     ///
     /// For additional properties, see
-    /// ``makeAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
+    /// ``AudioSystemProperties/makeAggregateDevice(composition:waitForCompletionWithTimeout:)-1s5hp``.
     ///
     /// - Parameters:
     ///   - uid: Aggregate composition `UID` property.
     ///   - name: Aggregate composition `name` property.
-    ///   - subdevices: Aggregate composition `subdevices` property.
-    ///   - subtaps: Aggregate composition `subtaps` property.
+    ///   - deviceUIDs: Aggregate composition `subdevices` property.
+    ///   - tapUIDs: Aggregate composition `subtaps` property.
     ///   - clockUID: Aggregate composition `clockUID` property.
     ///   - mainSubdeviceUID: Aggregate composition `mainSubdeviceUID` property.
     ///   - isPrivate: Aggregate composition `isPrivate` property.
@@ -704,7 +704,7 @@ extension AudioSystemProperties {
     /// Otherwise, a new aggregate device will be created.
     ///
     /// For additional properties, see
-    /// ``makeOrUpdateAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
+    /// ``AudioSystemProperties/makeOrUpdateAggregateDevice(composition:waitForCompletionWithTimeout:)-1g1sk``.
     ///
     /// - Parameters:
     ///   - uid: Aggregate composition `UID` property.
@@ -772,13 +772,13 @@ extension AudioSystemProperties {
     /// Otherwise, a new aggregate device will be created.
     ///
     /// For additional properties, see
-    /// ``makeOrUpdateAggregateDevice(composition:waitForCompletionWithTimeout:)-(AudioAggregateDevice.Composition,_)``.
+    /// ``AudioSystemProperties/makeOrUpdateAggregateDevice(composition:waitForCompletionWithTimeout:)-1g1sk``.
     ///
     /// - Parameters:
     ///   - uid: Aggregate composition `UID` property.
     ///   - name: Aggregate composition `name` property.
-    ///   - subdevices: Aggregate composition `subdevices` property.
-    ///   - subtaps: Aggregate composition `subtaps` property.
+    ///   - deviceUIDs: Aggregate composition `subdevices` property.
+    ///   - tapUIDs: Aggregate composition `subtaps` property.
     ///   - clockUID: Aggregate composition `clockUID` property.
     ///   - mainSubdeviceUID: Aggregate composition `mainSubdeviceUID` property.
     ///   - isPrivate: Aggregate composition `isPrivate` property.

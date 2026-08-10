@@ -60,7 +60,8 @@ extension AudioDeviceProperties {
     }
 
     /// Returns the total channel count of channels for all streams for both directions.
-    /// This method is more efficient than calling ``channelCount(for:)`` twice (for each direction).
+    /// This method is more efficient than calling ``channelCount(for:streamLookupErrorHandler:)`` twice
+    /// (for each direction).
     ///
     /// - Parameters:
     ///   - streamLookupErrorHandler: Optionally supply an error handler that will be called for any streams
@@ -129,7 +130,7 @@ extension AudioDeviceProperties {
     ///
     /// - Parameters:
     ///   - direction: Input or output audio stream direction.
-    ///   - streamLookupErrorHandler: Optionally supply an error handler that will be called for any stream
+    ///   - directionLookupErrorHandler: Optionally supply an error handler that will be called for any stream
     ///     directions that fail lookup.
     ///     If this closure is `nil`, failures are silently ignored but will still be logged.
     /// - Throws: Throws an error if stream enumeration fails. Individual failures on a per-stream basis are
@@ -159,7 +160,7 @@ extension AudioDeviceProperties {
     ///
     /// - Parameters:
     ///   - direction: Input or output audio stream direction.
-    ///   - streamLookupErrorHandler: Optionally supply an error handler that will be called for any stream
+    ///   - directionLookupErrorHandler: Optionally supply an error handler that will be called for any stream
     ///     directions that fail lookup.
     ///     If this closure is `nil`, failures are silently ignored but will still be logged.
     /// - Throws: Throws an error if stream enumeration fails. Individual failures on a per-stream basis are

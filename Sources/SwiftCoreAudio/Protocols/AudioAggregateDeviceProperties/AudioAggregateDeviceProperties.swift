@@ -48,7 +48,7 @@ public protocol AudioAggregateDeviceProperties where Self: AudioObject, Self: Au
     /// >
     /// > If a new UID is supplied within the new composition, the new UID will be stored and returned when
     /// > the aggregate's ``composition`` is later retrieved. However, the new UID cannot be used to
-    /// > look up the aggregate in Core Audio (``AudioSystemProperties/device(forUID:)-9imh0``).
+    /// > look up the aggregate in Core Audio (``AudioSystemProperties/device(forUID:)``).
     /// > The original UID that was used to create it in order to look the aggregate up.
     nonisolated
     func setComposition(_ composition: AudioAggregateDevice.Composition) throws(SwiftCoreAudioError)
