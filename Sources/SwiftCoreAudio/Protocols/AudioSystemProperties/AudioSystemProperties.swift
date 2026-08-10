@@ -22,13 +22,25 @@ public protocol AudioSystemProperties where Self: AudioObject {
     nonisolated
     var defaultInputDevice: AnyAudioDevice { get throws(SwiftCoreAudioError) }
 
+    /// Set the device assigned as the default device for input.
+    nonisolated
+    func setDefaultInputDevice(_ device: some AudioDeviceProperties) throws(SwiftCoreAudioError)
+
     /// Returns the device assigned as the default device for output.
     nonisolated
     var defaultOutputDevice: AnyAudioDevice { get throws(SwiftCoreAudioError) }
 
+    /// Set the device assigned as the default device for output.
+    nonisolated
+    func setDefaultOutputDevice(_ device: some AudioDeviceProperties) throws(SwiftCoreAudioError)
+
     /// Returns the device assigned as the default device for output of system sounds.
     nonisolated
     var defaultOutputDeviceForSystemSounds: AnyAudioDevice { get throws(SwiftCoreAudioError) }
+
+    /// Set the device assigned as the default device for output of system sounds.
+    nonisolated
+    func setDefaultOutputDeviceForSystemSounds(_ device: some AudioDeviceProperties) throws(SwiftCoreAudioError)
 
     /// Returns the device that corresponds to the device UID, if one exists.
     @_disfavoredOverload
