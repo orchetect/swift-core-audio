@@ -21,6 +21,14 @@ extension AudioProperty where SelectorConstant == AudioObjectPropertySelectorCon
     }
 
     nonisolated
+    private static func scope(for direction: AudioStream.Direction) -> any AudioPropertyScopeConstant {
+        switch direction {
+        case .input: .object(.input)
+        case .output: .object(.output)
+        }
+    }
+
+    nonisolated
     private static var element: any AudioPropertyElementConstant {
         .object(.main)
     }

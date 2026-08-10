@@ -20,13 +20,13 @@ extension SerializedTests {
         // MARK: devices
 
         @Test
-        func devices() throws {
+        func devices() async throws {
             // get current system state
             let initialDevices = try AudioSystem.shared.devices
 
             // create an aggregate
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             // get system state again
@@ -125,10 +125,10 @@ extension SerializedTests {
         }
 
         @Test
-        func device_forUID_audioAggregateDevice_valid() throws {
+        func device_forUID_audioAggregateDevice_valid() async throws {
             // create an aggregate
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             // lookup device

@@ -48,9 +48,9 @@ extension SerializedTests {
         #endif
 
         @Test
-        func object_forID_ofType_valid() throws {
+        func object_forID_ofType_valid() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             let object = try AudioSystem.shared.object(forID: aggregate.id.rawValue, ofType: .aggregate)
@@ -72,9 +72,9 @@ extension SerializedTests {
         }
 
         @Test
-        func object_forUID_valid() throws {
+        func object_forUID_valid() async throws {
             let aggregateUID: AudioAggregateDevice.UID = .random
-            let aggregate = try AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
+            let aggregate = try await AudioSystem.shared.makeAggregateDevice(withUID: aggregateUID, isPrivate: true)
             defer { try? AudioSystem.shared.destroyAggregateDevice(aggregate) } // cleanup when out of scope
 
             // verify

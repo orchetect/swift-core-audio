@@ -512,6 +512,754 @@ public enum AudioDevicePropertySelectorConstant {
     /// > Constant: `kAudioDevicePropertyProcessMute`
     case processMute
 
+    // MARK: CoreAudio/AudioHardware.h - Device properties implemented via AudioControl objects
+
+    /// Jack is Connected
+    ///
+    /// A `UInt32` where a value of `0` means that there isn't anything plugged into the
+    /// jack associated with the given element and scope.
+    ///
+    /// This property is implemented by an `AudioJackControl`, a subclass of `AudioBooleanControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyJackIsConnected`
+    case jackIsConnected
+
+    /// Volume Scalar
+    ///
+    /// A `Float32` that represents the value of the volume control. The range is
+    /// between `0.0` and `1.0` (inclusive).
+    ///
+    /// Note that the set of all `Float32` values between `0.0` and `1.0` inclusive is much larger
+    /// than the set of actual values that the hardware can select. This means that the `Float32`
+    /// range has a many to one mapping with the underlying hardware values. As such, setting a
+    /// scalar value will result in the control taking on the value nearest to what was set.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioVolumeControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyVolumeScalar`
+    case volumeScalar
+
+    /// Volume Decibels
+    ///
+    /// A `Float32` that represents the value of the volume control in dB.
+    ///
+    /// Note that the set of all `Float32` values in the dB range for the control is much larger
+    /// than the set of actual values that the hardware can select. This means that the `Float32`
+    /// range has a many to one mapping with the underlying hardware values. As such, setting a
+    /// dB value will result in the control taking on the value nearest to what was set.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioVolumeControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyVolumeDecibels`
+    case volumeDecibels
+
+    /// Volume Range Decibels
+    ///
+    /// An `AudioValueRange` that contains the minimum and maximum dB values the
+    /// control can have.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioVolumeControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyVolumeRangeDecibels`
+    case volumeRangeDecibels
+
+    /// Volume Scalar to Decibels
+    ///
+    /// A `Float32` that on input contains a scalar volume value and on exit contains the
+    /// equivalent dB value.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioVolumeControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyVolumeScalarToDecibels`
+    case volumeScalarToDecibels
+
+    /// Volume Decibels to Scalar
+    ///
+    /// A `Float32` that on input contains a dB volume value and on exit contains the
+    /// equivalent scalar value.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioVolumeControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyVolumeDecibelsToScalar`
+    case volumeDecibelsToScalar
+
+    /// Stereo Pan
+    ///
+    /// A `Float32` where `0.0` is full left, `1.0` is full right, and `0.5` is center.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioStereoPanControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyStereoPan`
+    case stereoPan
+
+    /// Stereo Pan Channels
+    ///
+    /// An array of two `UInt32`s that indicate which elements of the owning object
+    /// the signal is being panned between.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioStereoPanControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyStereoPanChannels`
+    case stereoPanChannels
+
+    /// Mute
+    ///
+    /// A `UInt32` where a value of `1` means that mute is enabled making that element inaudible.
+    ///
+    /// The property is implemented by an `AudioControl` object that is a subclass of `AudioMuteControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyMute`
+    case mute
+
+    /// Solo
+    ///
+    /// A `UInt32` where a value of `1` means that just that element is audible and the
+    /// other elements are inaudible.
+    ///
+    /// The property is implemented by an `AudioControl` object that is a subclass of `AudioSoloControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertySolo`
+    case solo
+
+    /// Phantom Power
+    ///
+    /// A `UInt32` where a value of `1` means that the `AudioDevice` has enabled phantom
+    /// power for the given element.
+    ///
+    /// The property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioPhantomPowerControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPhantomPower`
+    case phantomPower
+
+    /// Phase Invert
+    ///
+    /// A `UInt32` where a value of `1` means that phase of the signal for the given
+    /// element has been flipped 180 degrees.
+    ///
+    /// The property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioPhaseInvertControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPhaseInvert`
+    case phaseInvert
+
+    /// Clip Light
+    ///
+    /// A `UInt32` where a value of `1` means that the signal for the element has
+    /// exceeded the sample range. Once a clip light is turned on, it is to stay on
+    /// until either the value of the control is set to false or the current IO
+    /// session stops and a new IO session starts.
+    ///
+    /// The property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioClipLightControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyClipLight`
+    case clipLight
+
+    /// Talkback
+    ///
+    /// A `UInt32` where a value of `1` means that the talkback channel is enabled.
+    ///
+    /// The property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioTalkbackControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyTalkback`
+    case talkback
+
+    /// Listenback
+    ///
+    /// A `UInt32` where a value of `1` means that the listenback channel is enabled.
+    ///
+    /// The property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioListenbackControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyListenback`
+    case listenback
+
+    /// Data Source
+    ///
+    /// An array of `UInt32`s whose values are the item IDs for the currently selected
+    /// data sources.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioDataSourceControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyDataSource`
+    case dataSource
+
+    /// Data Sources
+    ///
+    /// An array of `UInt32`s that are represent all the IDs of all the data sources
+    /// currently available.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioDataSourceControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyDataSources`
+    case dataSources
+
+    /// Data Source Name for ID (CFString)
+    ///
+    /// This property translates the given data source item ID into a human readable
+    /// name using an `AudioValueTranslation` structure.
+    ///
+    /// The input data is the `UInt32` containing the item ID to translated and the output
+    /// data is a `CFString`.
+    ///
+    /// The caller is responsible for releasing the returned `CFObject`.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioDataSourceControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyDataSourceNameForIDCFString`
+    case dataSourceNameForIDCFString
+
+    /// Data Source Kind for ID
+    ///
+    /// This property returns a `UInt32` that identifies the kind of data source
+    /// the item ID refers to using an `AudioValueTranslation` structure.
+    ///
+    /// The input data is the `UInt32` containing the item ID and the output data is the `UInt32`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyDataSourceKindForID`
+    case dataSourceKindForID
+
+    /// Clock Source
+    ///
+    /// An array of `UInt32`s whose values are the item IDs for the currently selected
+    /// clock sources.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioClockControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyClockSource`
+    case clockSource
+
+    /// Clock Sources
+    ///
+    /// An array of `UInt32`s that are represent all the IDs of all the clock sources
+    /// currently available.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioClockControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyClockSources`
+    case clockSources
+
+    /// Clock Source Name for ID (CFString)
+    ///
+    /// This property translates the given clock source item ID into a human
+    /// readable name using an `AudioValueTranslation` structure.
+    ///
+    /// The input data is the `UInt32` containing the item ID to translated and the output
+    /// data is a `CFString`.
+    ///
+    /// The caller is responsible for releasing the returned `CFObject`.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioClockControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyClockSourceNameForIDCFString`
+    case clockSourceNameForIDCFString
+
+    /// Clock Source Kind for ID
+    ///
+    /// This property returns a `UInt32` that identifies the kind of clock source
+    /// the item ID refers to using an `AudioValueTranslation` structure.
+    ///
+    /// The input data is the `UInt32` containing the item ID and the output data is the `UInt32`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyClockSourceKindForID`
+    case clockSourceKindForID
+
+    /// PlayThru
+    ///
+    /// A `UInt32` where a value of `0` means that play through is off and a value of `1`
+    /// means that it is on.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioMuteControl`.
+    ///
+    /// Further, the control that implements this property is only available through
+    /// `kAudioDevicePropertyScopePlayThrough`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPlayThru`
+    case playThru
+
+    /// PlayThru Solo
+    ///
+    /// A `UInt32` where a value of `1` means that just that play through element is
+    /// audible and the other elements are inaudible.
+    ///
+    /// The property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioSoloControl`.
+    ///
+    /// Further, the control that implements this property is only available through
+    /// `kAudioDevicePropertyScopePlayThrough`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPlayThruSolo`
+    case playThruSolo
+
+    /// PlayThru Volume Scalar
+    ///
+    /// A `Float32` that represents the value of the volume control. The range is
+    /// between `0.0` and `1.0` (inclusive).
+    ///
+    /// Note that the set of all `Float32` values between `0.0` and `1.0` inclusive is much larger
+    /// than the set of actual values that the hardware can select. This means that the `Float32`
+    /// range has a many to one mapping with the underlying hardware values. As such, setting a
+    /// scalar value will result in the control taking on the value nearest to what was set.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioVolumeControl`.
+    ///
+    /// Further, the control that implements this property is only available through
+    /// `kAudioDevicePropertyScopePlayThrough`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPlayThruVolumeScalar`
+    case playThruVolumeScalar
+
+    /// PlayThru Volume Decibels
+    ///
+    /// A Float32 that represents the value of the volume control in dB.
+    ///
+    /// Note that the set of all `Float32` values in the dB range for the control is much larger
+    /// than the set of actual values that the hardware can select. This means that the `Float32`
+    /// range has a many to one mapping with the underlying hardware values. As such, setting a
+    /// dB value will result in the control taking on the value nearest to what was set.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioVolumeControl`.
+    ///
+    /// Further, the control that implements this property is only available through
+    /// `kAudioDevicePropertyScopePlayThrough`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPlayThruVolumeDecibels`
+    case playThruVolumeDecibels
+
+    /// PlayThru Volume Range Decibels
+    ///
+    /// An `AudioValueRange` that contains the minimum and maximum dB values the
+    /// control can have.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioVolumeControl`.
+    ///
+    /// Further, the control that implements this property is only available through
+    /// `kAudioDevicePropertyScopePlayThrough`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPlayThruVolumeRangeDecibels`
+    case playThruVolumeRangeDecibels
+
+    /// PlayThru Volume Scalar to Decibels
+    ///
+    /// A `Float32` that on input contains a scalar volume value for the and on exit
+    /// contains the equivalent dB value.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioVolumeControl`.
+    ///
+    /// Further, the control that implements this property is only available through
+    /// `kAudioDevicePropertyScopePlayThrough`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPlayThruVolumeScalarToDecibels`
+    case playThruVolumeScalarToDecibels
+
+    /// PlayThru Volume Decibels to Scalar
+    ///
+    /// A `Float32` that on input contains a dB volume value for the and on exit
+    /// contains the equivalent scalar value.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioVolumeControl`.
+    ///
+    /// Further, the control that implements this property is only available through
+    /// `kAudioDevicePropertyScopePlayThrough`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPlayThruVolumeDecibelsToScalar`
+    case playThruVolumeDecibelsToScalar
+
+    /// PlayThru Stereo Pan
+    ///
+    /// A `Float32` where `0.0` is full left, `1.0` is full right, and `0.5` is center.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioStereoPanControl`.
+    ///
+    /// Further, the control that implements this property is only available through
+    /// `kAudioDevicePropertyScopePlayThrough`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPlayThruStereoPan`
+    case playThruStereoPan
+
+    /// PlayThru Stereo Pan Channels
+    ///
+    /// An array of two `UInt32`s that indicate which elements of the owning object
+    /// the signal is being panned between.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioStereoPanControl`.
+    ///
+    /// Further, the control that implements this property is only available through
+    /// `kAudioDevicePropertyScopePlayThrough`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPlayThruStereoPanChannels`
+    case playThruStereoPanChannels
+
+    /// PlayThru Destination
+    ///
+    /// An array of `UInt32`s whose values are the item IDs for the currently selected
+    /// play through data destinations.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioDataDestinationControl`.
+    ///
+    /// Further, the control that implements this property is only available through
+    /// `kAudioDevicePropertyScopePlayThrough`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPlayThruDestination`
+    case playThruDestination
+
+    /// PlayThru Destinations
+    ///
+    /// An array of `UInt32`s that are represent all the IDs of all the play through
+    /// data destinations currently available.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioDataDestinationControl`.
+    ///
+    /// Further, the control that implements this property is only available through
+    /// `kAudioDevicePropertyScopePlayThrough`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPlayThruDestinations`
+    case playThruDestinations
+
+    /// PlayThru Destination Name for ID (CFString)
+    ///
+    /// This property translates the given play through data destination item ID
+    /// into a human readable name using an `AudioValueTranslation` structure.
+    ///
+    /// The input data is the `UInt32` containing the item ID to translated and the output
+    /// data is a `CFString`.
+    ///
+    /// The caller is responsible for releasing the returned `CFObject`.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioDataDestinationControl`.
+    ///
+    /// Further, the control that implements this property is only available through
+    /// `kAudioDevicePropertyScopePlayThrough`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyPlayThruDestinationNameForIDCFString`
+    case playThruDestinationNameForIDCFString
+
+    /// Channel Nominal Line Level
+    ///
+    /// An array of `UInt32`s whose values are the item IDs for the currently selected
+    /// nominal line levels.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioLineLevelControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyChannelNominalLineLevel`
+    case channelNominalLineLevel
+
+    /// Channel Nominal Line Levels
+    ///
+    /// An array of `UInt32`s that represent all the IDs of all the nominal line
+    /// levels currently available.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioLineLevelControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyChannelNominalLineLevels`
+    case channelNominalLineLevels
+
+    /// Channel Nominal Line Level Name for ID (CFString)
+    ///
+    /// This property translates the given nominal line level item ID into a human
+    /// readable name using an `AudioValueTranslation` structure.
+    ///
+    /// The input data is the `UInt32` containing the item ID to be translated and the output
+    /// data is a `CFString`.
+    ///
+    /// The caller is responsible for releasing the returned `CFObject`.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioLineLevelControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyChannelNominalLineLevelNameForIDCFString`
+    case channelNominalLineLevelNameForIDCFString
+
+    /// HighPass Filter Setting
+    ///
+    /// An array of `UInt32`s whose values are the item IDs for the currently selected
+    /// high pass filter setting.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioHighPassFilterControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyHighPassFilterSetting`
+    case highPassFilterSetting
+
+    /// HighPass Filter Settings
+    ///
+    /// An array of `UInt32`s that represent all the IDs of all the high pass filter
+    /// settings currently available.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioHighPassFilterControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyHighPassFilterSettings`
+    case highPassFilterSettings
+
+    /// HighPass Filter Setting Name for ID (CFString)
+    ///
+    /// This property translates the given high pass filter setting item ID into a
+    /// human readable name using an `AudioValueTranslation` structure.
+    ///
+    /// The input data is the `UInt32` containing the item ID to be translated and the output
+    /// data is a `CFString`.
+    ///
+    /// The caller is responsible for releasing the returned `CFObject`.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioHighPassFilterControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyHighPassFilterSettingNameForIDCFString`
+    case highPassFilterSettingNameForIDCFString
+
+    /// Sub Volume Scalar
+    ///
+    /// A `Float32` that represents the value of the LFE volume control. The range is
+    /// between `0.0` and `1.0` (inclusive).
+    ///
+    /// Note that the set of all `Float32` values between `0.0` and `1.0` inclusive is much larger
+    /// than the set of actual values that the hardware can select. This means that the `Float32`
+    /// range has a many to one mapping with the underlying hardware values. As such, setting a
+    /// scalar value will result in the control taking on the value nearest to what was set.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioLFEVolumeControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertySubVolumeScalar`
+    case subVolumeScalar
+
+    /// Sub Volume Decibels
+    ///
+    /// A `Float32` that represents the value of the LFE volume control in dB.
+    ///
+    /// Note that the set of all `Float32` values in the dB range for the control is much larger
+    /// than the set of actual values that the hardware can select. This means that the `Float32`
+    /// range has a many to one mapping with the underlying hardware values. As such, setting a
+    /// dB value will result in the control taking on the value nearest to what was set.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioLFEVolumeControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertySubVolumeDecibels`
+    case subVolumeDecibels
+
+    /// Sub Volume RangeDecibels
+    ///
+    /// An `AudioValueRange` that contains the minimum and maximum dB values the
+    /// control can have.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioLFEVolumeControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertySubVolumeRangeDecibels`
+    case subVolumeRangeDecibels
+
+    /// Sub Volume Scalar to Decibels
+    ///
+    /// A `Float32` that on input contains a scalar volume value for the and on exit
+    /// contains the equivalent dB value.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioLFEVolumeControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertySubVolumeScalarToDecibels`
+    case subVolumeScalarToDecibels
+
+    /// Sub Volume Decibels to Scalar
+    ///
+    /// A `Float32` that on input contains a dB volume value for the and on exit
+    /// contains the equivalent scalar value.
+    ///
+    /// This property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioLFEVolumeControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertySubVolumeDecibelsToScalar`
+    case subVolumeDecibelsToScalar
+
+    /// Sub Mute
+    ///
+    /// A `UInt32` where a value of `1` means that mute is enabled making the LFE on
+    /// that element inaudible.
+    ///
+    /// The property is implemented by an `AudioControl` object that is a subclass of
+    /// `AudioLFEMuteControl`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertySubMute`
+    case subMute
+
+    /// Voice Activity Detection Enable
+    ///
+    /// A `UInt32` where `0` disables voice activity detection process and non-zero enables it.
+    ///
+    /// Voice activity detection can be used with input audio and has echo cancellation.
+    /// Detection works when a process mute is used, but not with hardware mute.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyVoiceActivityDetectionEnable`
+    case voiceActivityDetectionEnable
+
+    /// Voice Activity Detection State
+    ///
+    /// A read-only `UInt32` where `0` indicates no voice currently detected and `1` indicates voice.
+    ///
+    /// Used in conjunction with `kAudioDevicePropertyVoiceActivityDetectionEnable`.
+    ///
+    /// A client would normally register to listen to this property for changes and then query
+    /// the state rather than continuously poll the value.
+    ///
+    /// NOTE: If input audio is not active/running or the voice activity detection is disabled,
+    /// then it is not analyzed and this will provide `0`.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyVoiceActivityDetectionState`
+    case voiceActivityDetectionState
+
+    /// Wants Controls Restored
+    ///
+    /// A `UInt32` where a value of `0` indicates that the controls for the device should not be
+    /// saved/restored when the device is first published.
+    ///
+    /// If the device doesn't implement this property, it is assumed that the settings should be
+    /// saved and restored.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyWantsControlsRestored`
+    case wantsControlsRestored
+
+    /// Wants Stream Formats Restored
+    ///
+    /// A `UInt32` where a value of `0` indicates that the stream formats for the device should
+    /// not be saved/restored when the device is first published.
+    ///
+    /// If the device doesn't implement this property, it is assumed that the settings should be
+    /// saved and restored.
+    ///
+    /// > File: CoreAudio/AudioHardware.h
+    ///
+    /// > Constant: `kAudioDevicePropertyWantsStreamFormatsRestored`
+    case wantsStreamFormatsRestored
+
     // MARK: CoreAudio/AudioHardwareDeprecated.h
 
     /// Volume Decibels to Scalar Transfer Function
@@ -664,6 +1412,59 @@ extension AudioDevicePropertySelectorConstant: RawRepresentable {
         case .ioThreadOSWorkgroup: kAudioDevicePropertyIOThreadOSWorkgroup // "oswg"
         case .processMute: kAudioDevicePropertyProcessMute // "appm"
 
+        // MARK: CoreAudio/AudioHardware.h - Device properties implemented via AudioControl objects
+        case .jackIsConnected: kAudioDevicePropertyJackIsConnected // "jack"
+        case .volumeScalar: kAudioDevicePropertyVolumeScalar // "volm"
+        case .volumeDecibels: kAudioDevicePropertyVolumeDecibels // "vold"
+        case .volumeRangeDecibels: kAudioDevicePropertyVolumeRangeDecibels // "vdb#"
+        case .volumeScalarToDecibels: kAudioDevicePropertyVolumeScalarToDecibels // "v2db"
+        case .volumeDecibelsToScalar: kAudioDevicePropertyVolumeDecibelsToScalar // "db2v"
+        case .stereoPan: kAudioDevicePropertyStereoPan // "span"
+        case .stereoPanChannels: kAudioDevicePropertyStereoPanChannels // "spn#"
+        case .mute: kAudioDevicePropertyMute // "mute"
+        case .solo: kAudioDevicePropertySolo // "solo"
+        case .phantomPower: kAudioDevicePropertyPhantomPower // "phan"
+        case .phaseInvert: kAudioDevicePropertyPhaseInvert // "phsi"
+        case .clipLight: kAudioDevicePropertyClipLight // "clip"
+        case .talkback: kAudioDevicePropertyTalkback // "talb"
+        case .listenback: kAudioDevicePropertyListenback // "lsnb"
+        case .dataSource: kAudioDevicePropertyDataSource // "ssrc"
+        case .dataSources: kAudioDevicePropertyDataSources // "ssc#"
+        case .dataSourceNameForIDCFString: kAudioDevicePropertyDataSourceNameForIDCFString // "lscn"
+        case .dataSourceKindForID: kAudioDevicePropertyDataSourceKindForID // "ssck"
+        case .clockSource: kAudioDevicePropertyClockSource // "csrc"
+        case .clockSources: kAudioDevicePropertyClockSources // "csc#"
+        case .clockSourceNameForIDCFString: kAudioDevicePropertyClockSourceNameForIDCFString // "lcsn"
+        case .clockSourceKindForID: kAudioDevicePropertyClockSourceKindForID // "csck"
+        case .playThru: kAudioDevicePropertyPlayThru // "thru"
+        case .playThruSolo: kAudioDevicePropertyPlayThruSolo // "thrs"
+        case .playThruVolumeScalar: kAudioDevicePropertyPlayThruVolumeScalar // "mvsc"
+        case .playThruVolumeDecibels: kAudioDevicePropertyPlayThruVolumeDecibels // "mvdb"
+        case .playThruVolumeRangeDecibels: kAudioDevicePropertyPlayThruVolumeRangeDecibels // "mvd#"
+        case .playThruVolumeScalarToDecibels: kAudioDevicePropertyPlayThruVolumeScalarToDecibels // "mv2d"
+        case .playThruVolumeDecibelsToScalar: kAudioDevicePropertyPlayThruVolumeDecibelsToScalar // "mv2s"
+        case .playThruStereoPan: kAudioDevicePropertyPlayThruStereoPan // "mspn"
+        case .playThruStereoPanChannels: kAudioDevicePropertyPlayThruStereoPanChannels // "msp#"
+        case .playThruDestination: kAudioDevicePropertyPlayThruDestination // "mdds"
+        case .playThruDestinations: kAudioDevicePropertyPlayThruDestinations // "mdd#"
+        case .playThruDestinationNameForIDCFString: kAudioDevicePropertyPlayThruDestinationNameForIDCFString // "mddc"
+        case .channelNominalLineLevel: kAudioDevicePropertyChannelNominalLineLevel // "nlvl"
+        case .channelNominalLineLevels: kAudioDevicePropertyChannelNominalLineLevels // "nlv#"
+        case .channelNominalLineLevelNameForIDCFString: kAudioDevicePropertyChannelNominalLineLevelNameForIDCFString // "lcnl"
+        case .highPassFilterSetting: kAudioDevicePropertyHighPassFilterSetting // "hipf"
+        case .highPassFilterSettings: kAudioDevicePropertyHighPassFilterSettings // "hip#"
+        case .highPassFilterSettingNameForIDCFString: kAudioDevicePropertyHighPassFilterSettingNameForIDCFString // "hipl"
+        case .subVolumeScalar: kAudioDevicePropertySubVolumeScalar // "svlm"
+        case .subVolumeDecibels: kAudioDevicePropertySubVolumeDecibels // "svld"
+        case .subVolumeRangeDecibels: kAudioDevicePropertySubVolumeRangeDecibels // "svd#"
+        case .subVolumeScalarToDecibels: kAudioDevicePropertySubVolumeScalarToDecibels // "sv2d"
+        case .subVolumeDecibelsToScalar: kAudioDevicePropertySubVolumeDecibelsToScalar // "sd2v"
+        case .subMute: kAudioDevicePropertySubMute // "smut"
+        case .voiceActivityDetectionEnable: kAudioDevicePropertyVoiceActivityDetectionEnable // "vAd+"
+        case .voiceActivityDetectionState: kAudioDevicePropertyVoiceActivityDetectionState // "vAdS"
+        case .wantsControlsRestored: kAudioDevicePropertyWantsControlsRestored // "resc"
+        case .wantsStreamFormatsRestored: kAudioDevicePropertyWantsStreamFormatsRestored // "resf"
+
         // MARK: CoreAudio/AudioHardwareDeprecated.h
         case .volumeDecibelsToScalarTransferFunction: kAudioDevicePropertyVolumeDecibelsToScalarTransferFunction // "vctf"
         case .playThruVolumeDecibelsToScalarTransferFunction: kAudioDevicePropertyPlayThruVolumeDecibelsToScalarTransferFunction // "mvtf"
@@ -722,6 +1523,59 @@ extension AudioDevicePropertySelectorConstant: CustomStringConvertible {
         case .clockDevice: "Clock Device"
         case .ioThreadOSWorkgroup: "IO Thread OS Workgroup"
         case .processMute: "Process Mute"
+
+        // MARK: CoreAudio/AudioHardware.h - Device properties implemented via AudioControl objects
+        case .jackIsConnected: "Is Jack Connected"
+        case .volumeScalar: "Volume Scalar"
+        case .volumeDecibels: "Volume Decibels"
+        case .volumeRangeDecibels: "Volume Range Decibels"
+        case .volumeScalarToDecibels: "Volume Scalar to Decibels"
+        case .volumeDecibelsToScalar: "Volume Decibels to Scalar"
+        case .stereoPan: "Stereo Pan"
+        case .stereoPanChannels: "Stereo Pan Channels"
+        case .mute: "Mute"
+        case .solo: "Solo"
+        case .phantomPower: "Phantom Power"
+        case .phaseInvert: "Phase Invert"
+        case .clipLight: "Clip Light"
+        case .talkback: "Talkback"
+        case .listenback: "Listenback"
+        case .dataSource: "Data Source"
+        case .dataSources: "Data Sources"
+        case .dataSourceNameForIDCFString: "Data Source Name for ID (CFString)"
+        case .dataSourceKindForID: "Data Source Kind for ID"
+        case .clockSource: "Clock Source"
+        case .clockSources: "Clock Sources"
+        case .clockSourceNameForIDCFString: "Clock Source Name for ID (CFString)"
+        case .clockSourceKindForID: "Clock Source Kind for ID"
+        case .playThru: "PlayThru"
+        case .playThruSolo: "PlayThru Solo"
+        case .playThruVolumeScalar: "PlayThru Volume Scalar"
+        case .playThruVolumeDecibels: "PlayThru Volume Decibels"
+        case .playThruVolumeRangeDecibels: "PlayThru Volume Range Decibels"
+        case .playThruVolumeScalarToDecibels: "PlayThru Volume Scalar to Decibels"
+        case .playThruVolumeDecibelsToScalar: "PlayThru Volume Decibels to Scalar"
+        case .playThruStereoPan: "PlayThru Stereo Pan"
+        case .playThruStereoPanChannels: "PlayThru Stereo Pan Channels"
+        case .playThruDestination: "PlayThru Destination"
+        case .playThruDestinations: "PlayThru Destinations"
+        case .playThruDestinationNameForIDCFString: "PlayThru Destination Name for ID (CFString)"
+        case .channelNominalLineLevel: "Channel Nominal Line Level"
+        case .channelNominalLineLevels: "Channel Nominal Line Levels"
+        case .channelNominalLineLevelNameForIDCFString: "Channel Nominal Line Level Name for ID (CFString)"
+        case .highPassFilterSetting: "HighPass Filter Setting"
+        case .highPassFilterSettings: "HighPass Filter Settings"
+        case .highPassFilterSettingNameForIDCFString: "HighPass Filter Setting Name for ID (CFString)"
+        case .subVolumeScalar: "Sub Volume Scalar"
+        case .subVolumeDecibels: "Sub Volume Decibels"
+        case .subVolumeRangeDecibels: "Sub Volume RangeDecibels"
+        case .subVolumeScalarToDecibels: "Sub Volume Scalar to Decibels"
+        case .subVolumeDecibelsToScalar: "Sub Volume Decibels to Scalar"
+        case .subMute: "Sub Mute"
+        case .voiceActivityDetectionEnable: "Voice Activity Detection Enable"
+        case .voiceActivityDetectionState: "Voice Activity Detection State"
+        case .wantsControlsRestored: "Wants Controls Restored"
+        case .wantsStreamFormatsRestored: "Wants Stream Formats Restored"
 
         // MARK: CoreAudio/AudioHardwareDeprecated.h
         case .volumeDecibelsToScalarTransferFunction: "Volume Decibels to Scalar Transfer Function"

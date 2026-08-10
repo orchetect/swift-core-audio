@@ -11,7 +11,7 @@ import SwiftProcess
 
 // swiftformat:disable opaqueGenericParameters
 
-// MARK: - Convenience: Lifecycle
+// MARK: - Convenience: Update
 
 extension AudioAggregateDeviceProperties {
     /// A convenience to update the aggregate's ``composition``.
@@ -103,7 +103,11 @@ extension AudioAggregateDeviceProperties {
             isTapAutoStartEnabled: isTapAutoStartEnabled
         )
     }
+}
 
+// MARK: - Convenience: Lifecycle (Non-Async)
+
+extension AudioAggregateDeviceProperties {
     /// Destroys the aggregate device.
     ///
     /// Convenience for calling ``AudioSystem/destroyAggregateDevice(_:waitForCompletionWithTimeout:)``
@@ -119,6 +123,27 @@ extension AudioAggregateDeviceProperties {
         waitForCompletionWithTimeout timeout: TimeInterval? = 5.0
     ) throws(SwiftCoreAudioError) {
         try AudioSystem.shared.destroyAggregateDevice(self, waitForCompletionWithTimeout: timeout)
+    }
+}
+
+// MARK: - Convenience: Lifecycle (Async)
+
+extension AudioAggregateDeviceProperties {
+    /// Destroys the aggregate device.
+    ///
+    /// Convenience for calling ``AudioSystem/destroyAggregateDevice(_:waitForCompletionWithTimeout:)``
+    /// on ``AudioSystem``.
+    ///
+    /// If an aggregate does not exist, this method will return gracefully without throwing an error.
+    ///
+    /// - Parameters:
+    ///   - timeout: If non-`nil`, waits synchronously for Core Audio to complete destroying the
+    ///     aggregate before returning.
+    nonisolated
+    public func destroy(
+        waitForCompletionWithTimeout timeout: TimeInterval? = 5.0
+    ) async throws(SwiftCoreAudioError) {
+        try await AudioSystem.shared.destroyAggregateDevice(self, waitForCompletionWithTimeout: timeout)
     }
 }
 

@@ -14,17 +14,23 @@ import SwiftCoreAudio
 extension AudioDevice {
     /// `BuiltInSpeakerDevice`: Audio device UID common on many Macs for built-in speakers (has outputs).
     ///
-    /// - Name on Mac Pro is "Mac Pro Speakers"
-    /// - Name on MacBook Pro is "MacBook Pro Speakers"
+    /// See the `BuiltInSpeakers` enum for known static metadata.
     static var builtInSpeakerDevice: Self? {
         try? Self(uid: .builtInSpeakerDevice)
     }
 
     /// `BuiltInMicrophoneDevice`: Audio device UID common on many Macs for built-in microphone (has input).
     ///
-    /// - Name on MacBook Pro is "MacBook Pro Microphone"
+    /// See the `BuiltInMic` enum for known static metadata.
     static var builtInMicrophoneDevice: Self? {
         try? Self(uid: .builtInMicrophoneDevice)
+    }
+
+    /// `AVIODevice`: Audio device UID common on macOS virtual machine installations (has inputs & outputs).
+    ///
+    /// See the `VMAudioDevice` enum for known static metadata.
+    static var vmAudioDevice: Self? {
+        try? Self(uid: .vmAudioDevice)
     }
 }
 
@@ -40,6 +46,22 @@ extension AudioDevice {
     /// for being used as a test audio device in automated testing.
     static var blackHole2Ch: Self? {
         try? Self(uid: .blackHole2Ch)
+    }
+}
+
+// MARK: - AirPods Pro 3
+
+extension AudioDevice {
+    /// AirPods Pro 3 - Input Device.
+    /// For local testing.
+    ///
+    /// Apple splits the AirPods Pro 3 into two separate devices -
+    /// one with input (mic), and one with outputs (L/R earbud speakers).
+    static func airPodsPro3(_ direction: AudioStream.Direction) -> Self? {
+        try? AudioSystem.shared
+            .devices(with: direction)
+            .audioDevices
+            .first(where: { (try? $0.name)?.starts(with: "AirPods Pro 3") == true })
     }
 }
 

@@ -13,6 +13,7 @@
 /// > a channel number property to avoid ambiguity.
 public struct AudioChannelIndex {
     /// The index (0-based) for the channel.
+    nonisolated
     public var index: Int {
         didSet {
             assert(index >= 0)
@@ -20,6 +21,7 @@ public struct AudioChannelIndex {
     }
 
     /// Construct a new instance from a channel index (0-based).
+    nonisolated
     public init(index: some BinaryInteger) {
         assert(index >= 0)
         self.index = Int(index)
@@ -34,12 +36,14 @@ extension AudioChannelIndex: RawRepresentable {
     /// RawRepresentable proxy initializer from 0-based index.
     /// This initializer is the same as calling ``init(index:)`` except that this returns `nil` if the
     /// index is out-of-bounds (`< 0`).
+    nonisolated
     public init?(rawValue: Int) {
         guard rawValue >= 0 else { return nil }
         self.init(index: rawValue)
     }
 
     /// RawRepresentable proxy to get/set 0-based ``index``.
+    nonisolated
     public var rawValue: Int {
         get { index }
         set { index = newValue }
@@ -51,12 +55,14 @@ extension AudioChannelIndex: Codable { }
 extension AudioChannelIndex: Sendable { }
 
 extension AudioChannelIndex: CustomStringConvertible {
+    nonisolated
     public var description: String {
         "\(index)"
     }
 }
 
 extension AudioChannelIndex: CustomDebugStringConvertible {
+    nonisolated
     public var debugDescription: String {
         "AudioChannelIndex(\(index))"
     }
@@ -79,5 +85,21 @@ extension AudioChannelIndex {
     nonisolated
     public var number: Int {
         index + 1
+    }
+}
+
+// MARK: - Static Constructors
+
+extension AudioChannelIndex {
+    /// Construct a new instance from a channel index (0-based).
+    nonisolated
+    public static func index(_ index: some BinaryInteger) -> Self {
+        .init(index: index)
+    }
+
+    /// Construct a new instance from a raw channel number (1-based).
+    nonisolated
+    public static func number(_ number: some BinaryInteger) -> Self {
+        .init(number: number)
     }
 }

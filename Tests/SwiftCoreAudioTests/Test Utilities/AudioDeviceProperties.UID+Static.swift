@@ -14,17 +14,23 @@ extension AudioUID where Object: AudioDeviceProperties {
 
     /// `BuiltInSpeakerDevice`: Audio device UID common on many Macs for built-in speakers (has outputs).
     ///
-    /// - Name on Mac Pro is "Mac Pro Speakers"
-    /// - Name on MacBook Pro is "MacBook Pro Speakers"
+    /// See the `BuiltInSpeakers` enum for known static metadata.
     static var builtInSpeakerDevice: Self {
         Self("BuiltInSpeakerDevice")
     }
 
     /// `BuiltInMicrophoneDevice`: Audio device UID common on many Macs for built-in microphone (has input).
     ///
-    /// - Name on MacBook Pro is "MacBook Pro Microphone"
+    /// See the `BuiltInMic` enum for known static metadata.
     static var builtInMicrophoneDevice: Self {
         Self("BuiltInMicrophoneDevice")
+    }
+
+    /// `AVIODevice`: Audio device UID common on macOS virtual machine installations (has inputs & outputs).
+    ///
+    /// See the `VMAudioDevice` enum for known static metadata.
+    static var vmAudioDevice: Self {
+        Self("AVIODevice")
     }
 
     // MARK: - BlackHole
