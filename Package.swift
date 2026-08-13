@@ -18,8 +18,8 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/orchetect/swift-process", from: "0.2.0"),
-        .package(url: "https://github.com/orchetect/swift-testing-extensions", from: "0.3.0"),
+        .package(url: "https://github.com/orchetect/swift-process", from: "0.2.1"),
+        .package(url: "https://github.com/orchetect/swift-testing-extensions", from: "0.3.1"),
         .package(url: "https://github.com/orchetect/swift-unit-interval", from: "1.0.2")
     ],
     targets: [
