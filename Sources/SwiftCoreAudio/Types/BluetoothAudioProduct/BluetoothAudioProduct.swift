@@ -115,7 +115,7 @@ extension BluetoothAudioProduct: CaseIterable { }
 // MARK: - Vendor & Product ID
 
 extension BluetoothAudioProduct {
-    /// Device vendor ID.
+    /// Device hardware vendor ID.
     ///
     /// Bluetooth Classic devices have a Vendor ID and Product ID to identify themselves to other devices.
     /// The Bluetooth Vendor ID for Apple is `0x004C`.
@@ -129,7 +129,7 @@ extension BluetoothAudioProduct {
         0x004C
     }
 
-    /// Device product ID.
+    /// Device hardware product ID.
     public var productID: UInt16 {
         switch self {
         case .airPodsGen1: 0x2002
@@ -190,6 +190,7 @@ extension BluetoothAudioProduct {
     /// This format is not strictly enforced for any reason. It is merely a convention Apple decided on
     /// but this convention could be broken at any time for any future audio products.
     public var coreAudioDeviceModelName: String {
+        // TODO: these could be computed from the `productID` and `vendorID` properties, but for now string literals will suffice
         switch self {
         case .airPodsGen1: "2002 4c"
         case .airPodsGen2: "200f 4c"
@@ -238,10 +239,11 @@ extension BluetoothAudioProduct {
     /// This format is not strictly enforced for any reason. It is merely a convention Apple decided on
     /// but this convention could be broken at any time for any future audio products.
     public init?(coreAudioDeviceModelName: String) {
+        // TODO: instead of matching exact model UID string verbatim, a more lenient parser could be implemented that parses out the product ID and vendor ID and allows for one or two byte hex strings for either
         guard let match = Self.allCases
             .filter({ $0.coreAudioDeviceModelName.caseInsensitiveCompare(coreAudioDeviceModelName) == .orderedSame })
             .first
-                else { return nil }
+        else { return nil }
         self = match
     }
 }
