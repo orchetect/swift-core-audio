@@ -150,7 +150,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        @Test(.enabledIfAudioBoxIsPresent(.blackHole2Ch))
         func setEnabled_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
             // cycle multiple times to ensure back-to-back calls do not deadlock
@@ -173,7 +173,7 @@ extension SerializedTests {
         }
 
         /// Note: This test only runs if BlackHole 2ch is installed.
-        @Test(.enabledIfAudioDeviceIsPresent(.blackHole2Ch))
+        @Test(.enabledIfAudioBoxIsPresent(.blackHole2Ch))
         func devices_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
             let devices = try box.devices
