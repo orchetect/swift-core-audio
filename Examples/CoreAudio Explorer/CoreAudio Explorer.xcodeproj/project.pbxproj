@@ -114,7 +114,7 @@
 			mainGroup = E228AB2B2FDA4D2900361C75;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				E228AB462FDA4DDB00361C75 /* XCLocalSwiftPackageReference "../../../swift-core-audio" */,
+				E228AB462FDA4DDB00361C75 /* XCLocalSwiftPackageReference "../../" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E228AB352FDA4D2900361C75 /* Products */;
@@ -395,9 +395,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		E228AB462FDA4DDB00361C75 /* XCLocalSwiftPackageReference "../../../swift-core-audio" */ = {
+		E228AB462FDA4DDB00361C75 /* XCLocalSwiftPackageReference "../../" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../swift-core-audio";
+			relativePath = ../../;
 		};
 /* End XCLocalSwiftPackageReference section */
 
