@@ -144,6 +144,7 @@ extension AudioBoxProperties {
                     getPropertyValue(property: BoxProperty.deviceList),
                     unknownPropertyDefault: []
                 )
+                .filter { $0 != kAudioDeviceUnknown }
                 return ids.map(AnyAudioDevice.init(id:))
             }
         }
@@ -157,6 +158,7 @@ extension AudioBoxProperties {
                     getPropertyValue(property: BoxProperty.clockDeviceList),
                     unknownPropertyDefault: []
                 )
+                .filter { $0 != kAudioObjectUnknown }
                 return ids.map(AudioClock.init(id:))
             }
         }
