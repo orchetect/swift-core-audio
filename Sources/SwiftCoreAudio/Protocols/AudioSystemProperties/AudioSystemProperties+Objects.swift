@@ -112,7 +112,9 @@ extension AudioSystemProperties {
         var objects: [Object] = []
         for uid in uids {
             do throws(SwiftCoreAudioError) {
-                if let device = try Object(uid: uid) { objects.append(device) }
+                if let device = try Object(uid: uid), device.objectID != kAudioObjectUnknown {
+                    objects.append(device)
+                }
             } catch {
                 if let uidLookupErrorHandler {
                     uidLookupErrorHandler(uid, error)

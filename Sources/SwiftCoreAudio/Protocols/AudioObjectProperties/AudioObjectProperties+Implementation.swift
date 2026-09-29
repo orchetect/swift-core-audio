@@ -98,6 +98,7 @@ extension AudioObjectProperties {
     public var ownedObjects: [AnyAudioObject] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: ObjectProperty.ownedObjects, qualifier: .init(initialValue: []))
+                .filter { $0 != kAudioObjectUnknown }
             return ids.map(AnyAudioObject.init(id:))
         }
     }
@@ -115,6 +116,7 @@ extension AudioObjectProperties {
         var objects: [T.Object] = []
         for id in ids {
             do throws(SwiftCoreAudioError) {
+                guard id != kAudioObjectUnknown else { continue } // skip invalid IDs
                 let object = try AudioSystem.shared.object(forID: id, ofType: objectType)
                 objects.append(object)
             } catch {

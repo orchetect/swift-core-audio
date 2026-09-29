@@ -103,6 +103,7 @@ extension AudioDeviceProperties {
     public var streams: [AudioStream] {
         get throws(SwiftCoreAudioError) {
             let rawAudioObjectIDs: [AudioObjectID] = try getPropertyValue(property: DeviceProperty.streams)
+                .filter { $0 != kAudioStreamUnknown }
             let mapped = rawAudioObjectIDs.map(AudioStream.init(id:))
             return mapped
         }
@@ -113,6 +114,7 @@ extension AudioDeviceProperties {
     public var controls: [AudioObjectID] {
         get throws(SwiftCoreAudioError) {
             try getPropertyValue(property: DeviceProperty.controls)
+                .filter { $0 != kAudioObjectUnknown }
         }
     }
 

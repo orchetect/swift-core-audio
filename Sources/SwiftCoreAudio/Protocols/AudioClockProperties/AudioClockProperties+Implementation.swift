@@ -63,6 +63,7 @@ extension AudioClockProperties {
     public var controls: [AnyAudioObject] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: ClockProperty.controlList)
+                .filter { $0 != kAudioObjectUnknown }
             return ids.map(AnyAudioObject.init(id:))
         }
     }
