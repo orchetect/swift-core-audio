@@ -52,7 +52,10 @@ extension AudioDeviceProperties {
                 if let streamLookupErrorHandler {
                     streamLookupErrorHandler(stream, error)
                 } else {
-                    CoreAudioLogging.log(.error, "Error looking up channel count for \(direction) audio stream with ID \(stream.id): \(error)")
+                    CoreAudioLogging.log(
+                        .error,
+                        "Error looking up channel count for \(direction) audio stream with ID \(stream.id): \(error)"
+                    )
                 }
             }
         }
@@ -91,7 +94,10 @@ extension AudioDeviceProperties {
                 if let streamLookupErrorHandler {
                     streamLookupErrorHandler(stream, error)
                 } else {
-                    CoreAudioLogging.log(.error, "Error looking up channel counts for audio stream with ID \(stream.id): \(error)")
+                    CoreAudioLogging.log(
+                        .error,
+                        "Error looking up channel counts for audio stream with ID \(stream.id): \(error)"
+                    )
                 }
             }
         }
@@ -148,7 +154,10 @@ extension AudioDeviceProperties {
                 if let directionLookupErrorHandler {
                     directionLookupErrorHandler(stream, error)
                 } else {
-                    CoreAudioLogging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
+                    CoreAudioLogging.log(
+                        .error,
+                        "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)"
+                    )
                 }
             }
         }
@@ -177,7 +186,10 @@ extension AudioDeviceProperties {
                 if let directionLookupErrorHandler {
                     directionLookupErrorHandler(stream, error)
                 } else {
-                    CoreAudioLogging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
+                    CoreAudioLogging.log(
+                        .error, 
+                        "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)"
+                    )
                 }
             }
         }

@@ -36,7 +36,10 @@ extension AudioSystemProperties {
         {
             newInstance = type(of: constructibleOwnerConcreteType).init(id: id)
         } else {
-            CoreAudioLogging.log(.error, "Concrete type for \(ownerClassID) class type not yet implemented substituting with AnyAudioObject.")
+            CoreAudioLogging.log(
+                .error, 
+                "Concrete type for \(ownerClassID) class type not yet implemented substituting with AnyAudioObject."
+            )
             newInstance = AnyAudioObject(id: id)
         }
 

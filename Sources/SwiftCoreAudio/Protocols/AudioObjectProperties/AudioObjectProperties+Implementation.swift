@@ -123,7 +123,10 @@ extension AudioObjectProperties {
                 if let objectTypeLookupErrorHandler {
                     objectTypeLookupErrorHandler(AnyAudioObject.ID(id), error)
                 } else {
-                    CoreAudioLogging.log(.error, "Object type lookup failed for object with ID \(id) while enumerating owned objects of object with ID \(self.id).")
+                    CoreAudioLogging.log(
+                        .error,
+                        "Object type lookup failed for object with ID \(id) while enumerating owned objects of object with ID \(self.id)."
+                    )
                 }
             }
         }

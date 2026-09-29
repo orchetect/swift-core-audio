@@ -697,7 +697,10 @@ extension AudioAggregateDeviceProperties {
                 do throws(SwiftCoreAudioError) {
                     try AudioSystem.shared.destroyTap(tap)
                 } catch {
-                    CoreAudioLogging.log(.error, "Error destroying tap with UID \(uid) while removing taps from aggregate with ID \(self.id): \(error)")
+                    CoreAudioLogging.log(
+                        .error,
+                        "Error destroying tap with UID \(uid) while removing taps from aggregate with ID \(self.id): \(error)"
+                    )
                 }
             }
         }
