@@ -24,9 +24,10 @@ extension AudioSystemProperties {
     nonisolated
     public var defaultInputDevice: AnyAudioDevice {
         get throws(SwiftCoreAudioError) {
-            // it may be possible that no audio devices exist in the system at all, ergo there can't be a
-            // default input device. this property could be changed to return an Optional and produce `nil` in
-            // that case, just for now throwing an error is sufficient.
+            // TODO: it's possible that no audio devices exist in the system at all
+            // in that case, there can't be a default input device. for now, throwing an error is sufficient.
+            // this property could be changed in future to return an Optional and produce `nil` when no devices exist
+            // instead of throwing an error.
             let id = try getPropertyValue(property: SystemProperty.defaultInputDevice)
             guard id != kAudioDeviceUnknown else {
                 throw .objectDoesNotExist
@@ -44,9 +45,10 @@ extension AudioSystemProperties {
     nonisolated
     public var defaultOutputDevice: AnyAudioDevice {
         get throws(SwiftCoreAudioError) {
-            // it may be possible that no audio devices exist in the system at all, ergo there can't be a
-            // default output device. this property could be changed to return an Optional and produce `nil` in
-            // that case, just for now throwing an error is sufficient.
+            // TODO: it's possible that no audio devices exist in the system at all
+            // in that case, there can't be a default output device. for now, throwing an error is sufficient.
+            // this property could be changed in future to return an Optional and produce `nil` when no devices exist
+            // instead of throwing an error.
             let id = try getPropertyValue(property: SystemProperty.defaultOutputDevice)
             guard id != kAudioDeviceUnknown else {
                 throw .objectDoesNotExist
@@ -64,9 +66,10 @@ extension AudioSystemProperties {
     nonisolated
     public var defaultOutputDeviceForSystemSounds: AnyAudioDevice {
         get throws(SwiftCoreAudioError) {
-            // it may be possible that no audio devices exist in the system at all, ergo there can't be a
-            // default output device. this property could be changed to return an Optional and produce `nil` in
-            // that case, just for now throwing an error is sufficient.
+            // TODO: it's possible that no audio devices exist in the system at all
+            // in that case, there can't be a default output device. for now, throwing an error is sufficient.
+            // this property could be changed in future to return an Optional and produce `nil` when no devices exist
+            // instead of throwing an error.
             let id = try getPropertyValue(property: SystemProperty.defaultOutputDeviceForSystemSounds)
             guard id != kAudioDeviceUnknown else {
                 throw .objectDoesNotExist
