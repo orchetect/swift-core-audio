@@ -13,7 +13,7 @@ import SwiftUI
 /// in the library within the Xcode IDE in order to observe how they behave under various layout constraints.
 ///
 /// Red borders represent "target" bounds, and yellow borders reflect real image view bounds.
-@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, visionOS 1.0, *)
+@available(macOS 14.0, iOS 17.0, tvOS 18.0, watchOS 10.0, visionOS 1.0, *)
 #Preview("Custom SF Symbol Layout Test", traits: .sizeThatFitsLayout) {
     @Previewable @State var isTargetBoundsOn: Bool = true
     @Previewable @State var isActualBoundsOn: Bool = true
