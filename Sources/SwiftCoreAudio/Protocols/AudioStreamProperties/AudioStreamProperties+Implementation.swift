@@ -74,7 +74,10 @@ extension AudioStreamProperties {
                 if let formatParseErrorHandler {
                     formatParseErrorHandler(coreAudioDesc, error)
                 } else {
-                    CoreAudioLogging.log(.error, "Error parsing Core Audio AudioStreamRangedDescription while getting available virtual formats for audio stream with ID \(id): \(error)")
+                    CoreAudioLogging.log(
+                        .error,
+                        "Error parsing Core Audio AudioStreamRangedDescription while getting available virtual formats for audio stream with ID \(id): \(error)"
+                    )
                 }
             }
         }
@@ -104,7 +107,10 @@ extension AudioStreamProperties {
                 if let formatParseErrorHandler {
                     formatParseErrorHandler(coreAudioDesc, error)
                 } else {
-                    CoreAudioLogging.log(.error, "Error parsing Core Audio AudioStreamRangedDescription while getting available physical formats for audio stream with ID \(id): \(error)")
+                    CoreAudioLogging.log(
+                        .error,
+                        "Error parsing Core Audio AudioStreamRangedDescription while getting available physical formats for audio stream with ID \(id): \(error)"
+                    )
                 }
             }
         }

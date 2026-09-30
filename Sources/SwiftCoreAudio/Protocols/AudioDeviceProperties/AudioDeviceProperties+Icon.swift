@@ -17,13 +17,14 @@ extension AudioDeviceProperties where Self: AudioObjectProperties {
     ///   - direction: Audio direction (input for recording, output for playback).
     ///   - cachedTransportType: Optionally supply the transport type if it is known, otherwise
     ///     it will be queried from Core Audio.
-    ///   - cachedModelName: Optionally supply the model name if it is known, otherwise
+    ///   - cachedModelUID: Optionally supply the model UID property value if it is known, otherwise
     ///     it will be queried from Core Audio.
+    @available(macOS 11, macCatalyst 13, iOS 13, tvOS 13, watchOS 6, visionOS 1, *) // SF Symbols 1.0
     nonisolated
     public func iconImageSystemName(
         for direction: AudioStream.Direction,
         cachedTransportType: AudioDevice.TransportType? = nil,
-        cachedModelName: String? = nil
+        cachedModelUID: String? = nil
     ) throws(SwiftCoreAudioError) -> String? {
         let transportType = if let cachedTransportType {
             cachedTransportType
@@ -31,13 +32,13 @@ extension AudioDeviceProperties where Self: AudioObjectProperties {
             try self.transportType
         }
 
-        let modelName = if let cachedModelName {
-            cachedModelName
+        let modelUID = if let cachedModelUID {
+            cachedModelUID
         } else {
-            try? self.modelName
+            try? self.modelUID
         }
 
-        return transportType.iconSystemName(for: direction, deviceModelName: modelName)
+        return transportType.iconSystemName(for: direction, deviceModelUID: modelUID)
     }
 }
 
@@ -45,6 +46,7 @@ extension AudioDeviceProperties where Self: AudioObjectProperties {
 
 import SwiftUI
 
+@available(macOS 11, macCatalyst 13, iOS 13, tvOS 13, watchOS 6, visionOS 1, *) // SF Symbols 1.0
 extension AudioDeviceProperties where Self: AudioObjectProperties {
     /// Returns a suggested system image name (SF Symbol) appropriate for the device
     /// for use in UI.
@@ -56,52 +58,59 @@ extension AudioDeviceProperties where Self: AudioObjectProperties {
     ///     When `false`, a SF Symbol image is always returned.
     ///   - cachedTransportType: Optionally supply the transport type if it is known, otherwise
     ///     it will be queried from Core Audio.
-    ///   - cachedModelName: Optionally supply the model name if it is known, otherwise
+    ///   - cachedModelUID: Optionally supply the model UID property value if it is known, otherwise
     ///     it will be queried from Core Audio.
-    @available(macOS 11.0, *)
     nonisolated
     public func iconImage(
         for direction: AudioStream.Direction,
         isDriverIconAllowed: Bool = true,
         cachedTransportType: AudioDevice.TransportType? = nil,
-        cachedModelName: String? = nil
+        cachedModelUID: String? = nil
     ) -> Image {
         if isDriverIconAllowed,
-           let iconURL = try? icon
+           let icon = _driverIconImage()
         {
-            #if os(macOS)
-            if let nsImage = NSImage(contentsOf: iconURL) {
-                return Image(nsImage: nsImage)
-            }
-            #else
-            if let uiImage = UIImage(contentsOfFile: iconURL.path) {
-                return Image(uiImage: uiImage)
-            }
-            #endif
+            icon
+        } else {
+            _iconImage(for: direction, cachedTransportType: cachedTransportType, cachedModelUID: cachedModelUID)
         }
+    }
 
-        func defaultImage() -> Image {
-            let systemName = AudioDevice.TransportType.defaultIconSystemName(for: direction)
-            return Image(systemName: systemName)
+    nonisolated
+    private func _driverIconImage() -> Image? {
+        guard let iconURL = try? icon else { return nil }
+
+        #if os(macOS)
+        if let nsImage = NSImage(contentsOf: iconURL) {
+            return Image(nsImage: nsImage)
         }
-
-        guard let uid = try? self.uid else {
-            return defaultImage()
+        #else
+        if let uiImage = UIImage(contentsOfFile: iconURL.path) {
+            return Image(uiImage: uiImage)
         }
+        #endif
 
-        // special case: BlackHole audio devices
-        if uid.isBlackHole {
-            return Image(.blackHoleIcon)
+        return nil
+    }
+
+    nonisolated
+    private func _iconImage(
+        for direction: AudioStream.Direction,
+        cachedTransportType: AudioDevice.TransportType?,
+        cachedModelUID: String?
+    ) -> Image {
+        if let transportType = cachedTransportType ?? (try? self.transportType) {
+            transportType.iconImage(
+                for: direction,
+                deviceModelUID: cachedModelUID ?? (try? self.modelUID)
+            )
+        } else {
+            Self._defaultImage(for: direction)
         }
+    }
 
-        guard let systemName = try? iconImageSystemName(
-            for: direction,
-            cachedTransportType: cachedTransportType,
-            cachedModelName: cachedModelName
-        ) else {
-            return defaultImage()
-        }
-
+    static func _defaultImage(for direction: AudioStream.Direction) -> Image {
+        let systemName = AudioDevice.TransportType.defaultIconSystemName(for: direction)
         return Image(systemName: systemName)
     }
 }

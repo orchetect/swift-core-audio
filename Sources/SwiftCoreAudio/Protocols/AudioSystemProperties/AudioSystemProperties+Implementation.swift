@@ -16,6 +16,7 @@ extension AudioSystemProperties {
     public var devices: [AnyAudioDevice] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: SystemProperty.devices)
+                .filter { $0 != kAudioDeviceUnknown }
             return ids.map(AnyAudioDevice.init(id:))
         }
     }
@@ -23,7 +24,14 @@ extension AudioSystemProperties {
     nonisolated
     public var defaultInputDevice: AnyAudioDevice {
         get throws(SwiftCoreAudioError) {
+            // TODO: it's possible that no audio devices exist in the system at all
+            // in that case, there can't be a default input device. for now, throwing an error is sufficient.
+            // this property could be changed in future to return an Optional and produce `nil` when no devices exist
+            // instead of throwing an error.
             let id = try getPropertyValue(property: SystemProperty.defaultInputDevice)
+            guard id != kAudioDeviceUnknown else {
+                throw .objectDoesNotExist
+            }
             let device = AnyAudioDevice(id: id)
             return device
         }
@@ -37,7 +45,14 @@ extension AudioSystemProperties {
     nonisolated
     public var defaultOutputDevice: AnyAudioDevice {
         get throws(SwiftCoreAudioError) {
+            // TODO: it's possible that no audio devices exist in the system at all
+            // in that case, there can't be a default output device. for now, throwing an error is sufficient.
+            // this property could be changed in future to return an Optional and produce `nil` when no devices exist
+            // instead of throwing an error.
             let id = try getPropertyValue(property: SystemProperty.defaultOutputDevice)
+            guard id != kAudioDeviceUnknown else {
+                throw .objectDoesNotExist
+            }
             let device = AnyAudioDevice(id: id)
             return device
         }
@@ -51,7 +66,14 @@ extension AudioSystemProperties {
     nonisolated
     public var defaultOutputDeviceForSystemSounds: AnyAudioDevice {
         get throws(SwiftCoreAudioError) {
+            // TODO: it's possible that no audio devices exist in the system at all
+            // in that case, there can't be a default output device. for now, throwing an error is sufficient.
+            // this property could be changed in future to return an Optional and produce `nil` when no devices exist
+            // instead of throwing an error.
             let id = try getPropertyValue(property: SystemProperty.defaultOutputDeviceForSystemSounds)
+            guard id != kAudioDeviceUnknown else {
+                throw .objectDoesNotExist
+            }
             let device = AnyAudioDevice(id: id)
             return device
         }
@@ -85,6 +107,7 @@ extension AudioSystemProperties {
     public var plugIns: [AudioPlugIn] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: SystemProperty.plugIns)
+                .filter { $0 != kAudioObjectUnknown }
             return ids.map(AudioPlugIn.init(id:))
         }
     }
@@ -102,6 +125,7 @@ extension AudioSystemProperties {
     public var transportManagers: [AudioTransportManager] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: SystemProperty.transportManagers)
+                .filter { $0 != kAudioObjectUnknown }
             return ids.map(AudioTransportManager.init(id:))
         }
     }
@@ -118,6 +142,7 @@ extension AudioSystemProperties {
     public var boxes: [AudioBox] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: SystemProperty.boxes)
+                .filter { $0 != kAudioObjectUnknown }
             return ids.map(AudioBox.init(id:))
         }
     }
@@ -136,6 +161,7 @@ extension AudioSystemProperties {
     public var clocks: [AudioClock] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: SystemProperty.clocks)
+                .filter { $0 != kAudioObjectUnknown }
             return ids.map(AudioClock.init(id:))
         }
     }
@@ -219,6 +245,7 @@ extension AudioSystemProperties {
     public var processes: [AudioProcess] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: SystemProperty.processes)
+                .filter { $0 != kAudioObjectUnknown }
             return ids.map(AudioProcess.init(id:))
         }
     }
@@ -240,6 +267,7 @@ extension AudioSystemProperties {
     public var taps: [AudioTap] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: SystemProperty.taps)
+                .filter { $0 != kAudioObjectUnknown }
             return ids.map(AudioTap.init(id:))
         }
     }

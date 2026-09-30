@@ -292,6 +292,7 @@ extension AudioAggregateDeviceProperties {
                         message: "Error looking up an aggregate's audio subdevice with UID: \(uid)."
                     )
                 }
+                guard device.objectID != kAudioDeviceUnknown else { continue } // unlikely, but failsafe just in case
                 devices.append(device)
             } catch {
                 if let uidLookupErrorHandler {
@@ -519,6 +520,7 @@ extension AudioAggregateDeviceProperties {
                         message: "Error looking up an aggregate's audio subtap with UID: \(uid)."
                     )
                 }
+                guard tap.objectID != kAudioObjectUnknown else { continue } // unlikely, but failsafe just in case
                 taps.append(tap)
             } catch {
                 if let uidLookupErrorHandler {
@@ -695,7 +697,10 @@ extension AudioAggregateDeviceProperties {
                 do throws(SwiftCoreAudioError) {
                     try AudioSystem.shared.destroyTap(tap)
                 } catch {
-                    CoreAudioLogging.log(.error, "Error destroying tap with UID \(uid) while removing taps from aggregate with ID \(self.id): \(error)")
+                    CoreAudioLogging.log(
+                        .error,
+                        "Error destroying tap with UID \(uid) while removing taps from aggregate with ID \(self.id): \(error)"
+                    )
                 }
             }
         }

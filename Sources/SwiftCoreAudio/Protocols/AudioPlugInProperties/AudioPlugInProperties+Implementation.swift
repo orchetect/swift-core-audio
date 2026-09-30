@@ -29,6 +29,7 @@ extension AudioPlugInProperties {
     public var devices: [AnyAudioDevice] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: PlugInProperty.deviceList)
+                .filter { $0 != kAudioDeviceUnknown }
             return ids.map(AnyAudioDevice.init(id:))
         }
     }
@@ -47,6 +48,7 @@ extension AudioPlugInProperties {
     public var boxes: [AudioBox] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: PlugInProperty.boxList)
+                .filter { $0 != kAudioObjectUnknown }
             return ids.map(AudioBox.init(id:))
         }
     }
@@ -65,6 +67,7 @@ extension AudioPlugInProperties {
     public var clocks: [AudioClock] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: PlugInProperty.clockDeviceList)
+                .filter { $0 != kAudioObjectUnknown }
             return ids.map(AudioClock.init(id:))
         }
     }

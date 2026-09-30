@@ -36,7 +36,10 @@ extension AudioSystemProperties {
         {
             newInstance = type(of: constructibleOwnerConcreteType).init(id: id)
         } else {
-            CoreAudioLogging.log(.error, "Concrete type for \(ownerClassID) class type not yet implemented substituting with AnyAudioObject.")
+            CoreAudioLogging.log(
+                .error, 
+                "Concrete type for \(ownerClassID) class type not yet implemented substituting with AnyAudioObject."
+            )
             newInstance = AnyAudioObject(id: id)
         }
 
@@ -112,7 +115,9 @@ extension AudioSystemProperties {
         var objects: [Object] = []
         for uid in uids {
             do throws(SwiftCoreAudioError) {
-                if let device = try Object(uid: uid) { objects.append(device) }
+                if let device = try Object(uid: uid), device.objectID != kAudioObjectUnknown {
+                    objects.append(device)
+                }
             } catch {
                 if let uidLookupErrorHandler {
                     uidLookupErrorHandler(uid, error)

@@ -25,6 +25,9 @@ public enum SwiftCoreAudioError {
     /// Core Audio AudioBox not found.
     case audioBoxNotFound
 
+    /// Core Audio AudioBox operation timed out.
+    case audioBoxTimeout
+
     /// Failed to lookup aggregate audio device composition.
     case failedToLookupAggregateComposition(message: String? = nil)
 
@@ -81,6 +84,9 @@ extension SwiftCoreAudioError: LocalizedError {
 
         case .audioBoxNotFound:
             "Core Audio AudioBox not found."
+
+        case .audioBoxTimeout:
+            "Core Audio AudioBox operation timed out."
 
         case let .failedToLookupAggregateComposition(message: message):
             "Failed to lookup aggregate audio device composition. \(message ?? "")"

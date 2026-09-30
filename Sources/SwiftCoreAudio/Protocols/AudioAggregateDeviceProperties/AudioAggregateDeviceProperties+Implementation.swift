@@ -42,6 +42,7 @@ extension AudioAggregateDeviceProperties {
     public var activeSubdevices: [AudioSubDevice] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: AggregateDeviceProperty.activeSubDeviceList)
+                .filter { $0 != kAudioDeviceUnknown }
             return ids.map(AudioSubDevice.init(id:))
         }
     }

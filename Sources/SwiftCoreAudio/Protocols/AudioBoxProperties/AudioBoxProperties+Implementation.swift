@@ -85,7 +85,10 @@ extension AudioBoxProperties {
     }
 
     nonisolated
-    public func setIsEnabled(_ state: Bool) throws(SwiftCoreAudioError) {
+    public func setIsEnabled(
+        _ state: Bool,
+        timeout: TimeInterval = 5.0
+    ) throws(SwiftCoreAudioError) {
         try audioBoxQueue.syncTypedThrowable { () throws(SwiftCoreAudioError) in
             // buffer in case this method runs immediately after another audio box method
             sleep(.milliseconds(100))
@@ -116,17 +119,14 @@ extension AudioBoxProperties {
             // Not ideal but it works. Ideally we hook Core Audio's notifications with a listener but that
             // is not feasible in a synchronous (non-async) context.
             let result = PollingPredicate(pollingInterval: 0.100)
-                .wait(timeout: 0.5) {
+                .wait(timeout: timeout) {
                     (try? getPropertyValue(property: BoxProperty.acquired)) == state
                 }
             switch result {
             case .success:
                 break
             case .timedOut:
-                throw .osStatus(
-                    AudioOSStatusError(unsafe: .propertyNotWritable),
-                    message: "Timed out while waiting for audio box state to change to \(state)."
-                )
+                throw .audioBoxTimeout
             }
 
             // buffer in case another method is called immediately after this method
@@ -144,6 +144,7 @@ extension AudioBoxProperties {
                     getPropertyValue(property: BoxProperty.deviceList),
                     unknownPropertyDefault: []
                 )
+                .filter { $0 != kAudioDeviceUnknown }
                 return ids.map(AnyAudioDevice.init(id:))
             }
         }
@@ -157,6 +158,7 @@ extension AudioBoxProperties {
                     getPropertyValue(property: BoxProperty.clockDeviceList),
                     unknownPropertyDefault: []
                 )
+                .filter { $0 != kAudioObjectUnknown }
                 return ids.map(AudioClock.init(id:))
             }
         }

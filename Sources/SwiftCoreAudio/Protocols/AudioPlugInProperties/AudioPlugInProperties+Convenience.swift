@@ -19,6 +19,8 @@ extension AudioPlugInProperties {
     /// > each plugin in the returned array.
     nonisolated
     public var isPresent: Bool {
+        guard id != .unknown else { return false }
+
         // TODO: there may be a direct Core Audio call that can do this faster than this method...
         guard let ids = try? AudioSystem.shared.plugIns.map(\.id) else { return false }
         return ids // TODO: can simplify if `AnyAudioPlugIn` type is implemented

@@ -19,6 +19,8 @@ extension AudioDeviceProperties {
     /// > each device in the returned array.
     nonisolated
     public var isPresent: Bool {
+        guard id != .unknown else { return false }
+        
         // TODO: there may be a direct Core Audio call that can do this faster than this method...
         guard let ids = try? AudioSystem.shared.devices.map(\.id.rawValue) else { return false }
         return ids.contains(id.rawValue)
@@ -52,7 +54,10 @@ extension AudioDeviceProperties {
                 if let streamLookupErrorHandler {
                     streamLookupErrorHandler(stream, error)
                 } else {
-                    CoreAudioLogging.log(.error, "Error looking up channel count for \(direction) audio stream with ID \(stream.id): \(error)")
+                    CoreAudioLogging.log(
+                        .error,
+                        "Error looking up channel count for \(direction) audio stream with ID \(stream.id): \(error)"
+                    )
                 }
             }
         }
@@ -91,7 +96,10 @@ extension AudioDeviceProperties {
                 if let streamLookupErrorHandler {
                     streamLookupErrorHandler(stream, error)
                 } else {
-                    CoreAudioLogging.log(.error, "Error looking up channel counts for audio stream with ID \(stream.id): \(error)")
+                    CoreAudioLogging.log(
+                        .error,
+                        "Error looking up channel counts for audio stream with ID \(stream.id): \(error)"
+                    )
                 }
             }
         }
@@ -148,7 +156,10 @@ extension AudioDeviceProperties {
                 if let directionLookupErrorHandler {
                     directionLookupErrorHandler(stream, error)
                 } else {
-                    CoreAudioLogging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
+                    CoreAudioLogging.log(
+                        .error,
+                        "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)"
+                    )
                 }
             }
         }
@@ -177,7 +188,10 @@ extension AudioDeviceProperties {
                 if let directionLookupErrorHandler {
                     directionLookupErrorHandler(stream, error)
                 } else {
-                    CoreAudioLogging.log(.error, "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)")
+                    CoreAudioLogging.log(
+                        .error, 
+                        "Error looking up direction for \(direction) audio stream with ID \(stream.id): \(error)"
+                    )
                 }
             }
         }

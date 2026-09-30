@@ -16,6 +16,7 @@ extension AudioTransportManagerProperties {
     public var endpoints: [AudioEndPointDevice] {
         get throws(SwiftCoreAudioError) {
             let ids = try getPropertyValue(property: TransportManagerProperty.endPointList)
+                .filter { $0 != kAudioObjectUnknown }
             return ids.map { AudioEndPointDevice(id: $0) }
         }
     }
