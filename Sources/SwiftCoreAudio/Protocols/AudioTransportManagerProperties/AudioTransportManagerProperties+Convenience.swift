@@ -19,6 +19,8 @@ extension AudioTransportManagerProperties {
     /// > each manager in the returned array.
     nonisolated
     public var isPresent: Bool {
+        guard id != .unknown else { return false }
+
         // TODO: there may be a direct Core Audio call that can do this faster than this method...
         guard let ids = try? AudioSystem.shared.transportManagers.map(\.id.rawValue) else { return false }
         return ids.contains(id.rawValue)
