@@ -121,4 +121,23 @@ extension AudioDevice.TransportType {
     }
 }
 
+#if canImport(SwiftUI)
+
+import SwiftUI
+
+extension AudioDevice.TransportType {
+    public func iconImage(for direction: AudioStream.Direction, deviceModelUID: String?) -> Image {
+        // special case: BlackHole audio devices
+        if let deviceModelUID, deviceModelUID.isBlackHoleModelUID {
+            Image(.blackHoleSymbol)
+        }
+        // fallback to SF Symbols
+        else {
+            Image(systemName: iconSystemName(for: direction, deviceModelUID: deviceModelUID))
+        }
+    }
+}
+
+#endif
+
 #endif
