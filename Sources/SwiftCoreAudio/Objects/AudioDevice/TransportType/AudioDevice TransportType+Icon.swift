@@ -133,7 +133,7 @@ extension AudioDevice.TransportType {
     public func iconImage(for direction: AudioStream.Direction, deviceModelUID: String?) -> Image {
         // special case: BlackHole audio devices
         if let deviceModelUID, deviceModelUID.isBlackHoleModelUID {
-            Image(.blackHoleSymbol)
+            Image(.blackHoleNarrowSymbol)
         }
         // fallback to SF Symbols
         else {
