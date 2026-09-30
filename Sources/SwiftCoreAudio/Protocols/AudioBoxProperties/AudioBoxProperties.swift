@@ -6,6 +6,7 @@
 
 #if os(macOS) || targetEnvironment(macCatalyst)
 
+import Foundation
 import CoreAudio
 
 /// Properties offered by the Core Audio `AudioBox` class.
@@ -42,7 +43,7 @@ public protocol AudioBoxProperties where Self: AudioObject & UIDIdentifiableAudi
 
     /// Enables or disables the audio box (acquires or unacquires).
     nonisolated
-    func setIsEnabled(_ state: Bool) throws(SwiftCoreAudioError)
+    func setIsEnabled(_ state: Bool, timeout: TimeInterval) throws(SwiftCoreAudioError)
 
     // note: acquisitionFailed can be read after a call to acquire it fails, which should happen in `setEnabled()`
 

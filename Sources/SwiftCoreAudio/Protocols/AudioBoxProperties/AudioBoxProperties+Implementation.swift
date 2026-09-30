@@ -85,7 +85,10 @@ extension AudioBoxProperties {
     }
 
     nonisolated
-    public func setIsEnabled(_ state: Bool) throws(SwiftCoreAudioError) {
+    public func setIsEnabled(
+        _ state: Bool,
+        timeout: TimeInterval = 5.0
+    ) throws(SwiftCoreAudioError) {
         try audioBoxQueue.syncTypedThrowable { () throws(SwiftCoreAudioError) in
             // buffer in case this method runs immediately after another audio box method
             sleep(.milliseconds(100))
@@ -116,7 +119,7 @@ extension AudioBoxProperties {
             // Not ideal but it works. Ideally we hook Core Audio's notifications with a listener but that
             // is not feasible in a synchronous (non-async) context.
             let result = PollingPredicate(pollingInterval: 0.100)
-                .wait(timeout: 0.5) {
+                .wait(timeout: timeout) {
                     (try? getPropertyValue(property: BoxProperty.acquired)) == state
                 }
             switch result {
