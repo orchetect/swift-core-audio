@@ -123,9 +123,19 @@ extension SnapshotModel {
         }
     }
 
-    func imageName(for snapshot: AudioObjectSnapshot?) -> String? {
-        classID(for: snapshot)?
-            .systemImageName
+    func symbolImage(for snapshot: AudioObjectSnapshot?) -> Image {
+        // if object is a device with a transport type, use the transport type's image
+        if let transportType = transportType(for: snapshot) {
+            transportType.iconImage(for: .output, deviceModelUID: modelUID(for: snapshot))
+        }
+        // fall back to generic image for the object class
+        else if let classID = classID(for: snapshot) {
+            Image(systemName: classID.systemImageName)
+        }
+        // otherwise provide an unknown default
+        else {
+            Image(systemName: "questionmark.square.dashed")
+        }
     }
 
     func classID(for snapshot: AudioObjectSnapshot?) -> AudioObjectClassID? {
@@ -134,5 +144,16 @@ extension SnapshotModel {
         else { return nil }
         guard let rawValue = UInt32(rawString) else { return nil }
         return AudioObjectClassID(rawValue: rawValue)
+    }
+
+    func transportType(for snapshot: AudioObjectSnapshot?) -> AudioDevice.TransportType? {
+        guard let rawString = snapshot?.properties[.device(.transportType)]
+        else { return nil }
+        guard let rawValue = UInt32(rawString) else { return nil }
+        return AudioDevice.TransportType(rawValue: rawValue)
+    }
+
+    func modelUID(for snapshot: AudioObjectSnapshot?) -> String? {
+        snapshot?.properties[.device(.modelUID)]
     }
 }

@@ -26,10 +26,11 @@ extension SnapshotSidebarView {
         }
 
         private func label(for snapshot: AudioObjectSnapshot) -> some View {
-            Label(
-                model.name(for: snapshot) ?? "Unknown Object",
-                systemImage: model.imageName(for: snapshot) ?? "questionmark.square.dashed"
-            )
+            Label {
+                Text(model.name(for: snapshot) ?? "Unknown Object")
+            } icon: {
+                model.symbolImage(for: snapshot)
+            }
             .badge(snapshot.objectID)
             .badgeProminence(.standard)
         }
