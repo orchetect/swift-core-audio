@@ -68,41 +68,49 @@ extension AudioDeviceProperties where Self: AudioObjectProperties {
         cachedModelUID: String? = nil
     ) -> Image {
         if isDriverIconAllowed,
-           let iconURL = try? icon
+           let icon = _driverIconImage()
         {
-            #if os(macOS)
-            if let nsImage = NSImage(contentsOf: iconURL) {
-                return Image(nsImage: nsImage)
-            }
-            #else
-            if let uiImage = UIImage(contentsOfFile: iconURL.path) {
-                return Image(uiImage: uiImage)
-            }
-            #endif
+            icon
+        } else {
+            _iconImage(for: direction, cachedTransportType: cachedTransportType, cachedModelUID: cachedModelUID)
         }
+    }
 
-        func defaultImage() -> Image {
-            let systemName = AudioDevice.TransportType.defaultIconSystemName(for: direction)
-            return Image(systemName: systemName)
+    nonisolated
+    private func _driverIconImage() -> Image? {
+        guard let iconURL = try? icon else { return nil }
+
+        #if os(macOS)
+        if let nsImage = NSImage(contentsOf: iconURL) {
+            return Image(nsImage: nsImage)
         }
-
-        guard let uid = try? self.uid else {
-            return defaultImage()
+        #else
+        if let uiImage = UIImage(contentsOfFile: iconURL.path) {
+            return Image(uiImage: uiImage)
         }
+        #endif
 
-        // special case: BlackHole audio devices
-        if uid.isBlackHole {
-            return Image(.blackHoleIcon)
+        return nil
+    }
+
+    nonisolated
+    private func _iconImage(
+        for direction: AudioStream.Direction,
+        cachedTransportType: AudioDevice.TransportType?,
+        cachedModelUID: String?
+    ) -> Image {
+        if let transportType = cachedTransportType ?? (try? self.transportType) {
+            transportType.iconImage(
+                for: direction,
+                deviceModelUID: cachedModelUID ?? (try? self.modelUID)
+            )
+        } else {
+            Self._defaultImage(for: direction)
         }
+    }
 
-        guard let systemName = try? iconImageSystemName(
-            for: direction,
-            cachedTransportType: cachedTransportType,
-            cachedModelUID: cachedModelUID
-        ) else {
-            return defaultImage()
-        }
-
+    static func _defaultImage(for direction: AudioStream.Direction) -> Image {
+        let systemName = AudioDevice.TransportType.defaultIconSystemName(for: direction)
         return Image(systemName: systemName)
     }
 }
