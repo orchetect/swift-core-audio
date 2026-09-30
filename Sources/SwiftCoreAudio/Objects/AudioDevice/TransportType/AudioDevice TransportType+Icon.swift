@@ -125,6 +125,7 @@ extension AudioDevice.TransportType {
 
 import SwiftUI
 
+@available(macOS 11, macCatalyst 13, iOS 13, tvOS 13, watchOS 6, visionOS 1, *) // SF Symbols 1.0
 extension AudioDevice.TransportType {
     public func iconImage(for direction: AudioStream.Direction, deviceModelUID: String?) -> Image {
         // special case: BlackHole audio devices
