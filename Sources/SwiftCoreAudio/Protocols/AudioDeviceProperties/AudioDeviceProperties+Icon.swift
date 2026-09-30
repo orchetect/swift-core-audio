@@ -46,6 +46,7 @@ extension AudioDeviceProperties where Self: AudioObjectProperties {
 
 import SwiftUI
 
+@available(macOS 11, macCatalyst 13, iOS 13, tvOS 13, watchOS 6, visionOS 1, *) // SF Symbols 1.0
 extension AudioDeviceProperties where Self: AudioObjectProperties {
     /// Returns a suggested system image name (SF Symbol) appropriate for the device
     /// for use in UI.
@@ -59,7 +60,6 @@ extension AudioDeviceProperties where Self: AudioObjectProperties {
     ///     it will be queried from Core Audio.
     ///   - cachedModelUID: Optionally supply the model UID property value if it is known, otherwise
     ///     it will be queried from Core Audio.
-    @available(macOS 11, macCatalyst 13, iOS 13, tvOS 13, watchOS 6, visionOS 1, *) // SF Symbols 1.0
     nonisolated
     public func iconImage(
         for direction: AudioStream.Direction,
