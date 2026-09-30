@@ -12,6 +12,7 @@ import Foundation
 @available(macOS 11, macCatalyst 13, iOS 13, tvOS 13, watchOS 6, visionOS 1, *) // SF Symbols 1.0
 extension AudioDevice.TransportType {
     /// Returns a standard system image name (SF Symbol) appropriate for generic device input or output.
+    nonisolated
     public static func defaultIconSystemName(for direction: AudioStream.Direction) -> String {
         switch direction {
         case .input:
@@ -39,6 +40,7 @@ extension AudioDevice.TransportType {
     ///   - deviceModelUID: The `modelUID` property value returned by the Core Audio device. This value
     ///     helps differentiate between certain product models, especially for Bluetooth audio devices.
     /// - Returns: SF Symbol image name.
+    nonisolated
     public func iconSystemName(for direction: AudioStream.Direction, deviceModelUID: String?) -> String {
         switch self {
         // MARK: CoreAudio/AudioHardwareBase.h
@@ -127,6 +129,7 @@ import SwiftUI
 
 @available(macOS 11, macCatalyst 13, iOS 13, tvOS 13, watchOS 6, visionOS 1, *) // SF Symbols 1.0
 extension AudioDevice.TransportType {
+    nonisolated
     public func iconImage(for direction: AudioStream.Direction, deviceModelUID: String?) -> Image {
         // special case: BlackHole audio devices
         if let deviceModelUID, deviceModelUID.isBlackHoleModelUID {
