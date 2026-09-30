@@ -126,10 +126,7 @@ extension AudioBoxProperties {
             case .success:
                 break
             case .timedOut:
-                throw .osStatus(
-                    AudioOSStatusError(unsafe: .propertyNotWritable),
-                    message: "Timed out while waiting for audio box state to change to \(state)."
-                )
+                throw .audioBoxTimeout
             }
 
             // buffer in case another method is called immediately after this method
