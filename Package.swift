@@ -1,5 +1,6 @@
 // swift-tools-version: 6.0
 
+import Foundation
 import PackageDescription
 
 let package = Package(
@@ -28,7 +29,8 @@ let package = Package(
             dependencies: [
                 .product(name: "SwiftProcess", package: "swift-process"),
                 .product(name: "SwiftUnitInterval", package: "swift-unit-interval")
-            ]
+            ],
+            swiftSettings: [.define("DEBUG", .when(configuration: .debug))]
         ),
         .testTarget(
             name: "SwiftCoreAudioTests",
@@ -40,3 +42,18 @@ let package = Package(
     ],
     swiftLanguageModes: [.v6]
 )
+
+// MARK: - Utilities
+
+func hasEnvironmentVariable(_ name: String) -> Bool {
+    ProcessInfo.processInfo.environment[name] != nil
+}
+
+// MARK: - CI Pipeline
+
+if hasEnvironmentVariable("GITHUB_ACTIONS") {
+    for target in package.targets.filter(\.isTest) {
+        if target.swiftSettings == nil { target.swiftSettings = [] }
+        target.swiftSettings? += [.define("GITHUB_ACTIONS", .when(configuration: .debug))]
+    }
+}
