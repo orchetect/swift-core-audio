@@ -26,7 +26,7 @@ This library is available as a Swift Package Manager (SPM) package.
 1. Add the **swift-core-audio** repo as a dependency.
 
    ```swift
-   .package(url: "https://github.com/orchetect/swift-core-audio", from: "0.1.5")
+   .package(url: "https://github.com/orchetect/swift-core-audio", from: "0.2.3")
    ```
 
 2. Add **SwiftCoreAudio** to your target.
@@ -48,6 +48,7 @@ See the [online documentation](https://swiftpackageindex.com/orchetect/swift-cor
 ## Dependencies
 
 - [SwiftProcess](https://github.com/orchetect/swift-process) for PID and bundle ID types and operations.
+- [SwiftUnitInterval](https://github.com/orchetect/swift-unit-interval) for unit interval types.
 
 ## Author
 
