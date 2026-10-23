@@ -13,7 +13,7 @@ import SwiftProcess
 ///
 /// This is implemented as a workaround for Core Audio deadlocks specifically when attempting to interact
 /// with an audio box immediately after setting its `acquired` property.
-private let audioBoxQueue = DispatchQueue(label: "com.orchetect.SwiftCoreAudio.audioBox")
+let audioBoxQueue = DispatchQueue(label: "com.orchetect.SwiftCoreAudio.audioBox")
 
 extension AudioBoxProperties {
     // MARK: CoreAudio/AudioHardwareBase.h
@@ -93,7 +93,7 @@ extension AudioBoxProperties {
             // buffer in case this method runs immediately after another audio box method
             sleep(.milliseconds(200))
 
-            guard isPresent else {
+            guard _isPresent else {
                 throw .audioBoxNotFound
             }
 

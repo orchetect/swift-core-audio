@@ -55,6 +55,17 @@ extension AudioBoxProperties {
     /// > each box in the returned array.
     nonisolated
     public var isPresent: Bool {
+        audioBoxQueue.sync {
+            _isPresent
+        }
+    }
+
+    /// Internal:
+    /// Returns `true` if the box is present in the boxes currently available to the system.
+    /// This code runs directly at the call-site and should only be called from contexts where
+    /// the `isPresent` property needs to be called from within a `audioBoxQueue.sync { }` block.
+    nonisolated
+    var _isPresent: Bool {
         guard id != .unknown else { return false }
 
         // TODO: there may be a direct Core Audio call that can do this faster than this method...
