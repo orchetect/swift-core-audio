@@ -153,13 +153,26 @@ extension SerializedTests {
         @Test(.enabledIfAudioBoxIsPresent(.blackHole2Ch))
         func setEnabled_valid() throws {
             let box = try #require(AudioBox.blackHole2Ch)
+
             // cycle multiple times to ensure back-to-back calls do not deadlock
+
             try box.setIsEnabled(false)
+            #expect(try !box.isEnabled)
+
             try box.setIsEnabled(true)
+            #expect(try box.isEnabled)
+
             try box.setIsEnabled(false)
+            #expect(try !box.isEnabled)
+
             try box.setIsEnabled(true)
+            #expect(try box.isEnabled)
+
             try box.setIsEnabled(false)
+            #expect(try !box.isEnabled)
+
             try box.setIsEnabled(true)
+            #expect(try box.isEnabled)
         }
 
         // MARK: devices
