@@ -13,7 +13,7 @@ import SwiftProcess
 ///
 /// This is implemented as a workaround for Core Audio deadlocks specifically when attempting to interact
 /// with an audio box immediately after setting its `acquired` property.
-private let audioBoxQueue = DispatchQueue(label: "com.orchetect.SwiftCoreAudio.audioBox")
+let audioBoxQueue = DispatchQueue(label: "com.orchetect.SwiftCoreAudio.audioBox")
 
 extension AudioBoxProperties {
     // MARK: CoreAudio/AudioHardwareBase.h
@@ -91,9 +91,9 @@ extension AudioBoxProperties {
     ) throws(SwiftCoreAudioError) {
         try audioBoxQueue.syncTypedThrowable { () throws(SwiftCoreAudioError) in
             // buffer in case this method runs immediately after another audio box method
-            sleep(.milliseconds(100))
+            sleep(.milliseconds(200))
 
-            guard isPresent else {
+            guard _isPresent else {
                 throw .audioBoxNotFound
             }
 
@@ -106,7 +106,7 @@ extension AudioBoxProperties {
             // workaround for potential internal CoreAudio mutex deadlocks that can happen
             DispatchQueue.global().async {
                 // sleep after calling `isPresent`
-                sleep(.milliseconds(100))
+                sleep(.milliseconds(200))
 
                 do throws(SwiftCoreAudioError) {
                     _ = try setPropertyValue(property: BoxProperty.acquired, value: state)
@@ -115,10 +115,13 @@ extension AudioBoxProperties {
                 }
             }
 
+            // wait a little longer than the async block's pre-delay
+            sleep(.milliseconds(300))
+
             // wait synchronously until state changes
             // Not ideal but it works. Ideally we hook Core Audio's notifications with a listener but that
             // is not feasible in a synchronous (non-async) context.
-            let result = PollingPredicate(pollingInterval: 0.100)
+            let result = PollingPredicate(pollingInterval: 0.200)
                 .wait(timeout: timeout) {
                     (try? getPropertyValue(property: BoxProperty.acquired)) == state
                 }
@@ -130,7 +133,7 @@ extension AudioBoxProperties {
             }
 
             // buffer in case another method is called immediately after this method
-            sleep(.milliseconds(100))
+            sleep(.milliseconds(200))
         }
     }
 
