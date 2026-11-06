@@ -17,6 +17,13 @@ extension AudioObjectPropertyAddress {
     ) {
         self.init(mSelector: selector.rawValue, mScope: scope.rawValue, mElement: element.rawValue)
     }
+
+    /// Returns `true` if selector, scope or element are a wildcard.
+    public var containsWildcard: Bool {
+        mSelector == AudioWildcardPropertySelectorConstant.wildcard.rawValue
+            || mScope == AudioWildcardPropertyScopeConstant.wildcard.rawValue
+            || mElement == AudioWildcardPropertyElementConstant.wildcard.rawValue
+    }
 }
 
 #endif
